@@ -1,0 +1,32 @@
+<!--pages/myhome/integral.wxml-->
+<import src="../../../component/topbar/index.wxml" />
+<view class="container">
+  <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
+  <view class="myallintegralBox">
+    <view><image src="/images/my/integarl.png" mode="cover" style="width:42rpx; height:37rpx;"></image> 总积分</view>
+    <view>3000</view>
+  </view>
+  <view class="myintegralTitle">
+  积分细明
+  </view>
+  <view class="myintegralListBox listhead">
+    <view>积分</view>
+    <view>订单编号</view>
+    <view>记录时间</view>
+  </view>
+  <view class="myintegralListBox">
+    <view>+600</view>
+    <view>C01254638820</view>
+    <view>2017-05-03 17:25</view>
+  </view>
+  <view class="myintegralListBox">
+    <view>+600</view>
+    <view>C01254638820</view>
+    <view>2017-05-03 17:25</view>
+  </view>
+  <view class="myintegralListBox">
+    <view>+600</view>
+    <view>C01254638820</view>
+    <view>2017-05-03 17:25</view>
+  </view>
+</view>

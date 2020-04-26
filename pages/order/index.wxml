@@ -1,0 +1,60 @@
+<import src="../../component/topbar/index.wxml" />
+<view class="container">
+<template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName}}" />
+  <view class="orderListBox">
+    <view><text>全部订单</text></view>
+    <view class="curron"><text>待回收</text></view>
+    <view><text>已回收</text></view>
+    <view><text>待评价</text></view>
+    <view><text>已评价</text></view>
+    <view><text>已取消</text></view>
+  </view>
+  <view class="orderListMsgBox" bindtap="orderListshow">
+      <view class="orderList_status">
+        <view class="orderList_Num">订单编号：<text>C01254638820</text></view>
+        <view class="orderList_type">预约订单</view>
+        <view class="orderList_answer">待回收</view>
+      </view>
+      <view class="orderList_create">
+        <text class="orderList_Time">下单时间：2019-02-17    14：20</text>
+        <text>回收物品：塑料、纸箱、玻璃瓶、旧家电、金属等</text>
+      </view>
+  </view>
+
+  <view class="orderListMsgBox"  bindtap="orderListshow">
+      <view class="orderList_status">
+        <view class="orderList_Num">订单编号：<text>C01254638820</text></view>
+        <view class="orderList_type">面对面订单</view>
+        <view class="orderList_evaluate2">已评价</view>
+      </view>
+      <view class="orderList_create">
+        <text class="orderList_Time">下单时间：2019-02-17    14：20</text>
+        <text>回收物品：塑料、纸箱、玻璃瓶、旧家电、金属等</text>
+      </view>
+  </view>
+
+   <view class="orderListMsgBox"  bindtap="orderListshow">
+      <view class="orderList_status">
+        <view class="orderList_Num">订单编号：<text>C01254638820</text></view>
+        <view class="orderList_type">指派订单</view>
+        <view class="orderList_evaluate">去评价</view>
+      </view>
+      <view class="orderList_create">
+        <text class="orderList_Time">下单时间：2019-02-17    14：20</text>
+        <text>回收物品：塑料、纸箱、玻璃瓶、旧家电、金属等</text>
+      </view>
+  </view>
+
+<view class="orderListMsgBox"  bindtap="orderListshow">
+      <view class="orderList_status">
+        <view class="orderList_Num">订单编号：<text>C01254638820</text></view>
+        <view class="orderList_type">赠送订单</view>
+        <view class="orderList_cancel">已取消</view>
+      </view>
+      <view class="orderList_create">
+        <text class="orderList_Time">下单时间：2019-02-17    14：20</text>
+        <text>回收物品：塑料、纸箱、玻璃瓶、旧家电、金属等</text>
+      </view>
+  </view>
+
+</view>

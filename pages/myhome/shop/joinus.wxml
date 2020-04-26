@@ -1,0 +1,40 @@
+<!--pages/myhome/shop/joinus.wxml-->
+<import src="../../../component/topbar/index.wxml" />
+<view class="container">
+  <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
+
+  <view class="shoptypeBox">
+    <view class="curron">
+      <image src="/images/my/person.png" mode="cover" style="width:160rpx; height:160rpx;"></image>
+      <text>成为回收员</text>
+    </view>
+    <view>
+    <image src="/images/my/shop.png" mode="cover" style="width:160rpx; height:160rpx;"></image>
+      <text>加盟回收站</text>
+    </view>
+  </view>
+
+  <view class="joinusMsgBox">
+    <view>姓名：</view>
+    <view><input class='input-radius'  placeholder='请输入姓名' placeholder-class=''   placeholder-style='color:#999999;font-size:14px'  /></view>
+  </view>
+
+  <view class="joinusMsgBox">
+    <view>电话：</view>
+    <view><input class='input-radius'  placeholder='请输入电话' placeholder-class=''   placeholder-style='color:#999999;font-size:14px'  /></view>
+  </view>
+
+  <view class="addaboutjoinusBox2">
+    回收员须知：
+    <view>
+      这里是须知文本，这里是须知文本，这里是须知文 本，这里是须知文本，这里是须知文本，这里是须知文 本，这里是须知文
+    </view>
+  </view>
+
+<button class="addressBtn">提交</button>
+
+
+
+
+
+  </view>

@@ -1,0 +1,115 @@
+<import src="../../component/topbar/index.wxml" />
+<view class="container">
+  <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
+
+  <view class="buyBox">
+    <view class="buytypeBox">
+      <view><text>纸类</text></view>
+      <view class="curron"><text>废旧衣物</text></view>
+      <view><text>塑料</text></view>
+      <view><text>金属</text></view>
+      <view><text>家电</text></view>
+      <view><text>瓶类</text></view>
+      <view><text>其他</text></view>
+      <view><text>多产品</text></view>
+    </view>
+    <view class="buyPriceMsgbox">
+      <view class="todayMoneyBox">今日指导价:<text>0.6-1.2</text>元/Kg</view>
+      <view class="todayMoneyListBox">
+        <view><text>黄纸类</text>（这里是品类的描述）</view>
+        <view>0.8元/斤</view>
+      </view>
+      <view class="todayMoneyListBox">
+        <view><text>黄纸类</text>（这里是品类的描述）</view>
+        <view>0.8元/斤</view>
+      </view>
+      <view class="todayMoneyListBox">
+        <view><text>黄纸类</text>（这里是品类的描述）</view>
+        <view>0.8元/斤</view>
+      </view>
+    </view>
+    
+  </view>
+
+
+<view class="cotantMsgBox">
+  <view class="cotantTitleBox">
+    <view>上门回收地址</view>
+    <view>地址簿</view>
+  </view>
+  <view class="cotantModeBox">
+    <view class="firstView"> </view>
+    <view class="msgView">
+      <view>纸小壳    18505320532</view>
+      <view>北京市大兴区杨洋街98号3栋1单元802</view>
+    </view>
+  </view>
+</view>
+
+<view class="cotantMsgBox">
+  <view class="cotantTitleBox2">
+    <view class="timeTitle">预约时间</view>
+    <view class="timeView">
+      <text class="curron">预约上门</text>
+      <text>立即上门</text>
+    </view>
+  </view>
+  <view class="cotantModeBox">
+    <view class="firstView"> </view>
+    <view class="msgView">
+      <view>选择时间    2020-04-22 12:22:00  </view>
+      <view>（回收员将在两小时内上门）</view>
+    </view>
+  </view>
+</view>
+
+<view class="cotantMsgBox">
+  <view class="cotantTitleBox2">
+    <view class="timeTitle">是否赠送</view>
+    <view class="freeView">
+      <text class="defaultBox curron">
+        <text class="white"></text>
+      </text>
+    </view>
+  </view>
+  <view style="color:#999;">（赠送商品获得两倍积分）</view>
+</view>
+
+
+<view class="cotantMsgBox">
+  <view class="cotantTitleBox2">
+    <view class="timeTitle">预约站点</view>
+    <view class="freeView">
+      无
+    </view>
+  </view>
+</view>
+
+<view class="cotantMsgBox">
+  <view class="cotantTitleBox2">
+    <view class="timeTitle">我申明</view>
+  </view>
+  <view class="cotantModeBox">
+    <view class="firstView" style="width:60rpx;"> </view>
+    <view class="shengmingView">
+      <view><image src="/images/shengming3.png" mode="widthFix" style="width:150rpx"></image>不掺水</view>
+      <view><image src="/images/shengming2.png" mode="widthFix" style="width:150rpx"></image>单次≥10Kg</view>
+      <view><image src="/images/shengming1.png" mode="widthFix" style="width:150rpx"></image>不掺杂</view>
+    </view>
+  </view>
+</view>
+
+<!--文本域  -->
+  <view class="weui-cells_after-title">
+    <view class="weui-cell">
+      <view class="weui-cell__bd">
+        <textarea class="weui-textarea" bindinput="bindTextAreaChange" placeholder="我要备注..." style="height: 8em" value="{{info}}" maxlength="{{noteMaxLen}}" focus />
+        <view class="weui-textarea-counter">{{noteNowLen}}/{{noteMaxLen}}</view>
+      </view>
+    </view>
+  </view>
+<!--发布按钮  -->
+<view class="btnSf">
+<button bindtap="bindSubmit">立即预约</button>
+</view>
+</view>

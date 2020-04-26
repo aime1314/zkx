@@ -1,0 +1,58 @@
+<!--pages/myhome/myadd.wxml-->
+<import src="../../../component/topbar/index.wxml" />
+<view class="container">
+  <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
+  <view class="addMsgBox">
+    <view class="add_usermsg">纸小壳<text>158****4568</text></view>
+    <view class="add_addmsg">上海市黄浦区某某街道568号8楼</view>
+    <view class="add_defaultBox">
+      <view class="setaddMsgBox"><image src="/images/my/add_default.png" mode="cover" style="width:26rpx; height:26rpx;"></image>默认地址</view>
+      <view class="editaddMsgBox">
+        <view><image src="/images/my/add_edit.png" mode="cover" style="width:26rpx; height:26rpx;"></image>编辑</view>
+        <view><image src="/images/my/add_del.png" mode="cover" style="width:26rpx; height:26rpx;"></image>删除</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="addMsgBox">
+    <view class="add_usermsg">纸小壳<text>158****4568</text></view>
+    <view class="add_addmsg">上海市黄浦区某某街道568号8楼</view>
+    <view class="add_defaultBox">
+      <view class="setaddMsgBox"><image src="/images/my/add_set.png" mode="cover" style="width:26rpx; height:26rpx;"></image>默认地址</view>
+      <view class="editaddMsgBox">
+        <view><image src="/images/my/add_edit.png" mode="cover" style="width:26rpx; height:26rpx;"></image>编辑</view>
+        <view><image src="/images/my/add_del.png" mode="cover" style="width:26rpx; height:26rpx;"></image>删除</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="addMsgBox">
+    <view class="add_usermsg">纸小壳<text>158****4568</text></view>
+    <view class="add_addmsg">上海市黄浦区某某街道568号8楼</view>
+    <view class="add_defaultBox">
+      <view class="setaddMsgBox"><image src="/images/my/add_set.png" mode="cover" style="width:26rpx; height:26rpx;"></image>默认地址</view>
+      <view class="editaddMsgBox">
+        <view><image src="/images/my/add_edit.png" mode="cover" style="width:26rpx; height:26rpx;"></image>编辑</view>
+        <view><image src="/images/my/add_del.png" mode="cover" style="width:26rpx; height:26rpx;"></image>删除</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="addMsgBox">
+    <view class="add_usermsg">纸小壳<text>158****4568</text></view>
+    <view class="add_addmsg">上海市黄浦区某某街道568号8楼</view>
+    <view class="add_defaultBox">
+      <view class="setaddMsgBox"><image src="/images/my/add_set.png" mode="cover" style="width:26rpx; height:26rpx;"></image>默认地址</view>
+      <view class="editaddMsgBox">
+        <view><image src="/images/my/add_edit.png" mode="cover" style="width:26rpx; height:26rpx;"></image>编辑</view>
+        <view><image src="/images/my/add_del.png" mode="cover" style="width:26rpx; height:26rpx;"></image>删除</view>
+      </view>
+    </view>
+  </view>
+
+
+
+<view class="addmyaddBox" bindtap="addmyaddress">+新建收货地址</view>
+
+
+</view>

@@ -1,0 +1,24 @@
+/* pages/myhome/addmyaddress.wxss */
+.addressMsgBox{
+  padding: 0 30rpx 0 30rpx;
+}
+.addressMsgBox:nth-of-type(2){
+  padding-top: 30rpx;
+}
+.addressMsgBox text{
+  display: block;
+  padding-bottom:20rpx;
+}
+.addressMsgBox input{
+  border: solid 1rpx #959595;
+  height: 62rpx;
+  line-height: 62rpx;
+  padding: 0 10rpx;
+}
+.addressBtn{
+  display: block;
+  width: 100%;
+  margin-top: 40rpx;
+  background: #31B977;
+  color: #fff;
+}

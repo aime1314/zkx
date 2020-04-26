@@ -1,0 +1,78 @@
+<!--pages/myhome/index.wxml-->
+<import src="../../component/topbar/index.wxml" />
+<view class="container">
+  <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
+  <view class="personMsgBox">
+    <image src="/images/my/personbg.png" style="width:100%" mode="widthFix" ></image>
+    <view class="personPhoto">
+      <view class="userinfo">
+        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+        <block wx:else>
+          <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+          <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        </block>
+      </view>
+    </view>
+
+  <view class="personOrderTypeBox">
+    <view class="myhometitleBox">
+      <view class="titleName">我的订单</view>
+      <view>全部订单</view>
+    </view>
+    <view class="personOrderTypemsg">
+      <view>
+        <image src="/images/my/icon_wartting.png" class="personOrderIcon" mode="cover"></image>
+        <text>待回收</text>
+      </view>
+      <view>
+        <image src="/images/my/icon_wart.png" class="personOrderIcon" mode="cover"></image>
+        <text>已回收</text>
+      </view>
+      <view>
+        <image src="/images/my/icon_talking.png" class="personOrderIcon" mode="cover"></image>
+        <text>待评价</text>
+      </view>
+      <view>
+        <image src="/images/my/icon_talk.png" class="personOrderIcon" mode="cover"></image>
+        <text>已评价</text>
+      </view>
+      <view>
+        <image src="/images/my/icon_cannel.png" class="personOrderIcon" mode="cover"></image>
+        <text>已取消</text>
+      </view>
+    </view>
+  </view>
+  </view>
+
+
+  <view class="personMsglistBox">
+      <view class="msgListTypeshow" bindtap="tointegral">
+        <view>我的积分</view>
+        <view>8888 <image src="/images/my/next.png" class="widthIcon" mode="cover"></image></view>
+      </view>
+      <view class="msgListTypeshow" bindtap="tomymoney">
+        <view>我的收入</view>
+        <view><image src="/images/my/next.png" class="widthIcon" mode="cover"></image></view>
+      </view>
+      <view class="msgListTypeshow"  bindtap="tomyadd">
+        <view>地址管理</view>
+        <view><image src="/images/my/next.png" class="widthIcon" mode="cover"></image></view>
+      </view>
+      <view class="msgListTypeshow" bindtap="tojoinus">
+        <view>加盟我们</view>
+        <view><image src="/images/my/next.png" class="widthIcon" mode="cover"></image></view>
+      </view>
+      <view class="msgListTypeshow" bindtap="tocity">
+        <view>覆盖城市</view>
+        <view><image src="/images/my/next.png" class="widthIcon" mode="cover"></image></view>
+      </view>
+      <view class="msgListTypeshow">
+        <view>联系我们</view>
+        <view>800-800-8800<image src="/images/my/next.png" class="widthIcon" mode="cover"></image></view>
+      </view>
+      <view class="msgListTypeshow" bindtap="tofeedback">
+        <view>问题反馈</view>
+        <view><image src="/images/my/next.png" class="widthIcon" mode="cover"></image></view>
+      </view>
+  </view>
+</view>

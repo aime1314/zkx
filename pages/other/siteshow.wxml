@@ -1,0 +1,25 @@
+<!--pages/other/siteshow.wxml-->
+<import src="../../component/topbar/index.wxml" />
+<view class="container">
+  <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
+<view class="myvisit">
+  <image src="/images/vist.png" mode="cover" style="width:26rpx; height:32rpx;"></image>当前位置：青岛市崂山区山东头38号
+</view>
+  <map
+    id="myMap"
+    style="width:100vw;height:100vh;"
+    latitude="{{latitude}}"
+    longitude="{{longitude}}"
+    controls="{{mapControls}}"
+    markers="{{markers}}"
+    bindcontroltap="mapControlTap"
+    bindregionchange="regionChanged"
+    bindtap="mapTap"
+    bindmarkertap="mapMarker"
+    show-location
+    >
+    </map>
+    <view class="buyBtnBox">
+      立即预约
+    </view>
+</view>

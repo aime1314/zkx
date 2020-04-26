@@ -1,0 +1,30 @@
+<!--pages/myhome/addmyaddress.wxml-->
+<import src="../../../component/topbar/index.wxml" />
+<view class="container">
+  <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
+  <view class="addressMsgBox">
+    <text>
+     收货人
+    </text>
+    <input type="text" placeholder="收货人姓名"></input>
+  </view>
+  <view class="addressMsgBox">
+    <text>
+     手机号码
+    </text>
+    <input type="text"  placeholder="收货人手机号码"></input>
+  </view>
+  <view class="addressMsgBox">
+    <text>
+     省/市/区
+    </text>
+    <input type="text"  placeholder="省市区"></input>
+  </view>
+  <view class="addressMsgBox">
+    <text>
+     详细地址
+    </text>
+    <input type="text"  placeholder="详细地址"></input>
+  </view>
+  <button class="addressBtn">确认添加</button>
+</view>

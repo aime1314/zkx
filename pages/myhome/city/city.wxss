@@ -1,0 +1,26 @@
+/* pages/myhome/city/city.wxss */
+
+.cityPicBox{
+  text-align: center;
+  padding: 60rpx 0 30px 0;
+}
+.cityMsgBox{
+  padding: 30rpx 60rpx;
+  margin: 0 50rpx;
+  background: #2869FC;
+  border-radius: 10rpx;
+  color: #fff;
+  font-size: 32rpx;
+  line-height: 72rpx;
+}
+.cityMsgBox .cityListshow{
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.cityMsgBox .cityListshow text{
+  width: 20%;
+  display: block;
+}

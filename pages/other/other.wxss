@@ -1,0 +1,50 @@
+/* pages/other/other.wxss */
+.myvisit{
+  padding:30rpx 30rpx 10rpx 30rpx;
+}
+.myvisit image{
+  margin-right: 10rpx;
+}
+.siteListBox{
+  padding: 20rpx 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  border-bottom: solid 1rpx #f1f1f1;
+}
+.siteListBox .siteLogoBox{
+  width: 130rpx;
+  height: 100rpx;
+  background: #FE842E;
+  border-radius: 10rpx;
+  text-align: center;
+  position: relative;
+  padding: 15rpx 0;
+}
+.siteListBox .siteLogoBox .onlineBox{
+  width: 36rpx;
+  height: 31rpx;
+  line-height: 15rpx;
+  border-radius: 18rpx;
+  background: #D82020;
+  position: absolute;
+  right: -5rpx;
+  top: -5rpx;
+  padding-top: 5rpx;
+}
+.siteListBox .sitedistanceBox{
+  width: 180rpx;
+  text-align: center;
+}
+.siteListBox .sitedistanceBox text{
+  display: block;
+  background: #FE842E;
+  color: #fff;
+  margin-top: 10rpx;
+}
+.siteListBox .siteaddBox{
+  flex: 1;
+  padding: 0 10rpx 0 20rpx;
+  line-height: 42rpx;
+}

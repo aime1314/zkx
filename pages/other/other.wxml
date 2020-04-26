@@ -1,0 +1,49 @@
+<!--pages/other/other.wxml-->
+<import src="../../component/topbar/index.wxml" />
+<view class="container">
+  <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
+
+<view class="myvisit">
+  <image src="/images/vist.png" mode="cover" style="width:26rpx; height:32rpx;"></image>当前位置：青岛市崂山区山东头38号
+</view>
+<view class="siteListBox">
+  <view class="siteLogoBox" bindtap="toshowsitemsg">
+      <image src="/images/5b9a26c71bb22@2x.png"  mode="cover" style="width:90rpx; height:100rpx;"></image>
+      <view class="onlineBox"><image src="/images/shop_fill@2x.png"  mode="cover" style="width:20rpx; height:20rpx;"></image></view>
+  </view>
+  <view class="siteaddBox">青岛市崂山区宁夏路世纪花园社区回收站</view>
+  <view class="sitedistanceBox">
+    距离285米
+    <text>进入站点</text>
+  </view>
+</view>
+
+
+<view class="siteListBox" bindtap="toshowsitemsg">
+  <view class="siteLogoBox">
+      <image src="/images/5b9a26c71bb22@2x.png"  mode="cover" style="width:90rpx; height:100rpx;"></image>
+      <view class="onlineBox"><image src="/images/shop_fill@2x.png"  mode="cover" style="width:20rpx; height:20rpx;"></image></view>
+  </view>
+  <view class="siteaddBox">青岛市崂山区宁夏路世纪花园社区回收站</view>
+  <view class="sitedistanceBox">
+    距离285米
+    <text>进入站点</text>
+  </view>
+</view>
+
+<view class="siteListBox" bindtap="toshowsitemsg">
+  <view class="siteLogoBox">
+      <image src="/images/5b9a26c71bb22@2x.png"  mode="cover" style="width:90rpx; height:100rpx;"></image>
+      <view class="onlineBox"><image src="/images/shop_fill@2x.png"  mode="cover" style="width:20rpx; height:20rpx;"></image></view>
+  </view>
+  <view class="siteaddBox">青岛市崂山区宁夏路世纪花园社区回收站</view>
+  <view class="sitedistanceBox">
+    距离285米
+    <text>进入站点</text>
+  </view>
+</view>
+
+
+
+
+</view>

@@ -1,0 +1,137 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false,
+		"coverView": true,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.11.0",
+	"appid": "wx7bf847a547123593",
+	"projectname": "zkx",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": 0,
+					"name": "订单列表",
+					"pathName": "pages/order/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "订单详情",
+					"pathName": "pages/order/show",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "个人中心",
+					"pathName": "pages/myhome/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "创建订单",
+					"pathName": "pages/buy/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "我的积分",
+					"pathName": "pages/myhome/integral",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 5,
+					"name": "我的收入",
+					"pathName": "pages/myhome/money",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 6,
+					"name": "我的地址",
+					"pathName": "pages/myhome/address/add",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 7,
+					"name": "地址详情",
+					"pathName": "pages/myhome/address/addmyaddress",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "加入我们",
+					"pathName": "pages/myhome/shop/joinus",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "覆盖城市",
+					"pathName": "pages/myhome/city/city",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "周边回收站",
+					"pathName": "pages/other/other",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "周边回收货地图",
+					"pathName": "pages/other/siteshow",
+					"scene": null
+				}
+			]
+		}
+	}
+}

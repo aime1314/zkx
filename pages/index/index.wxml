@@ -1,0 +1,97 @@
+<!--index.wxml-->
+<import src="../../component/topbar/index.wxml" />
+<view class="container">
+<template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName}}" />
+<view class="newsBox">
+  <view>通知：</view>
+  <view>平台公告！</view>
+</view>
+<view class="bannerBox">
+  <!-- <image src="/images/banner.png" style="width:100%" mode="widthFix" ></image> -->
+  <view class="page-section page-section-spacing swiper">
+      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px">
+        <block wx:for="{{background}}" wx:key="*this">
+          <swiper-item>
+            <view class="swiper-item {{item}}">
+              <image src="/images/banner.png" style="width:100%" mode="widthFix" ></image>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+  </view>
+
+
+
+</view>
+<view class="modeBox">
+  <view class="titleBox">一键下单</view>
+  <view class="oerdertypeBox">
+    <view bindtap="toBuy">
+      <image src="/images/iconorder/paper.png" style="width:85%"  class="ordericon" mode="widthFix"></image>
+      <text>纸类</text>
+    </view>
+    <view bindtap="toBuy">
+    <image src="/images/iconorder/clothing.png" style="width:85%"  class="ordericon" mode="widthFix"></image>
+      <text>废旧衣物</text>
+    </view>
+    <view bindtap="toBuy">
+    <image src="/images/iconorder/plastic.png" style="width:85%"  class="ordericon" mode="widthFix"></image>
+      <text>塑料</text>
+    </view>
+    <view bindtap="toBuy">
+    <image src="/images/iconorder/metal.png" style="width:85%"  class="ordericon" mode="widthFix"></image>
+      <text>金属</text>
+    </view>
+    <view bindtap="toBuy">
+    <image src="/images/iconorder/appliance.png" style="width:85%"  class="ordericon" mode="widthFix"></image>
+      <text>家电</text>
+    </view>
+    <view bindtap="toBuy">
+    <image src="/images/iconorder/bottle.png" style="width:85%"  class="ordericon" mode="widthFix"></image>
+      <text>瓶类</text>
+    </view>
+    <view bindtap="toBuy">
+    <image src="/images/iconorder/other.png" style="width:85%"  class="ordericon" mode="widthFix"></image>
+      <text>其他</text>
+    </view>
+    <view bindtap="toBuy">
+    <image src="/images/iconorder/more.png" style="width:85%"  class="ordericon" mode="widthFix"></image>
+      <text>多产品下单</text>
+    </view>
+  </view>
+
+</view>
+
+<view class="modeBox">
+  <view class="titleBox">面对面回收</view>
+  <view class="faceBox">
+    <image src="/images/face.png" style="width:100%" mode="widthFix"></image>
+  </view>
+</view>
+
+<view class="modeBox">
+  <view class="titleBox">服务中心</view>
+  <view class="severBox">
+    <view bindtap="othersite">
+      <image src="/images/index/other.png" style="width:50%" mode="widthFix"></image>
+      <text class="severtype">周边回收站</text>
+      <text class="severtip">预约上门\n省时省力</text>
+    </view>
+
+    <view>
+      <image src="/images/index/other.png" style="width:50%" mode="widthFix"></image>
+      <text class="severtype">联系客服</text>
+      <text class="severtip">800-800-8880</text>
+    </view>
+
+    <view>
+      <image src="/images/index/other.png" style="width:50%" mode="widthFix"></image>
+      <text class="severtype">积分商城</text>
+      <text class="severtip">敬请期待~</text>
+    </view>
+
+  </view>
+</view>
+
+  
+</view>

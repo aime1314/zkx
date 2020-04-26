@@ -1,0 +1,78 @@
+.orderListBox{
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  font-size: 28rpx;
+  padding: 0 20rpx;
+  border-bottom: solid 20rpx #F1F1F1;
+}
+.orderListBox view{
+  text-align: center;
+  color: #999;
+  position: relative;
+}
+.orderListBox view text{
+  display: block;
+  padding: 20rpx 0;
+  line-height: 52rpx;
+
+}
+.orderListBox view.curron text{
+  font-weight: bold;
+  color: #333;
+  font-size: 28rpx;
+}
+.orderListBox view.curron text:before{
+  content: '';
+  position: absolute;
+  width: 50%;
+  left: 50%;
+  bottom: 15rpx;
+  height:5rpx;
+  margin-left: -25%;
+  background: #31B977;
+}
+.orderListMsgBox{
+  padding:10rpx 20rpx;
+  border-bottom: solid 20rpx #F1F1F1;
+}
+.orderList_status{
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  line-height: 42rpx;
+  padding: 20rpx 0;
+}
+.orderList_Num{
+  width: 60%;
+  color: #666;
+}
+.orderList_Num text{
+  color: #999;
+}
+.orderList_type{
+  color: #333;
+}
+.orderList_answer{
+  color: #FF0000;
+}
+.orderList_cancel,.orderList_evaluate2{
+  color: #999;
+}
+.orderList_evaluate{
+  color: #31B977;
+}
+.orderList_create{
+  padding: 20rpx 0;
+  border-top: dashed 2rpx #999;
+}
+.orderList_create text{
+  display: block;
+  line-height: 42rpx;
+  color: #999;
+}
+.orderList_create text.orderList_Time{
+  padding: 0 0 20px 0;
+}

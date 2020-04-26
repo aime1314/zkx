@@ -1,0 +1,60 @@
+/* pages/myhome/shop/joinus.wxss */
+.shoptypeBox{
+  padding: 30px 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+.shoptypeBox view{
+  width: 50%;
+  background: linear-gradient(to right,#0970F7,#34AFF1);
+  margin: 0 35rpx;
+  text-align: center;
+  padding: 30rpx 0;
+  border-radius: 10rpx;
+  border: solid 6rpx #31B977;
+}
+.shoptypeBox view text{
+  display: block;
+  text-align: center;
+  color: #fff;
+  font-size: 30rpx;
+}
+.shoptypeBox view.curron{
+  background: linear-gradient(to right,#FF9E3D,#FFC834);
+}
+
+.joinusMsgBox{
+  padding: 0 50rpx 20rpx 50rpx;
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+}
+.joinusMsgBox view:first-child{
+  width: 100rpx;
+}
+.joinusMsgBox view:last-child{
+  flex: 1;
+}
+.joinusMsgBox .input-radius{
+  width: 90%;
+  padding: 5rpx 0rpx;
+}
+.addaboutjoinusBox2{
+   padding: 30rpx 50rpx;
+}
+.addaboutjoinusBox2 view{
+  padding-top: 20rpx;
+  line-height:52rpx;
+  color: #666;
+}
+
+.addressBtn{
+  display: block;
+  width: 100%;
+  margin-top: 40rpx;
+  background: #31B977;
+  color: #fff;
+}

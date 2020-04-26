@@ -1,0 +1,170 @@
+/* pages/buy/index.wxss */
+.buytypeBox{
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  font-size: 28rpx;
+  padding: 0 20rpx;
+}
+.buytypeBox view{
+  text-align: center;
+  color: #999;
+  position: relative;
+}
+.buytypeBox view text{
+  display: block;
+  padding: 20rpx 0;
+  line-height: 52rpx;
+
+}
+.buytypeBox view.curron text{
+  font-weight: bold;
+  color: #333;
+  font-size: 28rpx;
+}
+.buytypeBox view.curron text:before{
+  content: '';
+  position: absolute;
+  width: 50%;
+  left: 50%;
+  bottom: 15rpx;
+  height:5rpx;
+  margin-left: -25%;
+  background: #31B977;
+}
+.buyPriceMsgbox{
+  text-align: center;
+  color: #999;
+}
+.todayMoneyBox{
+  display: inline-block;
+  background: #31B977;
+  padding: 10rpx 50rpx;
+  border-radius: 10rpx;
+  color: #fff;
+  line-height: 52rpx;
+  margin: 20px 0;
+  border: solid 2rpx #f00;
+  box-shadow: 1rpx 5rpx 5rpx rgb(190, 134, 134);
+}
+.todayMoneyBox text{
+  margin: 0 10rpx;
+  color: #f00;
+  font-weight: bold;
+}
+.todayMoneyListBox{
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+  padding: 0 60rpx;
+  line-height: 58rpx;
+}
+.todayMoneyListBox text{
+  color: #333;
+}
+.cotantMsgBox{
+  padding: 20rpx 30rpx;
+}
+
+.cotantTitleBox,.cotantTitleBox2{
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 0;
+}
+.cotantTitleBox view:first-child{
+  font-weight: bold;
+  width: 180rpx;
+}
+.cotantTitleBox view:last-child{
+  color: #2577e3;
+}
+
+.cotantTitleBox2 .timeTitle{
+  font-weight: bold;
+  width: 180rpx;
+}
+.cotantTitleBox2 .timeView,.cotantTitleBox2 .freeView{
+  flex: 1;
+}
+.cotantTitleBox2 .timeView text{
+  border: solid 1rpx #31B977;
+  display: inline-block;
+  padding: 5rpx 20rpx;
+  color: #31B977;
+}
+.cotantTitleBox2 .freeView .defaultBox{
+  display: inline-block;
+  border-radius: 20rpx;
+  background: #31B977;
+  width: 80rpx; 
+  height: 40rpx;
+  position: relative;
+}
+.cotantTitleBox2 .freeView .defaultBox .white{
+  width: 36rpx; 
+  height: 36rpx; 
+  border-radius: 18rpx;
+  background: #fff;
+  display: inline-block;
+  position: absolute;
+  left: 1rpx;
+  top: 2rpx;
+  box-shadow: 0 3rpx 3rpx #eee;
+}
+.cotantTitleBox2 .freeView .curron .white{
+  right: 2rpx;
+  left: auto;
+}
+.cotantTitleBox2 .timeView text.curron{
+  background: #31B977;
+  color: #fff;
+}
+.cotantModeBox{
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+.cotantModeBox .firstView{
+  width: 180rpx;
+}
+.msgView{
+  flex: 1;
+  line-height: 50rpx;
+}
+.shengmingView{
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  padding-right: 40rpx;
+}
+.shengmingView image{
+  display: block;
+}
+.weui-cells_after-title{
+  width: 84%;
+  margin:0 auto;
+  border:1px solid #39B879;
+  background: #fff;
+  border-radius: 10rpx;
+  padding: 20rpx;
+}
+
+.btnSf{
+  width: 92%;
+  margin:50rpx auto 100rpx auto;
+  
+}
+.btnSf button{
+    background: #39B879;
+    color: #fff;
+}
+
+.btnSf button:active{
+  background: #39B879;
+  color: #fff;
+}

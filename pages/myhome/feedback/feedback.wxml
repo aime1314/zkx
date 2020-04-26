@@ -1,0 +1,5 @@
+<!--pages/myhome/feedback/feedback.wxml-->
+<import src="../../../component/topbar/index.wxml" />
+<view class="container">
+  <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
+</view>
