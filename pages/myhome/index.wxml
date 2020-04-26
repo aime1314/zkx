@@ -1,4 +1,6 @@
 <!--pages/myhome/index.wxml-->
+
+<import src="../../component/login/login.wxml" />
 <import src="../../component/topbar/index.wxml" />
 <view class="container">
   <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
@@ -6,11 +8,8 @@
     <image src="/images/my/personbg.png" style="width:100%" mode="widthFix" ></image>
     <view class="personPhoto">
       <view class="userinfo">
-        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-        <block wx:else>
-          <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-          <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-        </block>
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
       </view>
     </view>
 
@@ -75,4 +74,5 @@
         <view><image src="/images/my/next.png" class="widthIcon" mode="cover"></image></view>
       </view>
   </view>
+  <template is="login" data="{{hasUserInfo,canIUse,getUserInfo}}" />
 </view>

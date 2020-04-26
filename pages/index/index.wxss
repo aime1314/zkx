@@ -1,6 +1,6 @@
 /**index.wxss**/
-@import "./weui.wxss";
-
+@import "/style/weui.wxss";
+@import "/style/common.wxss";
 .newsBox{
   display: flex;
   padding: 15rpx 20rpx;

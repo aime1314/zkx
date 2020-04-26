@@ -1,4 +1,5 @@
 /* pages/myhome/index.wxss */
+@import "/style/common.wxss";
 .personMsgBox{
   position: relative;
   border-top: solid 20rpx #39B879;

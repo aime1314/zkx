@@ -1,0 +1,28 @@
+.maskshow{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.5);
+  left: 0;
+  top: 0;
+  z-index: 999;
+}
+.loginTipsBox{
+  position: fixed;
+  width: 80%;
+  left: 10%;
+  top: 45%;
+  height: 300rpx;
+  margin-top: -150rpx;
+  background: #fff;
+  border-radius: 10rpx;
+}
+.loginTipsBox text{
+  display: block;
+  padding: 30rpx;
+  text-align: center;
+  color: #f60;
+}
+.maskshow button{
+
+}

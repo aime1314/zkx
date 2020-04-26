@@ -1,5 +1,6 @@
 <!--index.wxml-->
 <import src="../../component/topbar/index.wxml" />
+<import src="../../component/login/login.wxml" />
 <view class="container">
 <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName}}" />
 <view class="newsBox">
@@ -19,9 +20,6 @@
         </block>
       </swiper>
   </view>
-
-
-
 </view>
 <view class="modeBox">
   <view class="titleBox">一键下单</view>
@@ -93,5 +91,6 @@
   </view>
 </view>
 
-  
+<template is="login" data="{{hasUserInfo,canIUse,getUserInfo}}" />
+
 </view>

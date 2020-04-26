@@ -15,7 +15,8 @@
     "pages/myhome/city/city",
     "pages/myhome/feedback/feedback",
     "pages/other/other",
-    "pages/other/siteshow"
+    "pages/other/siteshow",
+    "component/login/login"
   ],
   "window": {
     "backgroundTextStyle": "light",

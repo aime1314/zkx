@@ -1,3 +1,4 @@
+@import "/style/common.wxss";
 .orderListBox{
   display: flex;
   justify-content: space-between;
