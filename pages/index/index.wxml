@@ -4,22 +4,25 @@
 <view class="container">
 <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName}}" />
 <view class="newsBox">
-  <view>通知：</view>
-  <view>平台公告！</view>
-</view>
-<view class="bannerBox">
-  <!-- <image src="/images/banner.png" style="width:100%" mode="widthFix" ></image> -->
-  <view class="page-section page-section-spacing swiper">
-      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px">
-        <block wx:for="{{background}}" wx:key="*this">
+  <view class="newsBoxTitle">通知：</view>
+    <view class='gundong-section'>
+      <swiper class="swiperitem" indicator-dots="true" autoplay="{{autoplay}}" vertical="true" circular="true">
+        <block wx:for="{{rollData}}">
           <swiper-item>
-            <view class="swiper-item {{item}}">
-              <image src="/images/banner.png" style="width:100%" mode="widthFix" ></image>
-            </view>
+            <text class="swiper-txt">{{item}}</text>
           </swiper-item>
         </block>
       </swiper>
-  </view>
+    </view>
+</view>
+<view class="bannerBox">
+  <swiper class="home-swiper" indicator-dots="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <block wx:for-items="{{imgUrls}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" />
+      </swiper-item>
+    </block>
+  </swiper>
 </view>
 <view class="modeBox">
   <view class="titleBox">一键下单</view>

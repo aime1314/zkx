@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+const commRequest = require('../../utils/request.js');
 const app = getApp()
 Page({
   data: {
@@ -7,7 +8,12 @@ Page({
     topbackflage:false,
     topclassName:'title_index',
     topiconurl:'/images/logo.png',
-    background: ['1', '2', '3'],
+    imgUrls: [
+      "/images/banner.png",
+      "/images/banner.png",
+      "/images/banner.png"
+    ],
+    rollData: ['公告一', '公告三', '公告二'],
     indicatorDots: true,
     vertical: false,
     autoplay: true,
@@ -53,6 +59,28 @@ Page({
         }
       })
     }
+  },
+  onShow:function(){
+    this.getadvbanner()
+  },
+  getadvbanner: function () {
+    var that = this;
+    commRequest.requestPost("/miniapp/index/advbanner", {}, (res) => {
+      console.info(res);
+      debugger
+    });
+    // wx.request({
+    //   url: app.globalData.host + "/miniapp/index/advbanner",
+    //   method: "post",
+    //   header: {
+    //     "content-type": "application/x-www-form-urlencoded"
+    //   },
+    //   success: (res) => {
+    //     callback(res.data)
+    //   },
+    //   fail: () => {
+    //   }
+    // })
   },
   getUserInfo: function (e) {
     console.log(e)
