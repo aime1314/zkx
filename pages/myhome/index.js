@@ -11,7 +11,7 @@ Page({
     topiconurl: '',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    canIUse: app.globalData.canIUse,
   },
 
   /**
@@ -45,7 +45,6 @@ Page({
       })
     }
   },
-
   getUserInfo: function (e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo

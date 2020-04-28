@@ -4,14 +4,7 @@
 
   <view class="buyBox">
     <view class="buytypeBox">
-      <view><text>纸类</text></view>
-      <view class="curron"><text>废旧衣物</text></view>
-      <view><text>塑料</text></view>
-      <view><text>金属</text></view>
-      <view><text>家电</text></view>
-      <view><text>瓶类</text></view>
-      <view><text>其他</text></view>
-      <view><text>多产品</text></view>
+      <view class="{{indexTypesTab == index ?'curron':''}}" wx:for="{{indexTypes}}" wx:key="item.recoveryClassId" data-recoveryclassid="{{item.recoveryClassId}}" data-currontypeindex="{{index}}"><text>{{item.className}}</text></view>
     </view>
     <view class="buyPriceMsgbox">
       <view class="todayMoneyBox">今日指导价:<text>0.6-1.2</text>元/Kg</view>

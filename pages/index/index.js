@@ -1,6 +1,7 @@
 //index.js
 //获取应用实例
 const commRequest = require('../../utils/request.js');
+const commonChange = require('../../utils/util.js');
 const app = getApp()
 Page({
   data: {
@@ -8,12 +9,9 @@ Page({
     topbackflage:false,
     topclassName:'title_index',
     topiconurl:'/images/logo.png',
-    imgUrls: [
-      "/images/banner.png",
-      "/images/banner.png",
-      "/images/banner.png"
-    ],
-    rollData: ['公告一', '公告三', '公告二'],
+    imgUrls: [],
+    rollData: [],
+    indexTypes: [],
     indicatorDots: true,
     vertical: false,
     autoplay: true,
@@ -24,7 +22,7 @@ Page({
     nextMargin: 0,
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    canIUse:app.globalData.canIUse,
   },
   //事件处理函数
   bindViewTap: function() {
@@ -33,6 +31,7 @@ Page({
     })
   },
   onLoad: function () {
+    //授权处理
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -61,38 +60,22 @@ Page({
     }
   },
   onShow:function(){
-    this.getadvbanner()
-  },
-  getadvbanner: function () {
-    var that = this;
-    commRequest.requestPost("/miniapp/index/advbanner", {}, (res) => {
-      console.info(res);
-      debugger
-    });
-    // wx.request({
-    //   url: app.globalData.host + "/miniapp/index/advbanner",
-    //   method: "post",
-    //   header: {
-    //     "content-type": "application/x-www-form-urlencoded"
-    //   },
-    //   success: (res) => {
-    //     callback(res.data)
-    //   },
-    //   fail: () => {
-    //   }
-    // })
+    this.getNotice()
+    this.getAdvBanner()
+    this.gettTypes()
   },
   getUserInfo: function (e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
   },
-  toBuy: function () {
+  toBuy: function (e) {
+    let recoveryClassId = e.currentTarget.dataset.recoveryclassid
+    let currontypeindex = e.currentTarget.dataset.currontypeindex
     wx.navigateTo({
-      url: '/pages/buy/index',
+      url: '/pages/buy/index?recoveryClassId=' + recoveryClassId + '&currontypeindex=' + currontypeindex,
     })
   },
   othersite:function(){
@@ -100,5 +83,35 @@ Page({
       url: '/pages/other/other',
     })
   },
+
+  //通知信息
+  getNotice:function(){
+    let that = this;
+    commRequest.requestPost("/miniapp/index/notice", {}, (res) => {
+      that.setData({
+        rollData: res.data.data
+      })
+    });
+  },
+
+  //banner图
+  getAdvBanner: function () {
+    let that = this;
+    commRequest.requestPost("/miniapp/index/advbanner", {}, (res) => {
+      that.setData({
+        imgUrls: res.data.data
+      })
+    });
+  },
+
+  //回收分类
+  gettTypes:function(){
+    let that = this;
+    commRequest.requestPost("/miniapp/index/types", {}, (res) => {
+      that.setData({
+        indexTypes: res.data.data
+      })
+    });
+  }
   
 })

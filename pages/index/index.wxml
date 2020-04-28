@@ -6,10 +6,10 @@
 <view class="newsBox">
   <view class="newsBoxTitle">通知：</view>
     <view class='gundong-section'>
-      <swiper class="swiperitem" indicator-dots="true" autoplay="{{autoplay}}" vertical="true" circular="true">
-        <block wx:for="{{rollData}}">
+      <swiper class="swiperitem" indicator-dots="false" indicator-color="#EDFAEC" indicator-active-color="#EDFAEC" autoplay="{{autoplay}}" vertical="true">
+        <block wx:for="{{rollData}}"  wx:key="item.title">
           <swiper-item>
-            <text class="swiper-txt">{{item}}</text>
+            <text class="swiper-txt">{{item.title}}</text>
           </swiper-item>
         </block>
       </swiper>
@@ -17,9 +17,9 @@
 </view>
 <view class="bannerBox">
   <swiper class="home-swiper" indicator-dots="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-    <block wx:for-items="{{imgUrls}}">
+    <block wx:for="{{imgUrls}}" wx:key="item.picurl">
       <swiper-item>
-        <image src="{{item}}" class="slide-image" />
+        <image src="{{item.picurl}}" class="slide-image" />
       </swiper-item>
     </block>
   </swiper>
@@ -27,38 +27,12 @@
 <view class="modeBox">
   <view class="titleBox">一键下单</view>
   <view class="oerdertypeBox">
-    <view bindtap="toBuy">
-      <image src="/images/iconorder/paper.png" style="width:85%"  class="ordericon" mode="widthFix"></image>
-      <text>纸类</text>
-    </view>
-    <view bindtap="toBuy">
-    <image src="/images/iconorder/clothing.png" style="width:85%"  class="ordericon" mode="widthFix"></image>
-      <text>废旧衣物</text>
-    </view>
-    <view bindtap="toBuy">
-    <image src="/images/iconorder/plastic.png" style="width:85%"  class="ordericon" mode="widthFix"></image>
-      <text>塑料</text>
-    </view>
-    <view bindtap="toBuy">
-    <image src="/images/iconorder/metal.png" style="width:85%"  class="ordericon" mode="widthFix"></image>
-      <text>金属</text>
-    </view>
-    <view bindtap="toBuy">
-    <image src="/images/iconorder/appliance.png" style="width:85%"  class="ordericon" mode="widthFix"></image>
-      <text>家电</text>
-    </view>
-    <view bindtap="toBuy">
-    <image src="/images/iconorder/bottle.png" style="width:85%"  class="ordericon" mode="widthFix"></image>
-      <text>瓶类</text>
-    </view>
-    <view bindtap="toBuy">
-    <image src="/images/iconorder/other.png" style="width:85%"  class="ordericon" mode="widthFix"></image>
-      <text>其他</text>
-    </view>
-    <view bindtap="toBuy">
-    <image src="/images/iconorder/more.png" style="width:85%"  class="ordericon" mode="widthFix"></image>
-      <text>多产品下单</text>
-    </view>
+    <block wx:for="{{indexTypes}}" wx:key="item.recoveryClassId">
+      <view bindtap="toBuy" data-recoveryclassid="{{item.recoveryClassId}}" data-currontypeindex="{{index}}">
+        <text class="typeiconBox"><image src="{{item.picurl}}"  class="ordericon" mode="widthFix"></image></text>
+        <text class="typenameBox">{{item.className}}</text>
+      </view>
+    </block>
   </view>
 
 </view>

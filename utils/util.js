@@ -1,3 +1,5 @@
+const app = getApp();
+
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -14,6 +16,19 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+
+const getUserInfo = data => {
+  console.log(data)
+  debugger
+  app.globalData.userInfo = data.detail.userInfo
+  this.setData({
+    userInfo: data.detail.userInfo,
+    hasUserInfo: true
+  })
+  }
+
+
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  getUserInfo: getUserInfo,
 }

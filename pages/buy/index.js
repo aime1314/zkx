@@ -1,4 +1,5 @@
 // pages/buy/index.js
+const commRequest = require('../../utils/request.js');
 Page({
 
   /**
@@ -9,6 +10,8 @@ Page({
     topbackflage: false,
     topclassName: 'title_index',
     topiconurl: '/images/back.png',
+    indexTypes:[],
+    indexTypesTab:0,
     flag: 0,
     noteMaxLen: 300, // 最多放多少字
     info: "",
@@ -18,8 +21,11 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: function (option) {
+    console.log(option.currontypeindex)
+    this.setData({
+      indexTypesTab: option.currontypeindex
+    })
   },
 
   /**
@@ -32,8 +38,18 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function (option) {
+    this.gettTypes()
+  },
 
+  //回收分类
+  gettTypes: function () {
+    let that = this;
+    commRequest.requestPost("/miniapp/index/types", {}, (res) => {
+      that.setData({
+        indexTypes: res.data.data
+      })
+    });
   },
 
   toBack: function () {

@@ -52,6 +52,8 @@
 
 .bannerBox{
   padding-bottom: 15rpx;
+  border: solid 1rpx #fefefe;
+  background: #fefefe;
 }
 .bannerBox img{
   width: 100%;
@@ -91,7 +93,6 @@
   align-content: center;
   align-items: center;
   justify-content:flex-start;
-  
   flex-wrap:wrap;
 }
 .oerdertypeBox view{
@@ -100,9 +101,19 @@
   font-size: 26rpx;
   padding: 10rpx 0;
 }
+.oerdertypeBox view .typeiconBox{
+  width: 110rpx;
+  height: 110rpx;
+  background: #fefefe;
+  border-radius: 50%;
+  display: block;
+  margin: 10rpx auto;
+  overflow: hidden;
+}
 .oerdertypeBox view .ordericon{
   display: block;
   margin: 10rpx auto;
+  width: 100%;
 }
 .faceBox{
   padding:30rpx 0 0 0;
