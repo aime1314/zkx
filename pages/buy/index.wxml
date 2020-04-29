@@ -4,11 +4,11 @@
 
   <view class="buyBox">
     <view class="buytypeBox">
-      <view class="{{recoveryclassTab == item.recoveryClassId ?'curron':''}}" wx:for="{{priceMenu}}" wx:key="item.recoveryClassId" bindtap="getPriceMenuList" data-recoveryclassid="{{item.recoveryClassId}}"><text>{{item.recoveryClassName}}</text></view>
+      <view class="{{recoveryclassTab == item.recoveryClassId ?'curron':''}}" wx:for="{{priceMenu}}" wx:key="{{item.recoveryClassId}}" bindtap="getPriceMenuList" data-recoveryclassid="{{item.recoveryClassId}}"><text>{{item.recoveryClassName}}</text></view>
     </view>
     <view class="buyPriceMsgbox">
       <view class="todayMoneyBox">今日指导价:<text>{{maxprice}}-{{minprice}}</text></view>
-        <block wx:for="{{recoveryPriceList}}" wx:key="item.name">
+        <block wx:for="{{recoveryPriceList}}" wx:key="{{item.name}}">
           <view class="todayMoneyListBox" >
             <view><text>{{item.name}}</text>（{{item.classDesc}}）</view>
             <view>{{item.price}}{{item.unit}}</view>
@@ -22,7 +22,7 @@
 <view class="cotantMsgBox">
   <view class="cotantTitleBox">
     <view>上门回收地址</view>
-    <view>地址簿</view>
+    <view bindtap="myaddress">地址簿</view>
   </view>
   <view class="cotantModeBox">
     <view class="firstView"> </view>

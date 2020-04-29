@@ -1,4 +1,6 @@
 // pages/myhome/myadd.js
+const commRequest = require('../../../utils/request.js');
+const commonFun = require('../../../utils/util.js');
 Page({
 
   /**
@@ -9,6 +11,13 @@ Page({
     topbackflage: false,
     topclassName: 'title_index',
     topiconurl: '/images/back.png',
+    defaultaddList:[],   //我的地址
+    page: 1,  //加载页面
+    rows: 5, //每页记录
+    isLastPage: false,
+    isLoadInterface: false,
+    windowHeight: 0, //页面高度
+
   },
 
   /**
@@ -29,8 +38,34 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that = this
+    //获取屏幕高度
+    wx.getSystemInfo({
+      success: function (res) {
+        console.log(res)
+        that.setData({
+          windowHeight: res.windowHeight
+        });
+        console.log("屏幕高度: " + res.windowHeight)
+      }
+    })
   },
+
+  //设置默认地址
+
+  //地址列表
+  getdefaultaddList:function(){
+    let that = this
+    let param = {
+      
+    }
+    commRequest.requestPostForm("/miniapp/address/default", param, (res) => {
+      that.setData({
+        defaultaddList:res
+      })
+    });
+  },
+
   toBack: function () {
     wx.navigateBack({
       delta: 2

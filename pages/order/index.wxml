@@ -10,52 +10,43 @@
     <view><text>已评价</text></view>
     <view><text>已取消</text></view>
   </view>
-  <view class="orderListMsgBox" bindtap="orderListshow">
-      <view class="orderList_status">
-        <view class="orderList_Num">订单编号：<text>C01254638820</text></view>
-        <view class="orderList_type">预约订单</view>
-        <view class="orderList_answer">待回收</view>
-      </view>
-      <view class="orderList_create">
-        <text class="orderList_Time">下单时间：2019-02-17    14：20</text>
-        <text>回收物品：塑料、纸箱、玻璃瓶、旧家电、金属等</text>
-      </view>
-  </view>
 
-  <view class="orderListMsgBox"  bindtap="orderListshow">
-      <view class="orderList_status">
-        <view class="orderList_Num">订单编号：<text>C01254638820</text></view>
-        <view class="orderList_type">面对面订单</view>
-        <view class="orderList_evaluate2">已评价</view>
+  <scroll-view
+  scroll-y style="width: 100%; height:{{windowHeight}}px;"
+  refresher-enabled="{{true}}"
+  refresher-threshold="{{100}}"
+  refresher-default-style="white"
+  refresher-background="lightgreen"
+  refresher-triggered="{{triggered}}"
+  bindrefresherpulling="onPulling"
+  bindrefresherrefresh="onRefresh"
+  bindrefresherrestore="onRestore"
+  bindrefresherabort="onAbort"
+  bindscrolltolower="nextDataPage"
+>
+  <view class="orderListMsgBox" bindtap="orderListshow" wx:for="{{myordersList}}" wx:key="{{index}}">
+    <view class="orderList_status">
+      <view class="orderList_Num">订单号：<text>{{item.orderId}}</text></view>
+      <view class="orderList_type">
+        <text wx:if="{{item.orderType == 1}}">预约</text>
+        <text wx:elif="{{item.orderType == 2}}">面对面</text>
+        <text wx:elif="{{item.orderType == 3}}">指派</text>
+        <text wx:elif="{{item.orderType == 4}}">赠送</text>
       </view>
-      <view class="orderList_create">
-        <text class="orderList_Time">下单时间：2019-02-17    14：20</text>
-        <text>回收物品：塑料、纸箱、玻璃瓶、旧家电、金属等</text>
+      <view class="orderList_answer">
+        <text wx:if="{{item.commentStatus == 0}}">待回收</text>
+        <text wx:elif="{{item.commentStatus == 1}}">已评价</text>
+        <text wx:elif="{{item.commentStatus == 2}}">去评价</text>
+        <text wx:elif="{{item.commentStatus == 3}}">已取消</text>
       </view>
+    </view>
+    <view class="orderList_create">
+      <text class="orderList_Time">下单时间：{{item.createTime}}</text>
+      <text>{{item.recoveryClass}}</text>
+    </view>
   </view>
-
-   <view class="orderListMsgBox"  bindtap="orderListshow">
-      <view class="orderList_status">
-        <view class="orderList_Num">订单编号：<text>C01254638820</text></view>
-        <view class="orderList_type">指派订单</view>
-        <view class="orderList_evaluate">去评价</view>
-      </view>
-      <view class="orderList_create">
-        <text class="orderList_Time">下单时间：2019-02-17    14：20</text>
-        <text>回收物品：塑料、纸箱、玻璃瓶、旧家电、金属等</text>
-      </view>
-  </view>
-
-<view class="orderListMsgBox"  bindtap="orderListshow">
-      <view class="orderList_status">
-        <view class="orderList_Num">订单编号：<text>C01254638820</text></view>
-        <view class="orderList_type">赠送订单</view>
-        <view class="orderList_cancel">已取消</view>
-      </view>
-      <view class="orderList_create">
-        <text class="orderList_Time">下单时间：2019-02-17    14：20</text>
-        <text>回收物品：塑料、纸箱、玻璃瓶、旧家电、金属等</text>
-      </view>
-  </view>
+  <view class='bottomline' wx:if="{{myordersList.length > 0}}" >{{myordersList?"没有更多数据了":"加载中..."}}</view>
+  <view class='bottomline' wx:if="{{myordersList.length == 0}}" >暂时没有数据</view>
+</scroll-view>
 <template is="login" data="{{hasUserInfo,canIUse,getUserInfo}}" />
 </view>

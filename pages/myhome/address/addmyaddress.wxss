@@ -9,7 +9,7 @@
   display: block;
   padding-bottom:20rpx;
 }
-.addressMsgBox input{
+.addressMsgBox input,.picker{
   border: solid 1rpx #959595;
   height: 62rpx;
   line-height: 62rpx;

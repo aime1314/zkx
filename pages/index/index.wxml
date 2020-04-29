@@ -7,7 +7,7 @@
   <view class="newsBoxTitle">通知：</view>
     <view class='gundong-section'>
       <swiper class="swiperitem" indicator-dots="false" indicator-color="#EDFAEC" indicator-active-color="#EDFAEC" autoplay="{{autoplay}}" vertical="true">
-        <block wx:for="{{rollData}}"  wx:key="item.title">
+        <block wx:for="{{rollData}}"  wx:key="{{item.title}}">
           <swiper-item>
             <text class="swiper-txt">{{item.title}}</text>
           </swiper-item>
@@ -17,7 +17,7 @@
 </view>
 <view class="bannerBox">
   <swiper class="home-swiper" indicator-dots="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-    <block wx:for="{{imgUrls}}" wx:key="item.picurl">
+    <block wx:for="{{imgUrls}}" wx:key="{{item.picurl}}">
       <swiper-item>
         <image src="{{item.picurl}}" class="slide-image" />
       </swiper-item>
@@ -27,7 +27,7 @@
 <view class="modeBox">
   <view class="titleBox">一键下单</view>
   <view class="oerdertypeBox">
-    <block wx:for="{{indexTypes}}" wx:key="item.recoveryClassId">
+    <block wx:for="{{indexTypes}}" wx:key="{{item.recoveryClassId}}">
       <view bindtap="toBuy" data-recoveryclassid="{{item.recoveryClassId}}" data-currontypeindex="{{index}}">
         <text class="typeiconBox"><image src="{{item.picurl}}"  class="ordericon" mode="widthFix"></image></text>
         <text class="typenameBox">{{item.className}}</text>

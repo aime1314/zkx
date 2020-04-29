@@ -109,6 +109,9 @@ Page({
   //查询默认下单地址
   getdefaultAddress:function(){
     let that = this;
+    let param = {
+      
+    }
     commRequest.requestPost("/miniapp/order/defaultAddress", {}, (res) => {
       that.setData({
         defaultAddress:res.data.data
@@ -182,6 +185,13 @@ Page({
         })
       }
     });
+  },
+
+  //我的地址簿
+  myaddress:function(){
+    wx.navigateTo({
+      url: '/pages/myhome/address/add',
+    })
   },
   toBack: function () {
     wx.navigateBack({

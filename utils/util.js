@@ -29,6 +29,7 @@ const getUserInfo = data => {
   }
 
 
+
 module.exports = {
   formatTime: formatTime,
   getUserInfo: getUserInfo,

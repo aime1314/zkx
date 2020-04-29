@@ -9,6 +9,15 @@ Page({
     topbackflage: false,
     topclassName: 'title_index',
     topiconurl: '/images/back.png',
+    region: ['省/市/区', ' ', ' '],  //默认地
+    customItem: ' ',
+    addressMsg:{},
+    province:'', //省
+    city:'', //市
+    area:'',//区
+    contact:'', //联系人
+    contactNumber:'',//联系电话
+    address:''  //详细地址
   },
 
   /**
@@ -30,6 +39,12 @@ Page({
    */
   onShow: function () {
 
+  },
+  bindRegionChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      region: e.detail.value
+    })
   },
   toBack: function () {
     wx.navigateBack({

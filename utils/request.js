@@ -5,7 +5,27 @@ const requestPost = (url, data, success) => {
     url: app.globalData.host + url,
     data: data,
     method: "post",
-    // header: { "content-type": "application/x-www-form-urlencoded"},
+    header: { "xcx-requested-login-token": app.globalData.token},
+    success: (res) => {
+      success(res)
+    },
+    fail: function (res) {
+      wx.showToast({
+        title: '请求失败',
+        icon: 'none',
+        duration: 2000
+      })
+    },
+    complete: function (res) { },
+  })
+}
+
+const requestPostForm = (url, data, success) => {
+  wx.request({
+    url: app.globalData.host + url,
+    data: data,
+    method: "post",
+    header: { "content-type": "application/x-www-form-urlencoded", "xcx-requested-login-token": app.globalData.token},
     success: (res) => {
       success(res)
     },
@@ -21,4 +41,5 @@ const requestPost = (url, data, success) => {
 }
 module.exports = {
   requestPost: requestPost,
+  requestPostForm: requestPostForm
 }

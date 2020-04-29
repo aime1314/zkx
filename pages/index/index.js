@@ -1,7 +1,7 @@
 //index.js
 //获取应用实例
 const commRequest = require('../../utils/request.js');
-const commonChange = require('../../utils/util.js');
+const commonFun = require('../../utils/util.js');
 const app = getApp()
 Page({
   data: {

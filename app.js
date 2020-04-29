@@ -4,6 +4,9 @@ App({
     host: 'https://mini-api.zhikexia0633.com',
     userInfo: null,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    platform:'xcx',
+    code:null,
+    token:'d537d56892db37e2d74c333412657d52'
   },
   onLaunch: function () {
     // 展示本地存储能力
@@ -15,7 +18,17 @@ App({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.log(res)
+        this.globalData.code = res.code
+        console.log(this.globalData.code)
+        // wx.request({
+        //   url: this.globalData.host + '/miniapp/login/wxlogin', 
+        //   method: "post",
+        //   data: {"platform": this.globalData.platform, "wxcode": this.globalData.code},
+        //   header: { 'content-type': 'application/x-www-form-urlencoded'},
+        //   success(res) {
+        //     console.log(res.data)
+        //   }
+        // })
       }
     })
     // 获取用户信息
