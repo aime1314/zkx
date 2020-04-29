@@ -35,17 +35,24 @@
 
 <view class="cotantMsgBox">
   <view class="cotantTitleBox2">
-    <view class="timeTitle">预约时间</view>
+    <view class="timeTitle" data-bookingtype="1" bindtap="getbookingDate">预约时间</view>
     <view class="timeView">
-      <text class="curron">预约上门</text>
-      <text>立即上门</text>
+      <text class="{{bookingtypecurron == 1 ?'curron':''}}" data-bookingtype="1" bindtap="getbookingDate">预约上门</text>
+      <text class="{{bookingtypecurron == 2 ?'curron':''}}" data-bookingtype="2" bindtap="getbookingDate">立即上门</text>
     </view>
   </view>
   <view class="cotantModeBox">
     <view class="firstView"> </view>
     <view class="msgView">
-      <view>选择时间    2020-04-22 12:22:00  </view>
-      <view>（回收员将在两小时内上门）</view>
+      <view wx:if="{{bookingtype == 1}}">
+        <view class="dateTimeBox"><picker mode="date" value="{{date}}" start="2020-09-01" end="" bindchange="bindDateChange">预约日期：{{date}}</picker></view>
+        <view class="dateTimeBox"><picker mode="time" value="{{time}}" start="09:01" end="" bindchange="bindTimeChange">预约时间：{{time}}</picker></view>
+      </view>
+      <view wx:if="{{bookingtype == 2}}">
+        <view class="dateTimeBox">预约日期：{{date}}</view>
+        <view class="dateTimeBox">预约时间：{{time}}</view>
+        <text style="color:#999;">（回收员将在两小时内上门）</text>
+      </view>
     </view>
   </view>
 </view>
@@ -54,7 +61,7 @@
   <view class="cotantTitleBox2">
     <view class="timeTitle">是否赠送</view>
     <view class="freeView">
-      <text class="defaultBox curron">
+      <text class="defaultBox {{isFree == 0 ? 'curron' : ''}}" bindtap="getisFree">
         <text class="white"></text>
       </text>
     </view>

@@ -96,7 +96,8 @@
 .cotantTitleBox2 .freeView .defaultBox{
   display: inline-block;
   border-radius: 20rpx;
-  background: #31B977;
+  background: #ccc;
+  border: solid 1rpx #31B977;
   width: 80rpx; 
   height: 40rpx;
   position: relative;
@@ -112,10 +113,15 @@
   top: 2rpx;
   box-shadow: 0 3rpx 3rpx #eee;
 }
+.cotantTitleBox2 .freeView .curron{
+  border: solid 1rpx #31B977;
+  background: #31B977;
+}
 .cotantTitleBox2 .freeView .curron .white{
   right: 2rpx;
   left: auto;
 }
+
 .cotantTitleBox2 .timeView text.curron{
   background: #31B977;
   color: #fff;
@@ -132,6 +138,9 @@
 .msgView{
   flex: 1;
   line-height: 50rpx;
+}
+.msgView .dateTimeBox{
+
 }
 .shengmingView{
   flex: 1;

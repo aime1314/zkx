@@ -1,5 +1,6 @@
 // pages/buy/index.js
 const commRequest = require('../../utils/request.js');
+const commonFun = require('../../utils/util.js');
 Page({
 
   /**
@@ -16,6 +17,11 @@ Page({
     maxprice:0, //最高回收价
     minprice:0, //最低回收价
     defaultAddress:{},  //默认回收地址
+    date: commonFun.formatTime(new Date).split(' ')[0],//当前日期
+    time: commonFun.formatTime(new Date).split(' ')[1], //时间
+    bookingtype:1,//预约类型 1：预约上门  2：立即预约，
+    bookingtypecurron:1, //
+    isFree:0, //是否赠送  0：是赠送 1：是卖钱
     flag: 0, //当前输入字数
     noteMaxLen: 300, // 最多放多少字
     info: "",
@@ -28,6 +34,7 @@ Page({
   onLoad: function (option) {
     console.log(option.currontypeindex)
     console.log(option.recoveryclassid)
+    console.log(this.data.date)
     this.setData({
       recoveryclassTab: option.recoveryclassid
     })
@@ -109,21 +116,71 @@ Page({
     });
   },
 
+  //日期
+  bindDateChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      date: e.detail.value
+    })
+  },
+  //时间
+  bindTimeChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      time: e.detail.value
+    })
+  },
+
+  //预约时间
+  getbookingDate:function(e){
+    let that = this
+    let bookingtype = e.currentTarget.dataset.bookingtype
+    that.setData({
+      bookingtype: bookingtype,
+      bookingtypecurron: bookingtype,
+      date: commonFun.formatTime(new Date).split(' ')[0],
+      time: commonFun.formatTime(new Date).split(' ')[1],
+    })
+    
+  },
+
+  //赠送处理
+  getisFree:function(e){
+    let that = this
+    if(that.data.isFree == 0){
+      that.setData({
+        isFree: 1
+      })
+    }else{
+      that.setData({
+        isFree: 0
+      })
+    }
+  },
+
   //预约下单
   getbookingOrder:function(){
     let that = this;
     let data = {
       "addressId": that.data.defaultAddress.addressId,
-      "endTime": "",
-      "isFree": 0,
+      "endTime": that.data.date + ' ' + that.data.time,
+      "isFree": that.data.isFree,
       "recoveryClass": that.data.recoveryclassTab,
-      "remark": "",
-      "startTime": ""
+      "remark": that.data.info,
+      "startTime": that.data.date +' '+ that.data.time
     }
     commRequest.requestPost("/miniapp/order/booking", JSON.stringify(data), (res) => {
-      that.setData({
-        defaultAddress: res.data.data
-      })
+      if(res.data.data){
+        wx.showToast({
+          title: '预约成功',
+          icon: 'success',
+          duration: 1500,
+          mask: false,
+          success: function () {
+            that.setData({ info: '', noteNowLen: 0, flag: 0 })
+          }
+        })
+      }
     });
   },
   toBack: function () {
