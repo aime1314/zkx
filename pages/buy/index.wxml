@@ -4,22 +4,16 @@
 
   <view class="buyBox">
     <view class="buytypeBox">
-      <view class="{{indexTypesTab == index ?'curron':''}}" wx:for="{{indexTypes}}" wx:key="item.recoveryClassId" data-recoveryclassid="{{item.recoveryClassId}}" data-currontypeindex="{{index}}"><text>{{item.className}}</text></view>
+      <view class="{{recoveryclassTab == item.recoveryClassId ?'curron':''}}" wx:for="{{priceMenu}}" wx:key="item.recoveryClassId" bindtap="getPriceMenuList" data-recoveryclassid="{{item.recoveryClassId}}"><text>{{item.recoveryClassName}}</text></view>
     </view>
     <view class="buyPriceMsgbox">
-      <view class="todayMoneyBox">今日指导价:<text>0.6-1.2</text>元/Kg</view>
-      <view class="todayMoneyListBox">
-        <view><text>黄纸类</text>（这里是品类的描述）</view>
-        <view>0.8元/斤</view>
-      </view>
-      <view class="todayMoneyListBox">
-        <view><text>黄纸类</text>（这里是品类的描述）</view>
-        <view>0.8元/斤</view>
-      </view>
-      <view class="todayMoneyListBox">
-        <view><text>黄纸类</text>（这里是品类的描述）</view>
-        <view>0.8元/斤</view>
-      </view>
+      <view class="todayMoneyBox">今日指导价:<text>{{maxprice}}-{{minprice}}</text></view>
+        <block wx:for="{{recoveryPriceList}}" wx:key="item.name">
+          <view class="todayMoneyListBox" >
+            <view><text>{{item.name}}</text>（{{item.classDesc}}）</view>
+            <view>{{item.price}}{{item.unit}}</view>
+          </view> 
+        </block>
     </view>
     
   </view>
@@ -33,8 +27,8 @@
   <view class="cotantModeBox">
     <view class="firstView"> </view>
     <view class="msgView">
-      <view>纸小壳    18505320532</view>
-      <view>北京市大兴区杨洋街98号3栋1单元802</view>
+      <view>{{defaultAddress.contact}}    {{defaultAddress.contactNumber}}</view>
+      <view>{{defaultAddress.address}}</view>
     </view>
   </view>
 </view>
@@ -103,6 +97,6 @@
   </view>
 <!--发布按钮  -->
 <view class="btnSf">
-<button bindtap="bindSubmit">立即预约</button>
+<button bindtap="getbookingOrder" >立即预约</button>
 </view>
 </view>

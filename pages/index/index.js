@@ -9,20 +9,20 @@ Page({
     topbackflage:false,
     topclassName:'title_index',
     topiconurl:'/images/logo.png',
-    imgUrls: [],
-    rollData: [],
-    indexTypes: [],
-    indicatorDots: true,
-    vertical: false,
-    autoplay: true,
-    circular: false,
-    interval: 2000,
-    duration: 500,
-    previousMargin: 0,
-    nextMargin: 0,
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse:app.globalData.canIUse,
+    imgUrls: [], //banner图
+    rollData: [], //通知公告
+    indexTypes: [], //回收类型
+    indicatorDots: true, //banner图设置
+    vertical: false, //
+    autoplay: true, //
+    circular: false, //
+    interval: 2000, //
+    duration: 500, //
+    previousMargin: 0, //
+    nextMargin: 0, //
+    userInfo: {}, //用户信息
+    hasUserInfo: false, //是否已授权
+    canIUse: app.globalData.canIUse, //授权按钮
   },
   //事件处理函数
   bindViewTap: function() {
@@ -72,10 +72,10 @@ Page({
     })
   },
   toBuy: function (e) {
-    let recoveryClassId = e.currentTarget.dataset.recoveryclassid
+    let recoveryclassid = e.currentTarget.dataset.recoveryclassid
     let currontypeindex = e.currentTarget.dataset.currontypeindex
     wx.navigateTo({
-      url: '/pages/buy/index?recoveryClassId=' + recoveryClassId + '&currontypeindex=' + currontypeindex,
+      url: '/pages/buy/index?recoveryclassid=' + recoveryclassid + '&currontypeindex=' + currontypeindex,
     })
   },
   othersite:function(){

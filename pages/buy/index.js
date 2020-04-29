@@ -10,9 +10,13 @@ Page({
     topbackflage: false,
     topclassName: 'title_index',
     topiconurl: '/images/back.png',
-    indexTypes:[],
-    indexTypesTab:0,
-    flag: 0,
+    priceMenu:[], //回收总类型
+    recoveryclassTab:0, //当前类型
+    recoveryPriceList:[], //价格明细
+    maxprice:0, //最高回收价
+    minprice:0, //最低回收价
+    defaultAddress:{},  //默认回收地址
+    flag: 0, //当前输入字数
     noteMaxLen: 300, // 最多放多少字
     info: "",
     noteNowLen: 0,//备注当前字数
@@ -23,8 +27,9 @@ Page({
    */
   onLoad: function (option) {
     console.log(option.currontypeindex)
+    console.log(option.recoveryclassid)
     this.setData({
-      indexTypesTab: option.currontypeindex
+      recoveryclassTab: option.recoveryclassid
     })
   },
 
@@ -39,19 +44,88 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function (option) {
-    this.gettTypes()
+    this.getPriceMenu(this.data.recoveryclassTab)
+    this.getdefaultAddress()
   },
 
-  //回收分类
-  gettTypes: function () {
+  //回收分类价格
+  getPriceMenu: function (recoveryclassid) {
     let that = this;
-    commRequest.requestPost("/miniapp/index/types", {}, (res) => {
+    commRequest.requestPost("/miniapp/order/priceMenu", {}, (res) => {
       that.setData({
-        indexTypes: res.data.data
+        priceMenu: res.data.data
+      })
+      for (var i = 0; i < that.data.priceMenu.length; i++) {
+        if (recoveryclassid == that.data.priceMenu[i].recoveryClassId) {
+          that.setData({
+            recoveryPriceList: that.data.priceMenu[i].recoveryPriceList.sort(function (a, b) {
+              return a.price - b.price
+            }),
+            recoveryclassTab: recoveryclassid
+          })
+        }
+      }
+      that.setData(
+        {
+          maxprice: that.data.recoveryPriceList[that.data.recoveryPriceList.length - 1].price + that.data.recoveryPriceList[0].unit,
+          minprice: that.data.recoveryPriceList[0].price + that.data.recoveryPriceList[0].unit
+        }
+      )
+      
+    });
+  },
+
+//查询其他分类价格
+  getPriceMenuList: function (event){
+    let that = this;
+    let newrecoveryclassid = event.currentTarget.dataset.recoveryclassid
+    for (var i = 0; i < that.data.priceMenu.length; i++) {
+      if (newrecoveryclassid == that.data.priceMenu[i].recoveryClassId) {
+        that.setData({
+          recoveryPriceList: that.data.priceMenu[i].recoveryPriceList.sort(function (a, b) {
+            return a.price - b.price
+          }),
+          recoveryclassTab: newrecoveryclassid
+        })
+      }
+    }
+    if (that.data.recoveryPriceList){
+      that.setData(
+        {
+          maxprice: that.data.recoveryPriceList[that.data.recoveryPriceList.length - 1].price + that.data.recoveryPriceList[0].unit,
+          minprice: that.data.recoveryPriceList[0].price + that.data.recoveryPriceList[0].unit
+        }
+      )
+    }
+  },
+
+  //查询默认下单地址
+  getdefaultAddress:function(){
+    let that = this;
+    commRequest.requestPost("/miniapp/order/defaultAddress", {}, (res) => {
+      that.setData({
+        defaultAddress:res.data.data
       })
     });
   },
 
+  //预约下单
+  getbookingOrder:function(){
+    let that = this;
+    let data = {
+      "addressId": that.data.defaultAddress.addressId,
+      "endTime": "",
+      "isFree": 0,
+      "recoveryClass": that.data.recoveryclassTab,
+      "remark": "",
+      "startTime": ""
+    }
+    commRequest.requestPost("/miniapp/order/booking", JSON.stringify(data), (res) => {
+      that.setData({
+        defaultAddress: res.data.data
+      })
+    });
+  },
   toBack: function () {
     wx.navigateBack({
       delta: 2

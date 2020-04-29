@@ -5,7 +5,7 @@ const requestPost = (url, data, success) => {
     url: app.globalData.host + url,
     data: data,
     method: "post",
-    header: { "content-type": "application/x-www-form-urlencoded"},
+    // header: { "content-type": "application/x-www-form-urlencoded"},
     success: (res) => {
       success(res)
     },
