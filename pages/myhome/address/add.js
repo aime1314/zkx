@@ -17,7 +17,7 @@ Page({
     isLastPage: false,
     isLoadInterface: false,
     windowHeight: 0, //页面高度
-
+    defaultaddress:null, //默认收货地址
   },
 
   /**
@@ -49,19 +49,36 @@ Page({
         console.log("屏幕高度: " + res.windowHeight)
       }
     })
+    that.getdefaultaddList()
   },
 
   //设置默认地址
+  getdefaultaddshow:function(event){
+    let that = this
+    let param = event.currentTarget.dataset.addressid
+    console.log(param)
+    // commRequest.requestPostForm("/miniapp/address/default",param, (res) => {
+    //   that.setData({
+    //     defaultaddress: param
+    //   })
+    // });
+    commRequest.requestPost("/miniapp/address/default", param, (res) => {
+      that.setData({
+        defaultaddress: param
+      })
+    });
+  },
 
   //地址列表
   getdefaultaddList:function(){
     let that = this
     let param = {
-      
+      pageNo: that.data.page,
+      pageSize: that.data.rows
     }
-    commRequest.requestPostForm("/miniapp/address/default", param, (res) => {
+    commRequest.requestPostForm("/miniapp/address/myAddress", param, (res) => {
       that.setData({
-        defaultaddList:res
+        defaultaddList:res.data.data.rows
       })
     });
   },

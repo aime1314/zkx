@@ -174,14 +174,16 @@ Page({
     }
     commRequest.requestPost("/miniapp/order/booking", JSON.stringify(data), (res) => {
       if(res.data.data){
+        that.setData({ info: '', noteNowLen: 0, flag: 0 })
         wx.showToast({
           title: '预约成功',
-          icon: 'success',
-          duration: 1500,
-          mask: false,
-          success: function () {
-            that.setData({ info: '', noteNowLen: 0, flag: 0 })
-          }
+        })
+        wx.switchTab({
+          url: '/pages/order/index',
+        })
+      }else{
+        wx.showToast({
+          title: res.data.message,
         })
       }
     });

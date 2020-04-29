@@ -6,13 +6,14 @@
     <text>
      收货人
     </text>
-    <input type="text" placeholder="收货人姓名"></input>
+    <input type="text" value="{{contact}}" bindinput="bindcontactInput"  placeholder="收货人姓名"></input>
   </view>
   <view class="addressMsgBox">
     <text>
      手机号码
     </text>
-    <input type="text"  placeholder="收货人手机号码"></input>
+    <input type="tel" value="{{contactNumber}}" bindinput="bindNumberInput"   placeholder="收货人手机号码"></input>
+    <button class='pop_btn' plain="true" open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber">获取手机号</button>
   </view>
   <view class="addressMsgBox">
     <text>
@@ -28,7 +29,7 @@
     <text>
      详细地址
     </text>
-    <input type="text"  placeholder="详细地址"></input>
+    <input type="text"  value="{{address}}" bindinput="bindaddressInput"   placeholder="详细地址"></input>
   </view>
-  <button class="addressBtn">确认添加</button>
+  <button class="addressBtn" bindtap="getaddmyaddress">确认添加</button>
 </view>

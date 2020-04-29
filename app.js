@@ -6,7 +6,6 @@ App({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     platform:'xcx',
     code:null,
-    token:'d537d56892db37e2d74c333412657d52'
   },
   onLaunch: function () {
     // 展示本地存储能力
@@ -20,15 +19,15 @@ App({
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         this.globalData.code = res.code
         console.log(this.globalData.code)
-        // wx.request({
-        //   url: this.globalData.host + '/miniapp/login/wxlogin', 
-        //   method: "post",
-        //   data: {"platform": this.globalData.platform, "wxcode": this.globalData.code},
-        //   header: { 'content-type': 'application/x-www-form-urlencoded'},
-        //   success(res) {
-        //     console.log(res.data)
-        //   }
-        // })
+        wx.request({
+          url: this.globalData.host + '/miniapp/login/wxlogin', 
+          method: "post",
+          data: {"platform": this.globalData.platform, "wxcode": this.globalData.code},
+          header: { 'content-type': 'application/x-www-form-urlencoded'},
+          success(res) {
+            wx.setStorageSync('Token', res.data.data.loginToken)
+          }
+        })
       }
     })
     // 获取用户信息

@@ -1,11 +1,12 @@
 //发送请求
 const app = getApp();
 const requestPost = (url, data, success) => {
+  console.log(wx.getStorageSync('Token'))
   wx.request({
     url: app.globalData.host + url,
     data: data,
     method: "post",
-    header: { "xcx-requested-login-token": app.globalData.token},
+    header: { "xcx-requested-login-token": wx.getStorageSync('Token')},
     success: (res) => {
       success(res)
     },
@@ -25,7 +26,7 @@ const requestPostForm = (url, data, success) => {
     url: app.globalData.host + url,
     data: data,
     method: "post",
-    header: { "content-type": "application/x-www-form-urlencoded", "xcx-requested-login-token": app.globalData.token},
+    header: { "content-type": "application/x-www-form-urlencoded", "xcx-requested-login-token": wx.getStorageSync('Token')},
     success: (res) => {
       success(res)
     },

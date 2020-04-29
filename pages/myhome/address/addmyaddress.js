@@ -1,4 +1,6 @@
 // pages/myhome/addmyaddress.js
+const commRequest = require('../../../utils/request.js');
+const commonFun = require('../../../utils/util.js');
 Page({
 
   /**
@@ -9,14 +11,14 @@ Page({
     topbackflage: false,
     topclassName: 'title_index',
     topiconurl: '/images/back.png',
+    contact: '', //联系人
+    contactNumber: '',//联系电话
     region: ['省/市/区', ' ', ' '],  //默认地
     customItem: ' ',
     addressMsg:{},
     province:'', //省
     city:'', //市
     area:'',//区
-    contact:'', //联系人
-    contactNumber:'',//联系电话
     address:''  //详细地址
   },
 
@@ -40,12 +42,83 @@ Page({
   onShow: function () {
 
   },
+
+
+  //获取电话
+  getPhoneNumber(e) {
+    var that = this;
+    console.log(e.detail);
+    if (e.detail.errMsg == "getPhoneNumber:ok") {
+      //授权拿到手机号后要做解密处理
+      // wx.request({
+      //   url: '',
+      //   data: {
+      //     encryptedData: e.detail.encryptedData,
+      //     iv: e.detail.iv,
+      //     sessionKey: that.data.session_key,
+      //     uid: "",
+      //   },
+      //   method: "post",
+      //   success: function (res) {
+      //     console.log(res);
+      //   }
+      // })
+    }
+  },
+
+  //收货人
+  bindcontactInput: function (e) {
+    this.setData({
+      contact: e.detail.value
+    })
+  },
+
+  //电话
+  bindNumberInput: function (e) {
+    this.setData({
+      contactNumber: e.detail.value
+    })
+  },
+
+//省市区
   bindRegionChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       region: e.detail.value
     })
   },
+
+  //详细地址
+  bindaddressInput: function (e) {
+    this.setData({
+      address: e.detail.value
+    })
+  },
+
+  //添加地址
+  getaddmyaddress:function(){
+    let that = this
+    let addressRequest = {
+      "contact": that.data.contact,
+      "contactNumber": that.data.contactNumber,
+      "province": 0,
+      "city": 2,
+      "area": 3,
+      "address": that.data.address,      
+    }
+    commRequest.requestPost("/miniapp/address/save", JSON.stringify(addressRequest), (res) => {
+      if(res.data.data){
+        wx.navigateTo({
+          url: '/pages/myhome/address/add',
+        })
+      }else{
+        wx.showToast({
+          title: res.data.message,
+        })
+      }
+    });
+  },
+
   toBack: function () {
     wx.navigateBack({
       delta: 1
