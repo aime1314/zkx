@@ -16,6 +16,7 @@ Page({
     recoveryPriceList:[], //价格明细
     maxprice:0, //最高回收价
     minprice:0, //最低回收价
+    unit:null, //单位
     defaultAddress:{},  //默认回收地址
     date: commonFun.formatTime(new Date).split(' ')[0],//当前日期
     time: commonFun.formatTime(new Date).split(' ')[1], //时间
@@ -60,25 +61,25 @@ Page({
     let that = this;
     commRequest.requestPost("/miniapp/order/priceMenu", {}, (res) => {
       that.setData({
-        priceMenu: res.data.data
+        priceMenu: res.data.data,
+        maxprice: res.data.data.maxPrice,
+        minprice: res.data.data.minPrice,
+        unit: res.data.data.unit,
       })
+
       for (var i = 0; i < that.data.priceMenu.length; i++) {
         if (recoveryclassid == that.data.priceMenu[i].recoveryClassId) {
           that.setData({
             recoveryPriceList: that.data.priceMenu[i].recoveryPriceList.sort(function (a, b) {
               return a.price - b.price
             }),
-            recoveryclassTab: recoveryclassid
+            recoveryclassTab: recoveryclassid,
+            maxprice: that.data.priceMenu[i].maxPrice,
+            minprice: that.data.priceMenu[i].minPrice,
+            unit: that.data.priceMenu[i].unit,
           })
         }
       }
-      that.setData(
-        {
-          maxprice: that.data.recoveryPriceList[that.data.recoveryPriceList.length - 1].price + that.data.recoveryPriceList[0].unit,
-          minprice: that.data.recoveryPriceList[0].price + that.data.recoveryPriceList[0].unit
-        }
-      )
-      
     });
   },
 
@@ -92,7 +93,10 @@ Page({
           recoveryPriceList: that.data.priceMenu[i].recoveryPriceList.sort(function (a, b) {
             return a.price - b.price
           }),
-          recoveryclassTab: newrecoveryclassid
+          recoveryclassTab: newrecoveryclassid,
+          maxprice: that.data.priceMenu[i].maxPrice,
+          minprice: that.data.priceMenu[i].minPrice,
+          unit: that.data.priceMenu[i].unit,
         })
       }
     }

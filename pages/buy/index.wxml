@@ -7,7 +7,7 @@
       <view class="{{recoveryclassTab == item.recoveryClassId ?'curron':''}}" wx:for="{{priceMenu}}" wx:key="{{item.recoveryClassId}}" bindtap="getPriceMenuList" data-recoveryclassid="{{item.recoveryClassId}}"><text>{{item.recoveryClassName}}</text></view>
     </view>
     <view class="buyPriceMsgbox">
-      <view class="todayMoneyBox">今日指导价:<text>{{maxprice}}-{{minprice}}</text></view>
+      <view class="todayMoneyBox">今日指导价:<text>{{minprice}}-{{maxprice}}</text>{{unit}}</view>
         <block wx:for="{{recoveryPriceList}}" wx:key="{{item.name}}">
           <view class="todayMoneyListBox" >
             <view><text>{{item.name}}</text>（{{item.classDesc}}）</view>

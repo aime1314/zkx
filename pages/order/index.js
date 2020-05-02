@@ -19,6 +19,15 @@ Page({
     isLastPage: false,
     isLoadInterface: false,
     windowHeight:0, //页面高度
+    orderTypeList: [
+      { category: -1, ordertypename: '全部' }, 
+      { category: 0, ordertypename: '待回收' }, 
+      { category: 1, ordertypename: '已回收' }, 
+      { category: 2, ordertypename: '待评价' },
+      { category: 3, ordertypename: '已评价' }, 
+      { category: 4, ordertypename: '已取消' },
+    ],  //订单分类
+    ordercurron:-1,  //订单选择
     userInfo: {}, //用户信息
     hasUserInfo: false, //是否已授权
     canIUse: app.globalData.canIUse, //授权按钮
@@ -87,16 +96,15 @@ Page({
         console.log("屏幕高度: " + res.windowHeight)
       }
     })
-    that.getMyorders(that.data.page)
+    that.getMyorders(-1,that.data.page)
   },
  
   //获取我的订单列表
-  getMyorders: function (pageNum) {
+  getMyorders: function (category,pageNum) {
     let that = this;
-    let pageIndex = pageNum;
     let param = {
-      "category":-1,
-      "pageNo": pageIndex,
+      "category": category,
+      "pageNo": pageNum,
       "pageSize": that.data.rows
     }
     commRequest.requestPostForm("/miniapp/order/myorders", param, (res) => {
@@ -104,10 +112,21 @@ Page({
         myordersList: res.data.data.rows,
         page: res.data.data.page,
         isLoadInterface: false,
-        
       })
     });
   },
+
+  // 查看其他分类 
+  getotherOrderList:function(e){
+    let that = this
+    let newordercategory = e.currentTarget.dataset.category
+    that.setData({
+      ordercurron: newordercategory,
+      page:1
+    })
+    that.getMyorders(newordercategory, that.data.page)
+  },
+
   // 加载下一页数据
   nextDataPage: function () {
     let that = this;
@@ -121,7 +140,7 @@ Page({
 
         let page = that.data.page * 1 + 1;
 
-        that.getMyorders(page);
+        that.getMyorders(that.data.ordercurron,page);
 
       }
     }
@@ -147,9 +166,10 @@ Page({
   onPullDownRefresh: function () {
     console.log(111111)
   },
-  orderListshow:function(){
+  orderListshow:function(e){
+    let orderSn = e.currentTarget.dataset.ordersn
     wx.navigateTo({
-      url: '/pages/order/show',
+      url: '/pages/order/show?ordersn=' + orderSn,
     })
   },
 

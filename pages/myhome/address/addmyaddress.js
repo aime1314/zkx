@@ -26,7 +26,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let that = this
+    // if (options.addressid && options.defaultid){
+    //   that.geteditmyaddress(options.addressid, options.defaultid)
+    // }
   },
 
   /**
@@ -101,9 +104,9 @@ Page({
     let addressRequest = {
       "contact": that.data.contact,
       "contactNumber": that.data.contactNumber,
-      "province": 0,
-      "city": 2,
-      "area": 3,
+      "province": that.data.region[0],
+      "city": that.data.region[1],
+      "area": that.data.region[2],
       "address": that.data.address,      
     }
     commRequest.requestPost("/miniapp/address/save", JSON.stringify(addressRequest), (res) => {
@@ -118,6 +121,35 @@ Page({
       }
     });
   },
+
+  //编辑地址
+  // geteditmyaddress: function (id,defaultid) {
+  //   let that = this
+  //   that.setData({
+  //     region:1111
+  //   })
+  //   let addressRequest = {
+  //     "contact": that.data.contact,
+  //     "contactNumber": that.data.contactNumber,
+  //     "province": that.data.region[0],
+  //     "city": that.data.region[1],
+  //     "area": that.data.region[2],
+  //     "address": that.data.address,
+  //     "addressId": id,
+  //     "isdefault": defaultid,
+  //   }
+  //   commRequest.requestPost("/miniapp/address/save", JSON.stringify(addressRequest), (res) => {
+  //     if (res.data.data) {
+  //       wx.navigateTo({
+  //         url: '/pages/myhome/address/add',
+  //       })
+  //     } else {
+  //       wx.showToast({
+  //         title: res.data.message,
+  //       })
+  //     }
+  //   });
+  // },
 
   toBack: function () {
     wx.navigateBack({

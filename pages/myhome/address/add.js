@@ -17,7 +17,8 @@ Page({
     isLastPage: false,
     isLoadInterface: false,
     windowHeight: 0, //页面高度
-    defaultaddress:null, //默认收货地址
+    defaultaddress:null, //设置默认收货地址
+    newisDefault:0, //默认地址 0：否，1：是
   },
 
   /**
@@ -55,17 +56,14 @@ Page({
   //设置默认地址
   getdefaultaddshow:function(event){
     let that = this
-    let param = event.currentTarget.dataset.addressid
-    console.log(param)
-    // commRequest.requestPostForm("/miniapp/address/default",param, (res) => {
-    //   that.setData({
-    //     defaultaddress: param
-    //   })
-    // });
-    commRequest.requestPost("/miniapp/address/default", param, (res) => {
+    let addressId = event.currentTarget.dataset.addressid
+    console.log(addressId)
+    commRequest.requestPostForm("/miniapp/address/default",{addressId}, (res) => {
       that.setData({
-        defaultaddress: param
+        defaultaddress: addressId,
+        newisDefault:1
       })
+      that.getdefaultaddList()
     });
   },
 
@@ -78,8 +76,37 @@ Page({
     }
     commRequest.requestPostForm("/miniapp/address/myAddress", param, (res) => {
       that.setData({
-        defaultaddList:res.data.data.rows
+        defaultaddList:res.data.data.rows,
+        defaultaddress: res.data.data.rows.addressId
       })
+    });
+  },
+
+  //编辑
+  editaddress:function(e){
+    let that = this
+    let addressid = e.currentTarget.dataset.addressid
+    let defaultid = e.currentTarget.dataset.defaultid
+    wx.navigateTo({
+      url: '/pages/myhome/address/addmyaddress?addressid=' + addressid + '&defaultid=' + defaultid,
+    })
+  },
+  //删除
+  deladdress:function(e){
+    let that = this
+    let addressId = e.currentTarget.dataset.addressid
+    commRequest.requestPostForm("/miniapp/address/delete", {addressId}, (res) => {
+      if(res.data.data){
+        wx.showToast({
+          title: '删除成功',
+        })
+        that.getdefaultaddList()
+      }else{
+        wx.showToast({
+          title: '删除失败',
+          icon:'none'
+        })
+      }
     });
   },
 

@@ -19,26 +19,11 @@
       <view>全部订单</view>
     </view>
     <view class="personOrderTypemsg">
-      <view>
-        <image src="/images/my/icon_wartting.png" class="personOrderIcon" mode="cover"></image>
-        <text>待回收</text>
+      <view wx:for="{{orderTypeList}}" data-category="{{item.category}}" bindtap="gomyOrderList">
+        <image src="{{item.picurl}}" class="personOrderIcon" mode="cover"></image>
+        <text>{{item.ordertypename}}</text>
       </view>
-      <view>
-        <image src="/images/my/icon_wart.png" class="personOrderIcon" mode="cover"></image>
-        <text>已回收</text>
-      </view>
-      <view>
-        <image src="/images/my/icon_talking.png" class="personOrderIcon" mode="cover"></image>
-        <text>待评价</text>
-      </view>
-      <view>
-        <image src="/images/my/icon_talk.png" class="personOrderIcon" mode="cover"></image>
-        <text>已评价</text>
-      </view>
-      <view>
-        <image src="/images/my/icon_cannel.png" class="personOrderIcon" mode="cover"></image>
-        <text>已取消</text>
-      </view>
+      
     </view>
   </view>
   </view>

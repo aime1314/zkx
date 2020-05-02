@@ -9,6 +9,15 @@ Page({
     topbackflage: false,
     topclassName: 'title_index',
     topiconurl: '',
+    category: -1, //订单类型  订单类型：-1全部；0待回收；1已回收；2已取消；3待评价；4已评价
+    orderTypeList: [
+      // { category: -1, ordertypename: '全部', picurl:''},
+      { category: 0, ordertypename: '待回收', picurl: '/images/my/icon_wartting.png'},
+      { category: 1, ordertypename: '已回收', picurl: '/images/my/icon_wart.png'},
+      { category: 2, ordertypename: '待评价', picurl: '/images/my/icon_talking.png'},
+      { category: 3, ordertypename: '已评价', picurl: '/images/my/icon_talk.png'},
+      { category: 4, ordertypename: '已取消', picurl: '/images/my/icon_cannel.png'},
+    ],  //订单分类
     userInfo: {},
     hasUserInfo: false,
     canIUse: app.globalData.canIUse,
@@ -54,6 +63,14 @@ Page({
     })
   },
 
+  gomyOrderList:function(e){
+    let that = this
+    let category = e.currentTarget.dataset.category
+    wx.switchTab({
+      url: '/pages/order/index?category=' + category,
+      // url: '/pages/order/index',
+    })
+  },
   tointegral:function(){
     wx.navigateTo({
       url: '/pages/myhome/person/integral',

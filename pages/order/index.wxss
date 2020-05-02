@@ -77,3 +77,8 @@
 .orderList_create text.orderList_Time{
   padding: 0 0 20px 0;
 }
+.bottomline{
+  text-align: center;
+  padding: .5rem 0 .1rem 0;
+  color: #999;
+}

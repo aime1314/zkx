@@ -1,4 +1,7 @@
 // pages/ordershow/index.js
+const commRequest = require('../../utils/request.js');
+const commonFun = require('../../utils/util.js');
+const app = getApp()
 Page({
 
   /**
@@ -9,6 +12,7 @@ Page({
     topbackflage: false,
     topclassName: 'title_index',
     topiconurl: '/images/back.png',
+    myorderdetails:{}, // 订单详情
     flag: 0,
     noteMaxLen: 300, // 最多放多少字
     info: "",
@@ -19,9 +23,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let that = this
+    console.log(options.ordersn)
+    that.getMyorderdetails(options.ordersn)
   },
   
+
+  //订单详情
+  getMyorderdetails: function (orderSn) {
+    let that = this;
+    commRequest.requestPostForm("/miniapp/order/details", {orderSn}, (res) => {
+      that.setData({
+        myorderdetails:res.data.data
+      })
+    });
+  },
   toBack: function () {
     wx.navigateBack({
       delta: 2
@@ -38,8 +54,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
+  onShow: function (options) {
+    
   },
 
   /**

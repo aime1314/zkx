@@ -6,12 +6,12 @@
 
   <view class="addMsgBox" wx:for="{{defaultaddList}}">
     <view class="add_usermsg">{{item.contact}}<text>{{item.contactNumber}}</text></view>
-    <view class="add_addmsg">{{item.address}}</view>
+    <view class="add_addmsg">{{item.province}}-{{item.city}}-{{item.area}}-{{item.address}}</view>
     <view class="add_defaultBox">
-      <view class="setaddMsgBox" bindtap="getdefaultaddshow" data-addressid="{{item.addressId}}"><image src="{{defaultaddress == item.addressId ? '/images/my/add_default.png':'/images/my/add_set.png'}}" mode="cover" style="width:26rpx; height:26rpx;"></image>默认地址</view>
+      <view class="setaddMsgBox" bindtap="getdefaultaddshow" data-addressid="{{item.addressId}}"><image src="{{item.isDefault == 1 ? '/images/my/add_default.png':'/images/my/add_set.png'}}" mode="cover" style="width:26rpx; height:26rpx;"></image>默认地址</view>
       <view class="editaddMsgBox">
-        <view><image src="/images/my/add_edit.png" mode="cover" style="width:26rpx; height:26rpx;"></image>编辑</view>
-        <view><image src="/images/my/add_del.png" mode="cover" style="width:26rpx; height:26rpx;"></image>删除</view>
+        <view bindtap="editaddress" data-addressid="{{item.addressId}}" data-defaultid="{{item.isDefault}}"><image src="/images/my/add_edit.png" mode="cover" style="width:26rpx; height:26rpx;"></image>编辑</view>
+        <view bindtap="deladdress"  data-addressid="{{item.addressId}}"><image src="/images/my/add_del.png" mode="cover" style="width:26rpx; height:26rpx;"></image>删除</view>
       </view>
     </view>
   </view>

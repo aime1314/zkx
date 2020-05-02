@@ -2,9 +2,9 @@
 <view class="container">
   <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
   <view class="orderMsgBox">
-    <text>订单编号： 415257513567170998833</text>
-    <text>下单时间： 2018-05-08 11:49 </text>
-    <text>预约时间： 2020-06-06 12:20</text>
+    <text>订单编号： {{myorderdetails.orderId}}</text>
+    <text>下单时间： {{myorderdetails.createTime}} </text>
+    <text>预约时间： {{myorderdetails.startTime}}</text>
   </view>
   <view class="ContactsBox">
     <view class="ContactsMsg">
@@ -12,9 +12,9 @@
       <view>回收员:<text>宋师傅</text><text>15005320532</text><a href="tel:15005320532"><image src="/images/tel.png" style="width:28rpx;" mode="widthFix"></image></a></view>
     </view>
     <view class="ContactsMsg2">
-      <text>联系人： 纸小壳</text>
-      <text>联系方式： 13344455566</text>
-      <text>取货地址： 安徽省包子市图图区包子铺</text>
+      <text>联系人： {{myorderdetails.contact}}</text>
+      <text>联系方式： {{myorderdetails.contactNumber}}</text>
+      <text>取货地址： {{myorderdetails.address}}</text>
     </view>
   </view>
   <view  class="ContactsBox">
@@ -25,7 +25,7 @@
       <view>纸箱0.5/斤×6</view>
       <view>硬塑料0.8/斤×8</view>
       <view>玻璃瓶0.5/个*10</view>
-      <view><text style="color:#333;">备注信息</text>此处为备注信息此处为备注信息此处为备注信息</view>
+      <view><text style="color:#333;">备注信息</text>{{myorderdetails.remark}}</view>
       </view>
   </view>
   <view class="orderpriceBox">

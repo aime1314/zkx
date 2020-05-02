@@ -3,12 +3,7 @@
 <view class="container">
 <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName}}" />
   <view class="orderListBox">
-    <view><text>全部订单</text></view>
-    <view class="curron"><text>待回收</text></view>
-    <view><text>已回收</text></view>
-    <view><text>待评价</text></view>
-    <view><text>已评价</text></view>
-    <view><text>已取消</text></view>
+    <view wx:for="{{orderTypeList}}" data-category="{{item.category}}" class="{{ordercurron == item.category ? 'curron' : ' '}}" bindtap="getotherOrderList"><text>{{item.ordertypename}}</text></view>
   </view>
 
   <scroll-view
@@ -24,20 +19,21 @@
   bindrefresherabort="onAbort"
   bindscrolltolower="nextDataPage"
 >
-  <view class="orderListMsgBox" bindtap="orderListshow" wx:for="{{myordersList}}" wx:key="{{index}}">
+  <view class="orderListMsgBox" bindtap="orderListshow" wx:for="{{myordersList}}" wx:key="{{index}}" data-ordersn="{{item.orderSn}}">
     <view class="orderList_status">
       <view class="orderList_Num">订单号：<text>{{item.orderId}}</text></view>
       <view class="orderList_type">
-        <text wx:if="{{item.orderType == 1}}">预约</text>
+        <text wx:if="{{item.orderType == 1}}">预约单</text>
         <text wx:elif="{{item.orderType == 2}}">面对面</text>
-        <text wx:elif="{{item.orderType == 3}}">指派</text>
-        <text wx:elif="{{item.orderType == 4}}">赠送</text>
+        <text wx:elif="{{item.orderType == 3}}">指派单</text>
+        <text wx:elif="{{item.orderType == 4}}">赠送单</text>
       </view>
       <view class="orderList_answer">
         <text wx:if="{{item.commentStatus == 0}}">待回收</text>
-        <text wx:elif="{{item.commentStatus == 1}}">已评价</text>
-        <text wx:elif="{{item.commentStatus == 2}}">去评价</text>
-        <text wx:elif="{{item.commentStatus == 3}}">已取消</text>
+        <text wx:elif="{{item.commentStatus == 1}}">已回收</text>
+        <text wx:elif="{{item.commentStatus == 2}}">待评价</text>
+        <text wx:elif="{{item.commentStatus == 3}}">已评价</text>
+        <text wx:elif="{{item.commentStatus == 4}}">已取消</text>
       </view>
     </view>
     <view class="orderList_create">

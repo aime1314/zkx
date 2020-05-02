@@ -6,6 +6,7 @@ App({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     platform:'xcx',
     code:null,
+    isswitchTab: 0,   //解决switchTab不支持传参 0:默认不传，，1是传参
   },
   onLaunch: function () {
     // 展示本地存储能力
@@ -16,16 +17,27 @@ App({
     // 登录
     wx.login({
       success: res => {
+        let that = this
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        this.globalData.code = res.code
-        console.log(this.globalData.code)
+        that.globalData.code = res.code
+        let newcode = res.code;
+        console.log(wx.getStorageSync('Token'))
         wx.request({
-          url: this.globalData.host + '/miniapp/login/wxlogin', 
+          url: that.globalData.host + '/miniapp/login/heartbeat',
           method: "post",
-          data: {"platform": this.globalData.platform, "wxcode": this.globalData.code},
-          header: { 'content-type': 'application/x-www-form-urlencoded'},
+          header: { 'content-type': 'application/x-www-form-urlencoded', 'xcx-requested-login-token': wx.getStorageSync("Token") ? wx.getStorageSync("Token"):''},
           success(res) {
-            wx.setStorageSync('Token', res.data.data.loginToken)
+            if(res.data.code != 200){
+              wx.request({
+                url: that.globalData.host + '/miniapp/login/wxlogin',
+                method: "post",
+                data: { 'platform': 'xcx', 'wxcode': newcode},
+                header: { 'content-type': 'application/x-www-form-urlencoded' },
+                success(res) {
+                  wx.setStorageSync('Token', res.data.data.loginToken)
+                }
+              })
+            }
           }
         })
       }
