@@ -86,7 +86,7 @@
 				{
 					"id": 5,
 					"name": "我的收入",
-					"pathName": "pages/myhome/money",
+					"pathName": "pages/myhome/person/money",
 					"query": "",
 					"scene": null
 				},
@@ -129,6 +129,7 @@
 					"id": -1,
 					"name": "周边回收货地图",
 					"pathName": "pages/other/siteshow",
+					"query": "",
 					"scene": null
 				}
 			]

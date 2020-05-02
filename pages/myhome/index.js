@@ -22,6 +22,7 @@ Page({
     hasUserInfo: false,
     canIUse: app.globalData.canIUse,
   },
+  
 
   /**
    * 生命周期函数--监听页面加载
@@ -66,9 +67,12 @@ Page({
   gomyOrderList:function(e){
     let that = this
     let category = e.currentTarget.dataset.category
+    app.globalData.category = category
+    console.log(app.globalData.category)
+    debugger
     wx.switchTab({
-      url: '/pages/order/index?category=' + category,
-      // url: '/pages/order/index',
+      // url: '/pages/order/index?category=' + category,
+      url: '/pages/order/index',
     })
   },
   tointegral:function(){

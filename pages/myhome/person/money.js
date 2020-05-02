@@ -1,6 +1,8 @@
 // pages/myhome/integral.js
+const commRequest = require('../../../utils/request.js');
+const commonFun = require('../../../utils/util.js');
+const app = getApp()
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -9,13 +11,27 @@ Page({
     topbackflage: false,
     topclassName: 'title_index',
     topiconurl: '/images/back.png',
+    monthIncome:'', // 本月收入
+    todayIncome:'',  // 今天收入
+    totalIncome:'',  // 总收入
+    totalList:[],  // 收入明细
+    detailListshow:false,
+    newdetilListcurron:-1, // 默认显示最新一个月
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let that = this
+    commRequest.requestPostForm("/miniapp/personal/myIncome", {}, (res) => {
+      that.setData({
+        monthIncome: res.data.data.monthIncome.toFixed(2),
+        todayIncome: res.data.data.todayIncome.toFixed(2),
+        totalIncome: res.data.data.totalIncome.toFixed(2),
+        totalList: res.data.data.totalList,
+      })
+    });
   },
 
   /**
@@ -30,6 +46,21 @@ Page({
    */
   onShow: function () {
 
+  },
+
+  //查看收入详情
+  getshowdetilList:function(e){
+    let that = this
+    let detilListcurron = e.currentTarget.dataset.detaillistid
+    console.log(detilListcurron)
+    that.setData({
+      newdetilListcurron: detilListcurron
+    })
+    if (that.data.newdetilListcurron == detilListcurron){
+      that.setData({
+        detailListshow:true
+      })
+    }
   },
 
   toBack: function () {

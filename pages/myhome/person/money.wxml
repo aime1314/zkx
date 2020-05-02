@@ -4,67 +4,44 @@
   <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
   <view class="myallmoneyBox">
     <view class="moneyNum">
-    16888.89
+    {{totalIncome}}
     <text>累计收入(元)</text>
     </view>
     <view class="moneytype">
       <view>
-      168.89
+      {{todayIncome}}
       <text>今日收入(元)</text>
       </view>
       <view>
-      267.89
+      {{monthIncome}}
       <text>本月收入(元)</text>
       </view>
     </view>
   </view>
   
-  <view class="myMonthmoneyBox">
-    <view class="monthMoneyMsgBox">
-      2020年04月 <image src="/images/my/next.png" mode="cover" style="width:20rpx; height:26rpx;"></image>
-      <text>收入￥1060.00</text>
+  <block wx:for="{{totalList}}">
+    <view class="myMonthmoneyBox">
+    <view class="monthMoneyMsgBox" bindtap="getshowdetilList"  data-detaillistid="{{index}}">
+      {{item.month}} <image src="{{index == newdetilListcurron ? '/images/my/list.png':'/images/my/next.png'}}" mode="cover" style="width:20rpx; height:26rpx;"></image>
+      <text>收入￥{{item.monthIncome}}</text>
     </view>
-    <view class="MonothListMsgCon">
-    
-    <view class="MonthListBox">
+
+  <view class="MonothListMsgCon" wx:if="{{index == newdetilListcurron && detailListshow}}">
+    <view class="MonthListBox" wx:for="{{item.detailList}}">
       <view class="Monthorderbox">
-        面对面回收
-        <text>订单号：C01254638820</text>
+        {{item.orderType}}
+        <text>订单号：{{item.orderSn}}</text>
       </view>
       <view class="Monthtimebox">
-      +￥100.00
-      <text>2020-04-01  22:00</text>
+      +￥{{item.amountMoney}}
+      <text>{{item.recoveryTime}}</text>
       </view>
-    </view>
-    <view class="MonthListBox">
-      <view class="Monthorderbox">
-        面对面回收
-        <text>订单号：C01254638820</text>
-      </view>
-      <view class="Monthtimebox">
-      +￥100.00
-      <text>2020-04-01  22:00</text>
-      </view>
-    </view>
-    
-    
-    </view>
-
-  </view>
-
-  <view class="myMonthmoneyBox">
-    <view class="monthMoneyMsgBox">
-      2020年04月 <image src="/images/my/next.png" mode="cover" style="width:20rpx; height:26rpx;"></image>
-      <text>收入￥1060.00</text>
     </view>
   </view>
 
-  <view class="myMonthmoneyBox">
-    <view class="monthMoneyMsgBox">
-      2020年04月 <image src="/images/my/next.png" mode="cover" style="width:20rpx; height:26rpx;"></image>
-      <text>收入￥1060.00</text>
-    </view>
+
+
   </view>
-  
+  </block>
 
 </view>

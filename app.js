@@ -6,14 +6,14 @@ App({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     platform:'xcx',
     code:null,
-    isswitchTab: 0,   //解决switchTab不支持传参 0:默认不传，，1是传参
+    category: -1,   //解决switchTab不支持传参 -1全部；0待回收；1已回收；2已取消；3待评价；4已评价
   },
   onLaunch: function () {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-
+    console.log(this.globalData.category)
     // 登录
     wx.login({
       success: res => {

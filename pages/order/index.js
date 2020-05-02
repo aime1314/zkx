@@ -13,7 +13,7 @@ Page({
     topclassName: 'title_index',
     topiconurl: '',
     myordersList: [],  //我的订单列表  
-    category: -1, //订单类型  订单类型：-1全部；0待回收；1已回收；2已取消；3待评价；4已评价
+    category: app.globalData.category, 
     page: 1,  //加载页面
     rows: 5, //每页记录
     isLastPage: false,
@@ -27,7 +27,7 @@ Page({
       { category: 3, ordertypename: '已评价' }, 
       { category: 4, ordertypename: '已取消' },
     ],  //订单分类
-    ordercurron:-1,  //订单选择
+    ordercurron: -1,  //订单选择 //订单类型  订单类型：-1全部；0待回收；1已回收；2已取消；3待评价；4已评价
     userInfo: {}, //用户信息
     hasUserInfo: false, //是否已授权
     canIUse: app.globalData.canIUse, //授权按钮
@@ -64,6 +64,12 @@ Page({
       })
     }
     
+    console.log(app.globalData.category)
+    this.setData({
+      ordercurron: app.globalData.category
+    })
+    debugger
+    that.getMyorders(app.globalData.category, that.data.page)
   },
   getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo
@@ -96,7 +102,6 @@ Page({
         console.log("屏幕高度: " + res.windowHeight)
       }
     })
-    that.getMyorders(-1,that.data.page)
   },
  
   //获取我的订单列表
