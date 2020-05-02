@@ -40,7 +40,7 @@
 
 <view class="modeBox">
   <view class="titleBox">面对面回收</view>
-  <view class="faceBox">
+  <view class="faceBox" bindtap="getfaceshow">
     <image src="/images/face.png" style="width:100%" mode="widthFix"></image>
   </view>
 </view>
@@ -69,6 +69,9 @@
   </view>
 </view>
 
+<view class="faceBoxDailog" wx:if="{{faceFlag}}">
+  <image src="{{faceCode}}"></image>
+</view>
 <!-- <template is="login" data="{{hasUserInfo,canIUse,getUserInfo}}" /> -->
 <template is="foot"></template>
 </view>

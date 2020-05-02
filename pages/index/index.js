@@ -2,6 +2,7 @@
 //获取应用实例
 const commRequest = require('../../utils/request.js');
 const commonFun = require('../../utils/util.js');
+const QR = require('../../utils/qrcode.js');
 const app = getApp()
 Page({
   data: {
@@ -20,9 +21,11 @@ Page({
     duration: 500, //
     previousMargin: 0, //
     nextMargin: 0, //
-    userInfo: {}, //用户信息
-    hasUserInfo: false, //是否已授权
-    canIUse: app.globalData.canIUse, //授权按钮
+    faceCode:null,  //面对面二微码
+    faceFlag:false  //是否显示面对面
+    // userInfo: {}, //用户信息
+    // hasUserInfo: false, //是否已授权
+    // canIUse: app.globalData.canIUse, //授权按钮
   },
   //事件处理函数
   bindViewTap: function() {
@@ -111,6 +114,50 @@ Page({
       that.setData({
         indexTypes: res.data.data
       })
+    });
+  },
+
+  //面对面收货
+  getfaceshow:function(){
+    let that = this
+    commRequest.requestPostForm("/miniapp/index/openQRcode", {}, (res) => {
+      
+      var base64 = wx.arrayBufferToBase64(res.data);
+      console.log(base64)
+      that.setData({
+        faceFlag:true,
+        faceCode: "data:image/PNG;base64," + base64
+      })
+    });
+    
+  },
+
+  
+ 
+
+ //创建二微码
+  createQrCode: function (content, canvasId, cavW, cavH) {
+    //调用插件中的draw方法，绘制二维码图片
+    QR.api.draw(content, canvasId, cavW, cavH);
+    this.canvasToTempImage(canvasId);
+  },
+
+  //获取临时缓存图片路径，存入data中
+  canvasToTempImage: function (canvasId) {
+    let that = this;
+    wx.canvasToTempFilePath({
+      canvasId,   // 这里canvasId即之前创建的canvas-id
+      success: function (res) {
+        let tempFilePath = res.tempFilePath;
+        console.log(tempFilePath);
+        that.setData({       // 如果采用mpvue,即 this.imagePath = tempFilePath
+          faceFlag: true,
+          faceCode: tempFilePath
+        });
+      },
+      fail: function (res) {
+        console.log(res);
+      }
     });
   }
   

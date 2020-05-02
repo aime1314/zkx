@@ -131,6 +131,13 @@
 					"pathName": "pages/other/siteshow",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "生成二微码",
+					"pathName": "pages/qr/index",
+					"query": "",
+					"scene": null
 				}
 			]
 		}
