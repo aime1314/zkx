@@ -69,7 +69,6 @@ Page({
     let category = e.currentTarget.dataset.category
     app.globalData.category = category
     console.log(app.globalData.category)
-    debugger
     wx.switchTab({
       // url: '/pages/order/index?category=' + category,
       url: '/pages/order/index',

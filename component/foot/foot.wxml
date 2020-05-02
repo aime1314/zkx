@@ -1,0 +1,6 @@
+<!--component/foot/foot.wxml-->
+<template name="foot">
+  <view>
+    <view style="height:100rpx;"></view>
+  </view>
+</template>

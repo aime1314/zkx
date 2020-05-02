@@ -1,5 +1,6 @@
 <import src="../../component/topbar/index.wxml" />
 <import src="../../component/login/login.wxml" />
+<import src="../../component/foot/foot.wxml" />
 <view class="container">
 <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName}}" />
   <view class="orderListBox">
@@ -44,5 +45,6 @@
   <view class='bottomline' wx:if="{{myordersList.length > 0}}" >{{myordersList?"没有更多数据了":"加载中..."}}</view>
   <view class='bottomline' wx:if="{{myordersList.length == 0}}" >暂时没有数据</view>
 </scroll-view>
-<template is="login" data="{{hasUserInfo,canIUse,getUserInfo}}" />
+<!-- <template is="login" data="{{hasUserInfo,canIUse,getUserInfo}}" /> -->
+<template is="foot"></template>
 </view>

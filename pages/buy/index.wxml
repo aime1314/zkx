@@ -1,4 +1,5 @@
 <import src="../../component/topbar/index.wxml" />
+<import src="../../component/foot/foot.wxml" />
 <view class="container">
   <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
 
@@ -106,4 +107,7 @@
 <view class="btnSf">
 <button bindtap="getbookingOrder" >立即预约</button>
 </view>
+
+<template is="foot"></template>
+
 </view>

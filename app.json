@@ -16,7 +16,8 @@
     "pages/myhome/feedback/feedback",
     "pages/other/other",
     "pages/other/siteshow",
-    "component/login/login"
+    "component/login/login",
+    "component/foot/foot"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -24,7 +25,7 @@
     "navigationBarTitleText": "纸壳侠",
     "navigationBarTextStyle": "white",
     "navigationStyle": "custom",
-    "backgroundColor": "#f60"
+    "backgroundColor": "#fefefe"
   },
   "tabBar": {
     "custom": false,

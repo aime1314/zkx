@@ -1,6 +1,7 @@
 <!--index.wxml-->
 <import src="../../component/topbar/index.wxml" />
 <import src="../../component/login/login.wxml" />
+<import src="../../component/foot/foot.wxml" />
 <view class="container">
 <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName}}" />
 <view class="newsBox">
@@ -68,6 +69,6 @@
   </view>
 </view>
 
-<template is="login" data="{{hasUserInfo,canIUse,getUserInfo}}" />
-
+<!-- <template is="login" data="{{hasUserInfo,canIUse,getUserInfo}}" /> -->
+<template is="foot"></template>
 </view>

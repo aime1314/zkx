@@ -3,6 +3,7 @@ page{
   padding-top:120rpx;
   background: #EDFAEC; 
   height: 100%;
+  padding-bottom: 120rpx;
 }
 .container {
   height: 100%;
