@@ -1,6 +1,7 @@
 // pages/buy/index.js
 const commRequest = require('../../utils/request.js');
 const commonFun = require('../../utils/util.js');
+const app = getApp()
 Page({
 
   /**
@@ -58,7 +59,7 @@ Page({
 
   //回收分类价格
   getPriceMenu: function (recoveryclassid) {
-    let that = this;
+    let that = this
     commRequest.requestPost("/miniapp/order/priceMenu", {}, (res) => {
       that.setData({
         priceMenu: res.data.data,
@@ -100,15 +101,14 @@ Page({
         })
       }
     }
-    if (that.data.recoveryPriceList){
-      debugger
-      that.setData(
-        {
-          maxprice: that.data.recoveryPriceList[that.data.recoveryPriceList.length - 1].price,
-          minprice: that.data.recoveryPriceList[0].price
-        }
-      )
-    }
+    // if (that.data.recoveryPriceList){
+    //   that.setData(
+    //     {
+    //       maxprice: that.data.recoveryPriceList[that.data.recoveryPriceList.length - 1].price,
+    //       minprice: that.data.recoveryPriceList[0].price
+    //     }
+    //   )
+    // }
   },
 
   //查询默认下单地址
@@ -177,18 +177,21 @@ Page({
       "remark": that.data.info,
       "startTime": that.data.date +' '+ that.data.time
     }
-    commRequest.requestPost("/miniapp/order/booking", JSON.stringify(data), (res) => {
-      if(res.data.data){
-        that.setData({ info: '', noteNowLen: 0, flag: 0 })
-        wx.showToast({
-          title: '预约成功',
-        })
+    commRequest.requestPost("/miniapp/order/booking", data, (res) => {
+      if (res.data.code == 200){
+        app.globalData.category = -1;
+        that.setData({ 
+          info: '', 
+          noteNowLen: 0, 
+          flag: 0,
+           })
         wx.switchTab({
           url: '/pages/order/index',
         })
       }else{
         wx.showToast({
           title: res.data.message,
+          icon:'none'
         })
       }
     });

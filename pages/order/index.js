@@ -68,7 +68,7 @@ Page({
     this.setData({
       ordercurron: app.globalData.category
     })
-    that.getMyorders(app.globalData.category, that.data.page)
+    
   },
   getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo
@@ -101,6 +101,7 @@ Page({
         console.log("屏幕高度: " + res.windowHeight)
       }
     })
+    that.getMyorders(app.globalData.category, that.data.page)
   },
  
   //获取我的订单列表

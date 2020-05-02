@@ -32,7 +32,7 @@
   <view class="personMsglistBox">
       <view class="msgListTypeshow" bindtap="tointegral">
         <view>我的积分</view>
-        <view>8888 <image src="/images/my/next.png" class="widthIcon" mode="cover"></image></view>
+        <view><image src="/images/my/next.png" class="widthIcon" mode="cover"></image></view>
       </view>
       <view class="msgListTypeshow" bindtap="tomymoney">
         <view>我的收入</view>

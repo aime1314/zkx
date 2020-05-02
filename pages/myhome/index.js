@@ -76,9 +76,13 @@ Page({
     })
   },
   tointegral:function(){
-    wx.navigateTo({
-      url: '/pages/myhome/person/integral',
+    wx.showToast({
+      title: '暂未开放，敬请期待',
+      icon:'none'
     })
+    // wx.navigateTo({
+    //   url: '/pages/myhome/person/integral',
+    // })
   },
   tomymoney: function () {
     wx.navigateTo({

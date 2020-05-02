@@ -1,7 +1,6 @@
 //发送请求
 const app = getApp();
 const requestPost = (url, data, success) => {
-  console.log(wx.getStorageSync('Token'))
   wx.request({
     url: app.globalData.host + url,
     data: data,
