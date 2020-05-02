@@ -68,7 +68,6 @@ Page({
     this.setData({
       ordercurron: app.globalData.category
     })
-    debugger
     that.getMyorders(app.globalData.category, that.data.page)
   },
   getUserInfo: function (e) {

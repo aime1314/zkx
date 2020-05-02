@@ -101,10 +101,11 @@ Page({
       }
     }
     if (that.data.recoveryPriceList){
+      debugger
       that.setData(
         {
-          maxprice: that.data.recoveryPriceList[that.data.recoveryPriceList.length - 1].price + that.data.recoveryPriceList[0].unit,
-          minprice: that.data.recoveryPriceList[0].price + that.data.recoveryPriceList[0].unit
+          maxprice: that.data.recoveryPriceList[that.data.recoveryPriceList.length - 1].price,
+          minprice: that.data.recoveryPriceList[0].price
         }
       )
     }

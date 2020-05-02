@@ -1,1 +1,25 @@
 /* pages/myhome/feedback/feedback.wxss */
+
+.weui-cells_after-title{
+  width: 84%;
+  margin:0 auto;
+  border:1px solid #39B879;
+  background: #fff;
+  border-radius: 10rpx;
+  padding: 20rpx;
+}
+
+.btnSf{
+  width: 92%;
+  margin:50rpx auto 100rpx auto;
+  
+}
+.btnSf button{
+    background: #39B879;
+    color: #fff;
+}
+
+.btnSf button:active{
+  background: #39B879;
+  color: #fff;
+}

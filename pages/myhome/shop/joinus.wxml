@@ -4,11 +4,11 @@
   <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
 
   <view class="shoptypeBox">
-    <view class="curron">
+    <view class="{{addusType == 1? 'curron': ''}}" data-addtype="1" bindtap="getaddtype">
       <image src="/images/my/person.png" mode="cover" style="width:160rpx; height:160rpx;"></image>
       <text>成为回收员</text>
     </view>
-    <view>
+    <view class="{{addusType == 0? 'curron': ''}}" data-addtype="0" bindtap="getaddtype">
     <image src="/images/my/shop.png" mode="cover" style="width:160rpx; height:160rpx;"></image>
       <text>加盟回收站</text>
     </view>
@@ -16,12 +16,12 @@
 
   <view class="joinusMsgBox">
     <view>姓名：</view>
-    <view><input class='input-radius'  placeholder='请输入姓名' placeholder-class=''   placeholder-style='color:#999999;font-size:14px'  /></view>
+    <view><input class='input-radius' value="{{applicant}}"  placeholder='请输入姓名' placeholder-class='' bindinput="bindcontactInput"   placeholder-style='color:#999999;font-size:14px'  /></view>
   </view>
 
   <view class="joinusMsgBox">
     <view>电话：</view>
-    <view><input class='input-radius'  placeholder='请输入电话' placeholder-class=''   placeholder-style='color:#999999;font-size:14px'  /></view>
+    <view><input class='input-radius' name="mobile"  value="{{contactNumber}}"  placeholder='请输入电话' placeholder-class='' bindinput="bindNumberInput"   placeholder-style='color:#999999;font-size:14px'  /></view>
   </view>
 
   <view class="addaboutjoinusBox2">
@@ -31,10 +31,6 @@
     </view>
   </view>
 
-<button class="addressBtn">提交</button>
+<button class="addressBtn" bindtap="addusFun">提交</button>
 
-
-
-
-
-  </view>
+</view>

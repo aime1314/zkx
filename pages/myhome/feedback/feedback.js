@@ -1,4 +1,6 @@
 // pages/myhome/feedback/feedback.js
+const commRequest = require('../../../utils/request.js');
+const commonFun = require('../../../utils/util.js');
 Page({
 
   /**
@@ -9,6 +11,10 @@ Page({
     topbackflage: false,
     topclassName: 'title_index',
     topiconurl: '/images/back.png',
+
+    noteMaxLen: 300, // 最多放多少字
+    info: "",
+    noteNowLen: 0,//备注当前字数
   },
 
   /**
@@ -17,6 +23,7 @@ Page({
   onLoad: function (options) {
 
   },
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -29,6 +36,43 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+
+  },
+  // 监听字数
+  bindTextAreaChange: function (e) {
+    var that = this
+    var value = e.detail.value,
+      len = parseInt(value.length);
+    if (len > that.data.noteMaxLen)
+      return;
+    that.setData({ info: value, noteNowLen: len })
+
+  },
+
+  // 提交清空当前值
+  bindSubmit: function () {
+    let that = this
+    let content = that.data.info
+    commRequest.requestPostForm("/miniapp/personal/feedback", { content}, (res) => {
+      if(res.data.code == 200){
+        wx.showToast({
+          title: '发布成功',
+          icon: 'success',
+          duration: 1500,
+          mask: false,
+          success: function () {
+            that.setData({ info: '', noteNowLen: 0, flag: 0 })
+          }
+        })
+      }else{
+        wx.showToast({
+          title: '提交失败',
+          icon:'none',
+        })
+      }
+    });
+
+    
 
   },
   toBack: function () {
