@@ -3,19 +3,13 @@
 <view class="container">
   <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
   <view class="cityPicBox">
-  <image src="/images/my/city.png" mode="cover" style="width:200rpx; height:200rpx;"></image>
+  <image src="/images/my/city.png" mode="widthFix" style="width:200rpx;"></image>
   </view>
 
   <view class="cityMsgBox">
     <view>已开通城市</view>
     <view class="cityListshow">
-      <text>深圳</text>
-      <text>广州</text>
-      <text>上海</text>
-      <text>北京</text>
-      <text>惠州</text>
-      <text>东莞</text>
-      <text>肇庆</text>
+      <text wx:for="{{hotcityList}}">{{item}}</text>
     </view>
   </view>
 </view>

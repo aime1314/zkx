@@ -24,6 +24,7 @@ Page({
     bookingtype:1,//预约类型 1：预约上门  2：立即预约，
     bookingtypecurron:1, //
     isFree:0, //是否赠送  0：是赠送 1：是卖钱
+    nearbyList:[], // 周边回收站
     flag: 0, //当前输入字数
     noteMaxLen: 300, // 最多放多少字
     info: "",
@@ -66,6 +67,7 @@ Page({
         maxprice: res.data.data.maxPrice,
         minprice: res.data.data.minPrice,
         unit: res.data.data.unit,
+        agentId:0
       })
 
       for (var i = 0; i < that.data.priceMenu.length; i++) {

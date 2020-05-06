@@ -52,7 +52,7 @@
       </view>
       <view class="msgListTypeshow">
         <view>联系我们</view>
-        <view>800-800-8800<image src="/images/my/next.png" class="widthIcon" mode="cover"></image></view>
+        <view bindtap="calling">800-800-8800<image src="/images/my/next.png" class="widthIcon" mode="cover"></image></view>
       </view>
       <view class="msgListTypeshow" bindtap="tofeedback">
         <view>问题反馈</view>

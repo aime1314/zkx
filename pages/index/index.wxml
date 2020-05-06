@@ -54,7 +54,7 @@
       <text class="severtip">预约上门\n省时省力</text>
     </view>
 
-    <view>
+    <view bindtap="calling">
       <image src="/images/index/other.png" style="width:50%" mode="widthFix"></image>
       <text class="severtype">联系客服</text>
       <text class="severtip">800-800-8880</text>
@@ -69,8 +69,8 @@
   </view>
 </view>
 
-<view class="faceBoxDailog" wx:if="{{faceFlag}}">
-  <image src="{{faceCode}}"></image>
+<view class="faceBoxDailog" wx:if="{{faceFlag}}" bindtap="getfaceclose">
+  <image src="{{faceCode}}" class="qrcodeimg"  mode="widthFix"></image>
 </view>
 <!-- <template is="login" data="{{hasUserInfo,canIUse,getUserInfo}}" /> -->
 <template is="foot"></template>

@@ -121,19 +121,24 @@ Page({
   getfaceshow:function(){
     let that = this
     commRequest.requestPostForm("/miniapp/index/openQRcode", {}, (res) => {
-      
-      var base64 = wx.arrayBufferToBase64(res.data);
-      console.log(base64)
+      // var base64 = wx.arrayBufferToBase64(res.data);
+      // console.log(res.data)
       that.setData({
         faceFlag:true,
-        faceCode: "data:image/PNG;base64," + base64
+        faceCode: "data:image/png;base64," + res.data.data
       })
     });
-    
   },
 
+
+//关闭 
+  getfaceclose:function(){
+    let that = this
+    that.setData({
+      faceFlag:false
+    })
+  },
   
- 
 
  //创建二微码
   createQrCode: function (content, canvasId, cavW, cavH) {
@@ -159,6 +164,19 @@ Page({
         console.log(res);
       }
     });
-  }
+  },
+
+  //拨打电话
+  calling: function () {
+    wx.makePhoneCall({
+      phoneNumber: '800-800-8800',
+      success: function () {
+        console.log("拨打电话成功！")
+      },
+      fail: function () {
+        console.log("拨打电话失败！")
+      }
+    })
+  },
   
 })

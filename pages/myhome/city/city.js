@@ -1,3 +1,5 @@
+const commRequest = require('../../../utils/request.js');
+const commonFun = require('../../../utils/util.js');
 
 Page({
 
@@ -9,13 +11,19 @@ Page({
     topbackflage: false,
     topclassName: 'title_index',
     topiconurl: '/images/back.png',
+    hotcityList:[],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let that = this
+    commRequest.requestPostForm("/miniapp/personal/opened", {}, (res) => {
+      that.setData({
+        hotcityList: res.data.data
+      })
+    });
   },
 
   /**
@@ -31,6 +39,10 @@ Page({
   onShow: function () {
 
   },
+  gethotcity:function(){
+
+  },
+  
   toBack: function () {
     wx.navigateBack({
       delta: 1

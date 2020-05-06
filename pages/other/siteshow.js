@@ -1,4 +1,6 @@
 // pages/other/siteshow.js
+const commRequest = require('../../utils/request.js');
+const commonFun = require('../../utils/util.js');
 const app = getApp()
 
 Page({
