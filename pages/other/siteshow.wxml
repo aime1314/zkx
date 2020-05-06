@@ -3,7 +3,7 @@
 <view class="container">
   <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
 <view class="myvisit">
-  <image src="/images/vist.png" mode="cover" style="width:26rpx; height:32rpx;"></image>当前位置：青岛市崂山区山东头38号
+  <image src="/images/vist.png" mode="cover" style="width:26rpx; height:32rpx;"></image>当前位置：{{address}}
 </view>
   <map
     id="myMap"

@@ -28,7 +28,7 @@ Page({
     let that = this
     // 实例化API核心类
     qqmapsdk = new QQMapWX({
-      key: 'BOSBZ-QUB63-PEK35-32IJ6-AF7U6-NAFP4'  //V6VBZ-XAR3U-OPUVN-2QV3E-M2WQ7-O7BG4
+      key: app.globalData.mapkey  
     })
 
     wx.getLocation({

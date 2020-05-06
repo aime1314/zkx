@@ -7,6 +7,7 @@ App({
     platform:'xcx',
     code:null,
     category: -1,   //解决switchTab不支持传参 -1全部；0待回收；1已回收；2已取消；3待评价；4已评价
+    mapkey: 'BOSBZ-QUB63-PEK35-32IJ6-AF7U6-NAFP4'  //地图 //V6VBZ-XAR3U-OPUVN-2QV3E-M2WQ7-O7BG4
   },
   onLaunch: function () {
     // 展示本地存储能力

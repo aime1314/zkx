@@ -1,6 +1,8 @@
 // pages/other/siteshow.js
 const commRequest = require('../../utils/request.js');
 const commonFun = require('../../utils/util.js');
+var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
+var qqmapsdk;
 const app = getApp()
 
 Page({
@@ -13,8 +15,7 @@ Page({
     topbackflage: false,
     topclassName: 'title_index',
     topiconurl: '/images/back.png',
-    latitude: [], //纬度
-    longitude: [], //经度
+    address:null, //详情地址
     markers: [],
     mapControls: //地图控件
       [
@@ -43,15 +44,26 @@ Page({
   },
 
   getLocation: function (e) { //获取当前位置，并移动地图到当前位置
+    // 实例化API核心类
+    qqmapsdk = new QQMapWX({
+      key: app.globalData.mapkey
+    })
+
     var that = this
     wx.getLocation({
       type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
       success: function (res) {
-        console.log(res) //打印经纬度
-        that.setData({
-          longitude: res.longitude,
-          latitude: res.latitude,
+        qqmapsdk.reverseGeocoder({
+          location: '',
+          success: function (res) {
+            console.log(res)
+            that.setData({
+              address: res.result.address
+            })
+          }
+
         })
+
       }
     })
     this.myMapCtx.moveToLocation()
