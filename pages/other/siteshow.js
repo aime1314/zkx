@@ -15,6 +15,8 @@ Page({
     topbackflage: false,
     topclassName: 'title_index',
     topiconurl: '/images/back.png',
+    agentname:null,//回收站名称
+    agentinfoid:null, //回收站id
     address:null, //详情地址
     markers: [],
     mapControls: //地图控件
@@ -73,6 +75,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // let agentname = decodeURIComponent(options.agentname)
+    let agentname = options.agentname
+    let agentinfoid = options.agentinfoid
+    this.setData({
+      agentname: agentname,
+      agentinfoid: agentinfoid
+    })
     this.myMapCtx = wx.createMapContext("myMap", this)
     this.getLocation()
   },
@@ -90,6 +99,14 @@ Page({
   onShow: function () {
 
   },
+
+  //指定预约
+  gobuy:function(){
+    wx.navigateTo({
+      url: '/pages/buy/index?agentname=' + this.data.agentname + '&agentinfoid=' + this.data.agentinfoid
+    })
+  },
+
   toBack: function () {
     wx.navigateBack({
       delta: 1

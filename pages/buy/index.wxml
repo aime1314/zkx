@@ -71,11 +71,11 @@
 </view>
 
 
-<view class="cotantMsgBox">
+<view class="cotantMsgBox" wx-if="{{agentinfoid && agentinfoid != 0}}">
   <view class="cotantTitleBox2">
     <view class="timeTitle">预约站点</view>
     <view class="freeView">
-      无
+      {{agentname}}
     </view>
   </view>
 </view>

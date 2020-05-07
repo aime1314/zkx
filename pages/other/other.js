@@ -49,7 +49,7 @@ Page({
 
         })
 
-        commRequest.requestPostForm("/miniapp/order/nearby", { "latitude": latitude, "longitude": longitude}, (res) => {
+        commRequest.requestPostForm("/miniapp/order/nearby", { "latitude": 30.91803, "longitude": 121.4741}, (res) => {
           console.log(res)
           if(res.data.code == 200){
             that.setData({
@@ -83,9 +83,11 @@ Page({
       delta: 1
     })
   },
-  toshowsitemsg:function(){
+  toshowsitemsg:function(e){
+    let agentname = e.currentTarget.dataset.agentname
+    let agentinfoid = e.currentTarget.dataset.agentinfoid
     wx.navigateTo({
-      url: '/pages/other/siteshow',
+      url: '/pages/other/siteshow?agentname=' + encodeURIComponent(agentname) + '&agentinfoid=' + agentinfoid
     })
   },
   /**

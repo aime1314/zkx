@@ -19,7 +19,7 @@
     show-location
     >
     </map>
-    <view class="buyBtnBox">
+    <view class="buyBtnBox" bindtap="gobuy">
       立即预约
     </view>
 </view>

@@ -12,6 +12,8 @@ Page({
     topbackflage: false,
     topclassName: 'title_index',
     topiconurl: '/images/back.png',
+    agentname: null,//回收站名称
+    agentinfoid: 0, //回收站id 0：不是指定单
     priceMenu:[], //回收总类型
     recoveryclassTab:0, //当前类型
     recoveryPriceList:[], //价格明细
@@ -24,7 +26,6 @@ Page({
     bookingtype:1,//预约类型 1：预约上门  2：立即预约，
     bookingtypecurron:1, //
     isFree:0, //是否赠送  0：是赠送 1：是卖钱
-    nearbyList:[], // 周边回收站
     flag: 0, //当前输入字数
     noteMaxLen: 300, // 最多放多少字
     info: "",
@@ -35,11 +36,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (option) {
-    console.log(option.currontypeindex)
-    console.log(option.recoveryclassid)
-    console.log(this.data.date)
+    let agentname = decodeURIComponent(option.agentname)
+    let agentinfoid = option.agentinfoid
+    let recoveryclassid = option.recoveryclassid
     this.setData({
-      recoveryclassTab: option.recoveryclassid
+      agentname: agentname ? agentname:'',
+      agentinfoid: agentinfoid ? agentinfoid : 0,
+      recoveryclassTab: recoveryclassid ? recoveryclassid : ''
     })
   },
 
@@ -67,7 +70,7 @@ Page({
         maxprice: res.data.data.maxPrice,
         minprice: res.data.data.minPrice,
         unit: res.data.data.unit,
-        agentId:0
+        agentId: that.data.agentinfoid
       })
 
       for (var i = 0; i < that.data.priceMenu.length; i++) {
@@ -173,6 +176,7 @@ Page({
     let that = this;
     let data = {
       "addressId": that.data.defaultAddress.addressId,
+      "agentId": that.data.agentinfoid,
       "endTime": that.data.date + ' ' + that.data.time,
       "isFree": that.data.isFree,
       "recoveryClass": that.data.recoveryclassTab,
