@@ -22,19 +22,21 @@
 >
   <view class="orderListMsgBox" bindtap="orderListshow" wx:for="{{myordersList}}" wx:key="{{index}}" data-ordersn="{{item.orderSn}}">
     <view class="orderList_status">
-      <view class="orderList_Num">订单号：<text>{{item.orderId}}</text></view>
+      <view class="orderList_Num">订单号：<text>{{item.orderSn}}</text></view>
       <view class="orderList_type">
-        <text wx:if="{{item.orderType == 1}}">预约单</text>
+        <!-- <text wx:if="{{item.orderType == 1}}">预约单</text>
         <text wx:elif="{{item.orderType == 2}}">面对面</text>
         <text wx:elif="{{item.orderType == 3}}">指派单</text>
-        <text wx:elif="{{item.orderType == 4}}">赠送单</text>
+        <text wx:elif="{{item.orderType == 4}}">赠送单</text> -->
+        <text>{{item.orderType}}</text>
       </view>
       <view class="orderList_answer">
-        <text wx:if="{{item.commentStatus == 0}}">待回收</text>
-        <text wx:elif="{{item.commentStatus == 1}}">已回收</text>
-        <text wx:elif="{{item.commentStatus == 2}}">待评价</text>
-        <text wx:elif="{{item.commentStatus == 3}}">已评价</text>
-        <text wx:elif="{{item.commentStatus == 4}}">已取消</text>
+        <text wx:if="{{item.status == 0}}">待回收</text>
+        <text wx:elif="{{item.status == 1}}">
+        <text wx:if="{{item.commentStatus == 0}}">待评价</text>
+        <text wx:elif="{{item.commentStatus == 1}}">已评价</text>
+        </text>
+        <text wx:elif="{{item.status == 2}}">已取消</text>
       </view>
     </view>
     <view class="orderList_create">

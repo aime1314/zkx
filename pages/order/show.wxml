@@ -3,14 +3,14 @@
 <view class="container">
   <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
   <view class="orderMsgBox">
-    <text>订单编号： {{myorderdetails.orderId}}</text>
+    <text>订单编号： {{myorderdetails.orderSn}}</text>
     <text>下单时间： {{myorderdetails.createTime}} </text>
     <text>预约时间： {{myorderdetails.startTime}}</text>
   </view>
   <view class="ContactsBox">
     <view class="ContactsMsg">
       <view class="titleName">取货信息</view>
-      <view>回收员:<text>宋师傅</text><text>15005320532</text><a href="tel:15005320532"><image src="/images/tel.png" style="width:28rpx;" mode="widthFix"></image></a></view>
+      <view wx:if="{{myorderdetails.recoveryUserContact}}">回收员:<text>{{myorderdetails.recoveryUserName}}</text><text>{{myorderdetails.recoveryUserContact}}</text><a href="javascript:;" bindtap="calling"><image src="/images/tel.png" style="width:28rpx;" mode="widthFix"></image></a></view>
     </view>
     <view class="ContactsMsg2">
       <text>联系人： {{myorderdetails.contact}}</text>
@@ -23,30 +23,32 @@
       <view  class="titleName">商品信息</view>
      </view>
      <view class="ContactsMsg2">
-      <view>纸箱0.5/斤×6</view>
-      <view>硬塑料0.8/斤×8</view>
-      <view>玻璃瓶0.5/个*10</view>
+      <view wx:for="{{goodsList}}">
+        {{item.recoveryClassName}}   {{item.recoveryNumber}} * {{item.recoveryUnitPrice}}  {{item.recoveryClassPriceName}}  共：{{item.recoveryNumber*item.recoveryUnitPrice}}元
+      </view>
       <view><text style="color:#333;">备注信息</text>{{myorderdetails.remark}}</view>
       </view>
   </view>
   <view class="orderpriceBox">
-    <view><text>金额：<text style="color:#39B879; display:inline; font-weight:bold;">￥133</text></text></view>
-    <view><text>积分：<text style="color:#39B879; display:inline; font-weight:bold;">20</text></text></view>
+    <view wx:if="{{amonutmoney}}"><text>金额：<text style="color:#39B879; display:inline; font-weight:bold;">￥{{amonutmoney}}</text></text></view>
+    <view  wx:if="{{intergin}}"><text>积分：<text style="color:#39B879; display:inline; font-weight:bold;">{{intergin}}</text></text></view>
   </view>
 
 
-    <view  class="ContactsBox">
+    <view  class="ContactsBox" wx:if="{{myorderdetails.commentStatus == 1}}">
      <view class="ContactsMsg">
       <view  class="titleName">我的评价</view>
      </view>
-     <view class="ContactsMsg2">
-
+     <view class="ContactsMsg2" style="text-align:center;">
+        <view style="text-align:left;">{{orderCommentRes.createTime}}</view>
+        <view wx:for="{{orderCommentRes.level}}" style="display:inline-block; padding:20rpx 0;"><image src="/images/start1.png" mode="cover" style="width:52rpx; height:52rpx;"></image></view>
+        <view>{{orderCommentRes.content}}</view>
      </view>
     </view>
 
 
 
-  <view  class="ContactsBox">
+  <view  class="ContactsBox"  wx:if="{{myorderdetails.commentStatus == 0 && (myorderdetails.status != 0)}}">
      <view class="ContactsMsg">
       <view  class="titleName">订单评价</view>
      </view>
@@ -70,7 +72,7 @@
   </view>
 <!--发布按钮  -->
 <view class="btnSf">
-<button bindtap="bindSubmit">发布</button>
+<button bindtap="comment">发布</button>
 </view>
   </view>
 

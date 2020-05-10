@@ -13,7 +13,7 @@ Page({
     topclassName: 'title_index',
     topiconurl: '/images/back.png',
     agentname: null,//回收站名称
-    agentinfoid: 0, //回收站id 0：不是指定单
+    agentinfoid: null, //回收站id 0：不是指定单
     priceMenu:[], //回收总类型
     recoveryclassTab:0, //当前类型
     recoveryPriceList:[], //价格明细
@@ -41,7 +41,7 @@ Page({
     let recoveryclassid = option.recoveryclassid
     this.setData({
       agentname: agentname ? agentname:'',
-      agentinfoid: agentinfoid ? agentinfoid : 0,
+      agentinfoid: agentinfoid ? agentinfoid : 'null',
       recoveryclassTab: recoveryclassid ? recoveryclassid : ''
     })
   },

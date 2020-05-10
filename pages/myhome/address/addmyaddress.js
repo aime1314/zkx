@@ -1,6 +1,8 @@
 // pages/myhome/addmyaddress.js
 const commRequest = require('../../../utils/request.js');
 const commonFun = require('../../../utils/util.js');
+const app = getApp()
+
 Page({
 
   /**
@@ -27,6 +29,9 @@ Page({
    */
   onLoad: function (options) {
     let that = this
+    that.setData({
+      contactNumber: app.globalData.usermsg.phone ? app.globalData.usermsg.phone:''
+    })
     // if (options.addressid && options.defaultid){
     //   that.geteditmyaddress(options.addressid, options.defaultid)
     // }
@@ -50,22 +55,26 @@ Page({
   //获取电话
   getPhoneNumber(e) {
     var that = this;
+    console.log(app.globalData.userInfo)
     console.log(e.detail);
     if (e.detail.errMsg == "getPhoneNumber:ok") {
       //授权拿到手机号后要做解密处理
-      // wx.request({
-      //   url: '',
-      //   data: {
-      //     encryptedData: e.detail.encryptedData,
-      //     iv: e.detail.iv,
-      //     sessionKey: that.data.session_key,
-      //     uid: "",
-      //   },
-      //   method: "post",
-      //   success: function (res) {
-      //     console.log(res);
-      //   }
-      // })
+      let usermsg = {
+        // encryptedData: e.detail.encryptedData,
+        iv: e.detail.iv,
+        avatarUrl: app.globalData.userInfo.avatarUrl,
+        nickName: app.globalData.userInfo.nickName,
+        phone: e.detail.encryptedData
+      }
+      commRequest.requestPostForm("/miniapp/user/updateUserInfo", usermsg, (res) => {
+        if(res.data.code == 200){
+          this.onLoad()
+        }else{
+          wx.showToast({
+            title: res.data.message,
+          })
+        }
+      });
     }
   },
 

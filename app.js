@@ -6,6 +6,7 @@ App({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     platform:'xcx',
     code:null,
+    usermsg:{}, //用户信息
     category: -1,   //解决switchTab不支持传参 -1全部；0待回收；1已回收；2已取消；3待评价；4已评价
     mapkey: 'BOSBZ-QUB63-PEK35-32IJ6-AF7U6-NAFP4'  //地图 //V6VBZ-XAR3U-OPUVN-2QV3E-M2WQ7-O7BG4
   },
@@ -35,9 +36,12 @@ App({
                 data: { 'platform': 'xcx', 'wxcode': newcode},
                 header: { 'content-type': 'application/x-www-form-urlencoded' },
                 success(res) {
+                  that.globalData.usermsg = res.data.data
                   wx.setStorageSync('Token', res.data.data.loginToken)
                 }
               })
+            }else{
+              that.globalData.usermsg = res.data.data
             }
           }
         })

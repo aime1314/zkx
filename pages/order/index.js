@@ -64,11 +64,7 @@ Page({
       })
     }
     
-    console.log(app.globalData.category)
-    this.setData({
-      ordercurron: app.globalData.category
-    })
-    
+    console.log(app.globalData.category)    
   },
   getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo
@@ -119,6 +115,9 @@ Page({
         isLoadInterface: false,
       })
     });
+    that.setData({
+      ordercurron: category
+    })
   },
 
   // 查看其他分类 

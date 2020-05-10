@@ -12,8 +12,14 @@ Page({
     topbackflage: false,
     topclassName: 'title_index',
     topiconurl: '/images/back.png',
+    ordersn:'', //订单详情
     myorderdetails:{}, // 订单详情
-    flag: 0,
+    goodsList:[], //回收明细
+    amonutmoney:'', //订单总金额
+    intergin:'', //订单积分
+    phoneNumber:'', //回收员电话
+    orderCommentRes:[], //我的评价
+    flag: 0, //评星数量
     noteMaxLen: 300, // 最多放多少字
     info: "",
     noteNowLen: 0,//备注当前字数
@@ -25,6 +31,9 @@ Page({
   onLoad: function (options) {
     let that = this
     console.log(options.ordersn)
+    that.setData({
+      ordersn: options.ordersn
+    })
     that.getMyorderdetails(options.ordersn)
   },
   
@@ -34,8 +43,50 @@ Page({
     let that = this;
     commRequest.requestPostForm("/miniapp/order/details", {orderSn}, (res) => {
       that.setData({
-        myorderdetails:res.data.data
+        myorderdetails:res.data.data,
+        goodsList: res.data.data.goodsList,
+        phoneNumber: res.data.data.recoveryUserContact ? res.data.data.recoveryUserContact:''
       })
+
+      if (res.data.data.goodsList){
+        var price = []
+        for (var i = 0; i < res.data.data.goodsList.length; i++){
+          price.push(res.data.data.goodsList[i].recoveryNumber * res.data.data.goodsList[i].recoveryUnitPrice)
+        }
+        console.log(that.sum(price))
+        that.setData({
+          amonutmoney: that.sum(price) ? that.sum(price):'0'
+        })
+      }
+      if (res.data.data.orderCommentRes){
+        that.setData({
+          orderCommentRes: res.data.data.orderCommentRes
+        })
+        console.log(that.data.orderCommentRes)
+      }
+
+    });
+  },
+
+  //计算订单总金额
+  sum: function (arr){
+    return arr.reduce(function (prev, curr, idx, arr) {
+      return prev + curr
+    });
+  },
+
+  //评论订单
+  comment:function(){
+    let that = this;
+    let commentmsg = {
+      level: that.data.flag,
+      orderSn: that.data.ordersn,
+      content: that.data.info
+    }
+    commRequest.requestPostForm("/miniapp/order/comment", commentmsg, (res) => {
+      if(res.data.code == 200){
+        that.bindSubmit()
+      }
     });
   },
   toBack: function () {
@@ -72,6 +123,19 @@ Page({
 
   },
 
+  //拨打电话
+  calling: function () {
+    wx.makePhoneCall({
+      phoneNumber: this.data.phoneNumber,
+      success: function () {
+        console.log("拨打电话成功！")
+      },
+      fail: function () {
+        console.log("拨打电话失败！")
+      }
+    })
+  },
+
   // 监听字数
   bindTextAreaChange: function (e) {
     var that = this
@@ -92,6 +156,7 @@ Page({
       mask: false,
       success: function () {
         that.setData({ info: '', noteNowLen: 0, flag: 0 })
+        this.onLoad()
       }
     })
 
