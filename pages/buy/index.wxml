@@ -71,7 +71,7 @@
 </view>
 
 
-<view class="cotantMsgBox" wx-if="{{agentinfoid && agentinfoid != 0}}">
+<view class="cotantMsgBox" wx-if="{{agentinfoid && agentinfoid != 'null'}}">
   <view class="cotantTitleBox2">
     <view class="timeTitle">预约站点</view>
     <view class="freeView">

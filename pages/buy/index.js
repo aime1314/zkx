@@ -17,6 +17,8 @@ Page({
     priceMenu:[], //回收总类型
     recoveryclassTab:0, //当前类型
     recoveryPriceList:[], //价格明细
+    latitude: '', //用户所在地经度
+    longitude:'',  //用户所在地纬度
     maxprice:0, //最高回收价
     minprice:0, //最低回收价
     unit:null, //单位
@@ -44,6 +46,7 @@ Page({
       agentinfoid: agentinfoid ? agentinfoid : 'null',
       recoveryclassTab: recoveryclassid ? recoveryclassid : ''
     })
+    
   },
 
   /**
@@ -57,6 +60,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function (option) {
+    wx.getLocation({
+      type: 'wgs84',
+      success(res) {
+        const latitude = res.latitude
+        const longitude = res.longitude
+
+      }
+    })
     this.getPriceMenu(this.data.recoveryclassTab)
     this.getdefaultAddress()
   },
