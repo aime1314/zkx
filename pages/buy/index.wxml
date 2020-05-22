@@ -8,10 +8,10 @@
       <view class="{{recoveryclassTab == item.recoveryClassId ?'curron':''}}" wx:for="{{priceMenu}}" wx:key="{{item.recoveryClassId}}" bindtap="getPriceMenuList" data-recoveryclassid="{{item.recoveryClassId}}"><text>{{item.recoveryClassName}}</text></view>
     </view>
     <view class="buyPriceMsgbox">
-      <view class="todayMoneyBox">今日指导价:<text>{{minprice}}-{{maxprice}}</text>{{unit}}</view>
+      <view class="todayMoneyBox" wx:if="{{minprice || maxprice}}">今日指导价:<text>{{minprice}}-{{maxprice}}</text>{{unit}}</view>
         <block wx:for="{{recoveryPriceList}}" wx:key="{{item.name}}">
           <view class="todayMoneyListBox" >
-            <view><text>{{item.name}}</text>（{{item.classDesc}}）</view>
+            <view><text>{{item.name}}</text>{{item.classDesc}}</view>
             <view>{{item.price}}{{item.unit}}</view>
           </view> 
         </block>
@@ -23,7 +23,7 @@
 <view class="cotantMsgBox">
   <view class="cotantTitleBox">
     <view>上门回收地址</view>
-    <view bindtap="myaddress">地址簿</view>
+    <view bindtap="myaddress" data-addressbuy="1">地址簿</view>
   </view>
   <view class="cotantModeBox">
     <view class="firstView"> </view>
@@ -38,8 +38,8 @@
   <view class="cotantTitleBox2">
     <view class="timeTitle" data-bookingtype="1" bindtap="getbookingDate">预约时间</view>
     <view class="timeView">
-      <text class="{{bookingtypecurron == 1 ?'curron':''}}" data-bookingtype="1" bindtap="getbookingDate">预约上门</text>
       <text class="{{bookingtypecurron == 2 ?'curron':''}}" data-bookingtype="2" bindtap="getbookingDate">立即上门</text>
+      <text class="{{bookingtypecurron == 1 ?'curron':''}}" data-bookingtype="1" bindtap="getbookingDate">预约上门</text>
     </view>
   </view>
   <view class="cotantModeBox">
@@ -95,14 +95,14 @@
 </view>
 
 <!--文本域  -->
-  <view class="weui-cells_after-title">
+  <!-- <view class="weui-cells_after-title">
     <view class="weui-cell">
       <view class="weui-cell__bd">
         <textarea class="weui-textarea" bindinput="bindTextAreaChange" placeholder="我要备注..." style="height: 8em" value="{{info}}" maxlength="{{noteMaxLen}}" focus />
         <view class="weui-textarea-counter">{{noteNowLen}}/{{noteMaxLen}}</view>
       </view>
     </view>
-  </view>
+  </view> -->
 <!--发布按钮  -->
 <view class="btnSf">
 <button bindtap="getbookingOrder" >立即预约</button>

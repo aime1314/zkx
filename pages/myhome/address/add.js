@@ -17,6 +17,7 @@ Page({
     isLastPage: false,
     isLoadInterface: false,
     windowHeight: 0, //页面高度
+    addressbuy:null, // 获取设置地址来源
     defaultaddress:null, //设置默认收货地址
     newisDefault:0, //默认地址 0：否，1：是
   },
@@ -25,7 +26,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log(options.addressbuy)
+    if (options.addressbuy){
+      this.setData({
+        addressbuy: options.addressbuy
+      })
+    }
   },
 
   /**
@@ -63,7 +69,15 @@ Page({
         defaultaddress: addressId,
         newisDefault:1
       })
-      that.getdefaultaddList()
+      
+      if (that.data.addressbuy){
+        wx.navigateBack({
+          delta: 1
+        })
+      }else{
+        that.getdefaultaddList()
+      }
+      
     });
   },
 
@@ -87,8 +101,13 @@ Page({
     let that = this
     let addressid = e.currentTarget.dataset.addressid
     let defaultid = e.currentTarget.dataset.defaultid
+    let address = e.currentTarget.dataset.address
+    let province = e.currentTarget.dataset.province
+    let city = e.currentTarget.dataset.city
+    let area = e.currentTarget.dataset.area
+    let contact = e.currentTarget.dataset.contact
     wx.navigateTo({
-      url: '/pages/myhome/address/addmyaddress?addressid=' + addressid + '&defaultid=' + defaultid,
+      url: '/pages/myhome/address/addmyaddress?addressid=' + addressid + '&defaultid=' + defaultid + '&address=' + encodeURIComponent(address) + '&province='+ encodeURIComponent(province) + '&city='+encodeURIComponent(city)+'&area='+encodeURIComponent(area)+'&contact='+encodeURIComponent(contact)
     })
   },
   //删除

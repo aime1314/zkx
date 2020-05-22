@@ -2,7 +2,8 @@
 //获取应用实例
 const commRequest = require('../../utils/request.js');
 const commonFun = require('../../utils/util.js');
-const QR = require('../../utils/qrcode.js');
+var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
+var qqmapsdk;
 const app = getApp()
 Page({
   data: {
@@ -21,8 +22,15 @@ Page({
     duration: 500, //
     previousMargin: 0, //
     nextMargin: 0, //
+    address:null, //地址
+    area:null, //区
+    city:null, //市
+    province:null, //省
     faceCode:null,  //面对面二微码
-    faceFlag:false  //是否显示面对面
+    faceFlag:false,  //是否显示面对面
+    latitude: '', //用户经纬度
+    longitude: '',  //用户经纬度
+    address:null, //用户详细地址
     // userInfo: {}, //用户信息
     // hasUserInfo: false, //是否已授权
     // canIUse: app.globalData.canIUse, //授权按钮
@@ -61,11 +69,16 @@ Page({
         }
       })
     }
+    // 实例化API核心类
+    qqmapsdk = new QQMapWX({
+      key: app.globalData.mapkey  
+    })
   },
   onShow:function(){
-    this.getNotice()
-    this.getAdvBanner()
-    this.gettTypes()
+    let that = this
+    that.getNotice()
+    that.getAdvBanner()
+    that.gettTypes()
   },
   getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo
@@ -120,14 +133,51 @@ Page({
   //面对面收货
   getfaceshow:function(){
     let that = this
-    commRequest.requestPostForm("/miniapp/index/openQRcode", {}, (res) => {
-      // var base64 = wx.arrayBufferToBase64(res.data);
-      // console.log(res.data)
-      that.setData({
-        faceFlag:true,
-        faceCode: "data:image/png;base64," + res.data.data
-      })
-    });
+    qqmapsdk = new QQMapWX({
+      key: app.globalData.mapkey
+    })
+    let uservist= {} 
+    wx.getLocation({
+      type: 'wgs84',
+      success(res) {
+        const latitude = res.latitude
+        const longitude = res.longitude
+        const speed = res.speed
+        const accuracy = res.accuracy
+        qqmapsdk.reverseGeocoder({
+          location: '',
+          success: function (res) {
+            console.log(res)
+            uservist = {
+              // latitude: latitude,
+              // longitude: longitude,
+              area:res.result.address_component.district,
+              city:res.result.address_component.city,
+              province:res.result.address_component.province,
+              address:res.result.address,
+            }
+            commRequest.requestPostForm("/miniapp/index/openQRcode", uservist, (res) => {
+              // var base64 = wx.arrayBufferToBase64(res.data);
+              // console.log(res.data)
+              if(res.data.code == 200){
+                that.setData({
+                  faceFlag: true,
+                  faceCode: "data:image/png;base64," + res.data.data
+                })
+              }else{
+                wx.showToast({
+                  title: res.data.message,
+                  icon:'none'
+                })
+              }
+              
+            });
+          }
+
+        })
+        
+      }
+    })    
   },
 
 
@@ -169,7 +219,7 @@ Page({
   //拨打电话
   calling: function () {
     wx.makePhoneCall({
-      phoneNumber: '800-800-8800',
+      phoneNumber: '400-0633-345',
       success: function () {
         console.log("拨打电话成功！")
       },

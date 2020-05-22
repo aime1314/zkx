@@ -55,9 +55,12 @@
 }
 .orderList_type{
   color: #333;
+  width: 120rpx;
+  white-space: nowrap
 }
 .orderList_answer{
   color: #FF0000;
+  width: 100rpx;
 }
 .orderList_cancel,.orderList_evaluate2{
   color: #999;
@@ -67,7 +70,7 @@
 }
 .orderList_create{
   padding: 20rpx 0;
-  border-top: dashed 2rpx #999;
+  border-top: solid 1rpx #d7d7d7;
 }
 .orderList_create text{
   display: block;

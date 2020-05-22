@@ -14,11 +14,17 @@
     markers="{{markers}}"
     bindcontroltap="mapControlTap"
     bindregionchange="regionChanged"
-    bindtap="mapTap"
     bindmarkertap="mapMarker"
+    bindtap="mapTap"
     show-location
     >
     </map>
+    <!-- <view class="siteMsgBox">
+      <view>
+        青岛市崂山区宁夏路世纪花园社区回收站
+      </view>
+      <view></view>
+    </view> -->
     <view class="buyBtnBox" bindtap="gobuy">
       立即预约
     </view>

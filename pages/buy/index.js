@@ -1,6 +1,8 @@
 // pages/buy/index.js
 const commRequest = require('../../utils/request.js');
 const commonFun = require('../../utils/util.js');
+var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
+var qqmapsdk;
 const app = getApp()
 Page({
 
@@ -19,19 +21,25 @@ Page({
     recoveryPriceList:[], //价格明细
     latitude: '', //用户所在地经度
     longitude:'',  //用户所在地纬度
+    sysUserId:'', //定价查询
     maxprice:0, //最高回收价
     minprice:0, //最低回收价
+    address:null, //地址
+    area:null, //区
+    city:null, //市
+    province:null, //省
     unit:null, //单位
     defaultAddress:{},  //默认回收地址
     date: commonFun.formatTime(new Date).split(' ')[0],//当前日期
     time: commonFun.formatTime(new Date).split(' ')[1], //时间
-    bookingtype:1,//预约类型 1：预约上门  2：立即预约，
-    bookingtypecurron:1, //
-    isFree:0, //是否赠送  0：是赠送 1：是卖钱
+    bookingtype:1,//预约类型 1：预约上门  2：立即上门，
+    bookingtypecurron:2, //
+    isFree:1, //是否赠送  0：是赠送 1：是卖钱
     flag: 0, //当前输入字数
     noteMaxLen: 300, // 最多放多少字
     info: "",
     noteNowLen: 0,//备注当前字数
+    loadingTime:''  //定时器
   },
 
   /**
@@ -45,6 +53,10 @@ Page({
       agentname: agentname ? agentname:'',
       agentinfoid: agentinfoid ? agentinfoid : 'null',
       recoveryclassTab: recoveryclassid ? recoveryclassid : ''
+    })
+    // 实例化API核心类
+    qqmapsdk = new QQMapWX({
+      key: app.globalData.mapkey  
     })
     
   },
@@ -60,45 +72,90 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function (option) {
+    let that = this
     wx.getLocation({
       type: 'wgs84',
       success(res) {
         const latitude = res.latitude
         const longitude = res.longitude
+        qqmapsdk.reverseGeocoder({
+          location: '',
+          success: function (res) {
+            console.log(res)
+            that.setData({
+              address:res.result.address,
+              area:res.result.address_component.district,
+              city:res.result.address_component.city,
+              province:res.result.address_component.province,
+            })
+            that.getPriceMenu(that.data.recoveryclassTab)
+          }
 
+        })
+        
+        that.getdefaultAddress()
       }
     })
-    this.getPriceMenu(this.data.recoveryclassTab)
-    this.getdefaultAddress()
+    
   },
 
   //回收分类价格
   getPriceMenu: function (recoveryclassid) {
     let that = this
-    commRequest.requestPost("/miniapp/order/priceMenu", {}, (res) => {
-      that.setData({
-        priceMenu: res.data.data,
-        maxprice: res.data.data.maxPrice,
-        minprice: res.data.data.minPrice,
-        unit: res.data.data.unit,
-        agentId: that.data.agentinfoid
-      })
-
-      for (var i = 0; i < that.data.priceMenu.length; i++) {
-        if (recoveryclassid == that.data.priceMenu[i].recoveryClassId) {
-          that.setData({
-            recoveryPriceList: that.data.priceMenu[i].recoveryPriceList.sort(function (a, b) {
-              return a.price - b.price
-            }),
-            recoveryclassTab: recoveryclassid,
-            maxprice: that.data.priceMenu[i].maxPrice,
-            minprice: that.data.priceMenu[i].minPrice,
-            unit: that.data.priceMenu[i].unit,
-          })
+    let vist = {
+      // latitude: that.data.latitude,
+      // longitude: that.data.longitude
+      province:that.data.province,
+      city:that.data.city,
+      area:that.data.area,
+      address:that.data.address
+    }
+    commRequest.requestPostForm("/miniapp/order/priceMenu", vist, (res) => {
+      if(res.data.code == 200){
+        that.setData({
+          priceMenu: res.data.data,
+        })
+        for (var i = 0; i < res.data.data.length; i++) {
+          if (recoveryclassid == that.data.priceMenu[i].recoveryClassId) {
+            that.setData({
+              recoveryPriceList: that.data.priceMenu[i].recoveryPriceList.sort(function (a, b) {
+                return a.price - b.price
+              }),
+              recoveryclassTab: recoveryclassid,
+              maxprice: that.data.priceMenu[i].maxPrice,
+              minprice: that.data.priceMenu[i].minPrice,
+              unit: that.data.priceMenu[i].unit,
+              agentId: that.data.priceMenu[i].agentinfoid,
+              sysUserId: that.data.priceMenu[i].sysUserId
+            })
+          }
         }
+      }else if(res.data.code == 500){
+        wx.showToast({
+          title: res.data.message,
+          icon:'none',
+          success(res){
+            that.setData({
+              loadingTime:setInterval(function(){
+                console.log('定时器')
+                wx.navigateBack({
+                  delta: 1
+                })
+              },3000)
+            })
+            
+          }
+        })
+      }else{
+        wx.showToast({
+          title: res.data.message,
+          icon:'none',
+        })
       }
+     
     });
   },
+  
 
 //查询其他分类价格
   getPriceMenuList: function (event){
@@ -114,6 +171,8 @@ Page({
           maxprice: that.data.priceMenu[i].maxPrice,
           minprice: that.data.priceMenu[i].minPrice,
           unit: that.data.priceMenu[i].unit,
+          agentId: that.data.priceMenu[i].agentinfoid,
+          sysUserId: that.data.priceMenu[i].sysUserId
         })
       }
     }
@@ -186,6 +245,7 @@ Page({
   getbookingOrder:function(){
     let that = this;
     let data = {
+      "sysUserId": that.data.sysUserId,
       "addressId": that.data.defaultAddress.addressId,
       "agentId": that.data.agentinfoid,
       "endTime": that.data.date + ' ' + that.data.time,
@@ -202,9 +262,19 @@ Page({
           noteNowLen: 0, 
           flag: 0,
            })
-        wx.switchTab({
-          url: '/pages/order/index',
-        })
+           wx.showToast({
+             title: '预约成功',
+             icon:'success',
+             duration: 1500,
+             mask: false,
+             success: function () {
+               that.setData({ info: '', noteNowLen: 0, flag: 0 })
+               wx.switchTab({
+                 url: '/pages/order/index',
+               })
+             }
+           })
+        
       }else{
         wx.showToast({
           title: res.data.message,
@@ -215,9 +285,10 @@ Page({
   },
 
   //我的地址簿
-  myaddress:function(){
+  myaddress:function(e){
+    let addressbuy = e.currentTarget.dataset.addressbuy
     wx.navigateTo({
-      url: '/pages/myhome/address/add',
+      url: '/pages/myhome/address/add?addressbuy=' + addressbuy,
     })
   },
   toBack: function () {
@@ -260,7 +331,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    clearInterval(this.date.loadingTime)
   },
 
   /**

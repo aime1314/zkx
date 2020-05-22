@@ -5,6 +5,17 @@
 .myvisit image{
   margin-right: 10rpx;
 }
+.siteMsgBox{
+  position: absolute;
+  z-index: 998;
+  background: #fff;
+  color: #333;
+  width: 80%;
+  left: 10%;
+  bottom: 120rpx;
+  border-radius: 20rpx;
+  height: 100rpx;
+}
 .buyBtnBox{
   position: absolute;
   z-index: 999;

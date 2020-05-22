@@ -13,7 +13,7 @@
      手机号码
     </text>
     <input type="tel" value="{{contactNumber}}" bindinput="bindNumberInput"   placeholder="收货人手机号码"></input>
-    <button class='pop_btn' plain="true" open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber">获取手机号</button>
+    <button class='pop_btn' plain="true" open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber" wx:if="{{!contactNumber}}">获取手机号</button>
   </view>
   <view class="addressMsgBox">
     <text>
@@ -21,7 +21,7 @@
     </text>
     <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
     <view class="picker">
-      当前选择：{{region[0]}}，{{region[1]}}，{{region[2]}}
+      当前选择：{{region[0]}}{{region[1]}}{{region[2]}}
     </view>
   </picker>
   </view>

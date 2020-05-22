@@ -10,7 +10,7 @@
     </view>
     <view class="{{addusType == 0? 'curron': ''}}" data-addtype="0" bindtap="getaddtype">
     <image src="/images/my/shop.png" mode="cover" style="width:160rpx; height:160rpx;"></image>
-      <text>加盟回收站</text>
+      <text>加盟服务站</text>
     </view>
   </view>
 
@@ -25,9 +25,10 @@
   </view>
 
   <view class="addaboutjoinusBox2">
-    回收员须知：
+    加盟须知：
     <view>
-      这里是须知文本，这里是须知文本，这里是须知文 本，这里是须知文本，这里是须知文本，这里是须知文 本，这里是须知文
+      青春是挽不回的水，转眼消失在指尖，用力的浪费，在用力的后悔，不要沉溺于过去，接受新生活，新自己，新的团队。
+      <view>在这里，你能收获的不仅仅是高薪，还有技能、知识和家人！收拾行李，寻找新的自己，加入我们吧！</view>
     </view>
   </view>
 

@@ -18,7 +18,8 @@
     "pages/other/siteshow",
     "component/login/login",
     "component/foot/foot",
-    "pages/qr/index"
+    "pages/qr/index",
+    "component/nodata/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

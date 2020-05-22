@@ -1,0 +1,6 @@
+<!--component/nodata/index.wxml-->
+<template name="nodata">
+  <view class="nodata">
+    暂无数据
+  </view>
+</template>

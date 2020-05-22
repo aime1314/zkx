@@ -10,7 +10,7 @@
   <view class="ContactsBox">
     <view class="ContactsMsg">
       <view class="titleName">取货信息</view>
-      <view wx:if="{{myorderdetails.recoveryUserContact}}">回收员:<text>{{myorderdetails.recoveryUserName}}</text><text>{{myorderdetails.recoveryUserContact}}</text><a href="javascript:;" bindtap="calling"><image src="/images/tel.png" style="width:28rpx;" mode="widthFix"></image></a></view>
+      <view wx:if="{{myorderdetails.recoveryUserContact}}">回收员:<text>{{myorderdetails.recoveryUserName}}</text><text bindtap="calling">{{myorderdetails.recoveryUserContact}}</text><a href="javascript:;" bindtap="calling"><image src="/images/tel.png" style="width:28rpx;" mode="widthFix"></image></a></view>
     </view>
     <view class="ContactsMsg2">
       <text>联系人： {{myorderdetails.contact}}</text>
@@ -22,11 +22,14 @@
      <view class="ContactsMsg">
       <view  class="titleName">商品信息</view>
      </view>
-     <view class="ContactsMsg2">
+     <view class="ContactsMsg2" wx:if="{{goodsList.lenght > 0}}">
       <view wx:for="{{goodsList}}">
         {{item.recoveryClassName}}   {{item.recoveryNumber}} * {{item.recoveryUnitPrice}}  {{item.recoveryClassPriceName}}  共：{{item.recoveryNumber*item.recoveryUnitPrice}}元
       </view>
-      <view><text style="color:#333;">备注信息</text>{{myorderdetails.remark}}</view>
+      <!-- <view><text style="color:#333;">备注信息</text>{{myorderdetails.remark}}</view> -->
+      </view>
+      <view wx:else style="text-align:center;  color:#ccc; padding-top:30rpx;">
+        暂无商品信息
       </view>
   </view>
   <view class="orderpriceBox">

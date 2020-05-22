@@ -86,6 +86,11 @@ Page({
     commRequest.requestPostForm("/miniapp/order/comment", commentmsg, (res) => {
       if(res.data.code == 200){
         that.bindSubmit()
+      }else{
+        wx.showToast({
+          title: '请输入评价信息',
+          icon:'none',
+        })
       }
     });
   },

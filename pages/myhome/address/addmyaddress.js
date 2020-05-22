@@ -17,11 +17,12 @@ Page({
     contactNumber: '',//联系电话
     region: ['省/市/区', ' ', ' '],  //默认地
     customItem: ' ',
-    addressMsg:{},
-    province:'', //省
-    city:'', //市
-    area:'',//区
-    address:''  //详细地址
+    wxCode:'',//小程序 code
+    addressMsg: {},
+    province: '', //省
+    city: '', //市
+    area: '',//区
+    address: ''  //详细地址
   },
 
   /**
@@ -30,11 +31,24 @@ Page({
   onLoad: function (options) {
     let that = this
     that.setData({
-      contactNumber: app.globalData.usermsg.phone ? app.globalData.usermsg.phone:''
+      contactNumber: app.globalData.usermsg.phone ? app.globalData.usermsg.phone : '',
+      contact:options.contact ? decodeURIComponent(options.contact):'',
+      address:options.address ? decodeURIComponent(options.address):'',
+      region:options.province ? [decodeURIComponent(options.province)+'-',decodeURIComponent(options.city)+'-',decodeURIComponent(options.area)]: ['省/市/区', ' ', ' ']
     })
     // if (options.addressid && options.defaultid){
     //   that.geteditmyaddress(options.addressid, options.defaultid)
     // }
+    wx.login({
+      success: res => {
+        console.log(res.code)
+        that.setData({
+          wxCode:res.code
+        })
+        
+      }
+      
+    })
   },
 
   /**
@@ -64,12 +78,16 @@ Page({
         iv: e.detail.iv,
         avatarUrl: app.globalData.userInfo.avatarUrl,
         nickName: app.globalData.userInfo.nickName,
-        phone: e.detail.encryptedData
+        phone: e.detail.encryptedData,
+        wxCode: that.data.wxCode,
       }
       commRequest.requestPostForm("/miniapp/user/updateUserInfo", usermsg, (res) => {
-        if(res.data.code == 200){
-          this.onLoad()
-        }else{
+        if (res.data.code == 200) {
+          that.setData({
+            contactNumber: res.data.data.phone
+          })
+          // this.onLoad()
+        } else {
           wx.showToast({
             title: res.data.message,
           })
@@ -92,7 +110,7 @@ Page({
     })
   },
 
-//省市区
+  //省市区
   bindRegionChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
@@ -108,7 +126,7 @@ Page({
   },
 
   //添加地址
-  getaddmyaddress:function(){
+  getaddmyaddress: function () {
     let that = this
     let addressRequest = {
       "contact": that.data.contact,
@@ -116,14 +134,14 @@ Page({
       "province": that.data.region[0],
       "city": that.data.region[1],
       "area": that.data.region[2],
-      "address": that.data.address,      
+      "address": that.data.region[0]+that.data.region[1]+that.data.region[2]+that.data.address,
     }
     commRequest.requestPost("/miniapp/address/save", JSON.stringify(addressRequest), (res) => {
-      if(res.data.data){
+      if (res.data.data) {
         wx.navigateTo({
           url: '/pages/myhome/address/add',
         })
-      }else{
+      } else {
         wx.showToast({
           title: res.data.message,
         })

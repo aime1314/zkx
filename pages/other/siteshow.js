@@ -18,31 +18,64 @@ Page({
     agentname:null,//回收站名称
     agentinfoid:null, //回收站id
     address:null, //详情地址
-    markers: [],
-    mapControls: //地图控件
-      [
-        { //定位
-          id: 0,
-          position: { //相对定位
-            left: app.globalData.scWidth * 0.03,
-            top: app.globalData.scHeight * 0.9,
-            width: app.globalData.scWidth * 0.1
-          },
-          iconPath: "/images/vist.png",
-          width:30,
-          clickable: true
-        },
-        { //我的
-          id: 1,
-          position: { //相对定位
-            left: app.globalData.scWidth * 0.87,
-            top: app.globalData.scHeight * 0.9,
-            width: app.globalData.scWidth * 0.1
-          },
-          iconPath: "/images/vist.png",
-          clickable: true
-        },
-      ]
+    markers: [
+      // {
+      //   id: 0,
+      //   iconPath: "/images/site.png",
+      //   latitude: 31.23037,
+      //   longitude: 121.4737,
+      //   callout: {
+      //     content: "世纪花园社区回收站\r\n距离：57米\r\n电话：13818101725",
+      //     bgColor: "#fff",
+      //     padding: "10px",
+      //     borderRadius: "5px",
+      //     borderWidth: "2px",
+      //     borderColor: "#07c160",
+      //     display: "ALWAYS"
+      //   },
+      //   width: 25,
+      //   height: 32,
+      //   clickable: true
+      // },
+      // {
+      //   id: 1,
+      //   iconPath: "/images/site.png",
+      //   latitude: 31.23037,
+      //   longitude: 121.4737+0.001,
+      //   callout: {
+      //     content: "世纪花园社区回收站\r\n距离：300米\r\n电话：13818101725",
+      //     bgColor: "#fff",
+      //     padding: "10px",
+      //     borderRadius: "5px",
+      //     borderWidth: "2px",
+      //     borderColor: "#07c160",
+      //   },
+      //   width: 25,
+      //   height: 32,
+      //   clickable: true
+      // },
+      // {
+      //   id: 2,
+      //   iconPath: "/images/site.png",
+      //   latitude: 31.23037,
+      //   longitude: 121.4737 + 0.002,
+      //   callout: {
+      //     content: "世纪花园社区回收站\r\n距离：500米\r\n电话：13818101725",
+      //     bgColor: "#fff",
+      //     padding: "10px",
+      //     borderRadius: "5px",
+      //     borderWidth: "2px",
+      //     borderColor: "#07c160",
+      //   },
+      //   width: 25,
+      //   height: 32,
+      //   clickable: true
+      // }
+    ],
+    mapControls: [
+      
+    ], //地图控件
+      
   },
 
   getLocation: function (e) { //获取当前位置，并移动地图到当前位置
@@ -78,9 +111,33 @@ Page({
     // let agentname = decodeURIComponent(options.agentname)
     let agentname = options.agentname
     let agentinfoid = options.agentinfoid
+    let latitude = options.latitude
+    let longitude = options.longitude
+    let distance = options.distance
+    let address = options.address
     this.setData({
       agentname: agentname,
-      agentinfoid: agentinfoid
+      agentinfoid: agentinfoid,
+      markers:[
+        {
+        id: 0,
+        iconPath: "/images/site.png",
+        latitude: latitude,
+        longitude: longitude,
+        callout: {
+          content: "名称：" + decodeURIComponent(agentname) + "\r\地址：" + decodeURIComponent(address) + "\r\n距离：" + distance + "米",
+          bgColor: "#fff",
+          padding: "10px",
+          borderRadius: "5px",
+          borderWidth: "2px",
+          borderColor: "#07c160",
+          display: "ALWAYS"
+        },
+        width: 25,
+        height: 32,
+        clickable: true
+      },
+      ]
     })
     this.myMapCtx = wx.createMapContext("myMap", this)
     this.getLocation()
@@ -99,6 +156,8 @@ Page({
   onShow: function () {
 
   },
+
+
 
   //指定预约
   gobuy:function(){

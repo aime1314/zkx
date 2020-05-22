@@ -30,7 +30,7 @@
   <view class="oerdertypeBox">
     <block wx:for="{{indexTypes}}" wx:key="{{item.recoveryClassId}}">
       <view bindtap="toBuy" data-recoveryclassid="{{item.recoveryClassId}}" data-currontypeindex="{{index}}">
-        <text class="typeiconBox"><image src="{{item.picurl}}"  class="ordericon" mode="widthFix"></image></text>
+        <view class="typeiconBox"><image src="{{item.picurl}}"  class="ordericon" mode="widthFix"></image></view>
         <text class="typenameBox">{{item.className}}</text>
       </view>
     </block>
@@ -50,14 +50,14 @@
   <view class="severBox">
     <view bindtap="othersite">
       <image src="/images/index/other.png" style="width:50%" mode="widthFix"></image>
-      <text class="severtype">周边回收站</text>
+      <text class="severtype">周边服务站</text>
       <text class="severtip">预约上门\n省时省力</text>
     </view>
 
     <view bindtap="calling">
       <image src="/images/index/other.png" style="width:50%" mode="widthFix"></image>
       <text class="severtype">联系客服</text>
-      <text class="severtip">800-800-8880</text>
+      <text class="severtip">400-0633-345</text>
     </view>
 
     <view>

@@ -42,6 +42,8 @@ Page({
           location: '',
           success: function (res) {
             console.log(res)
+            console.log(res.result.address_component)
+            console.log(res.result.address_component.province+res.result.address_component.city+res.result.address_component.district)
               that.setData({
                 address: res.result.address
               })
@@ -49,7 +51,7 @@ Page({
 
         })
 
-        commRequest.requestPostForm("/miniapp/order/nearby", { "latitude": 30.91803, "longitude": 121.4741}, (res) => {
+        commRequest.requestPostForm("/miniapp/order/nearby", { "latitude": latitude, "longitude": longitude}, (res) => {
           console.log(res)
           if(res.data.code == 200){
             that.setData({
@@ -86,8 +88,12 @@ Page({
   toshowsitemsg:function(e){
     let agentname = e.currentTarget.dataset.agentname
     let agentinfoid = e.currentTarget.dataset.agentinfoid
+    let latitude = e.currentTarget.dataset.latitude
+    let longitude = e.currentTarget.dataset.longitude
+    let distance = e.currentTarget.dataset.distance
+    let address = e.currentTarget.dataset.address
     wx.navigateTo({
-      url: '/pages/other/siteshow?agentname=' + encodeURIComponent(agentname) + '&agentinfoid=' + agentinfoid
+      url: '/pages/other/siteshow?agentname=' + encodeURIComponent(agentname) + '&agentinfoid=' + agentinfoid + '&latitude=' + latitude + '&longitude=' + longitude + '&distance=' + distance + '&address=' + encodeURIComponent(address)
     })
   },
   /**

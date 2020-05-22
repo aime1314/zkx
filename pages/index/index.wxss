@@ -104,16 +104,23 @@
 .oerdertypeBox view .typeiconBox{
   width: 110rpx;
   height: 110rpx;
+  display: inline-block;
   background: #fefefe;
-  border-radius: 50%;
+  border-radius: 55rpx;
   display: block;
   margin: 10rpx auto;
   overflow: hidden;
+  position: relative;
+  padding: 0;
 }
 .oerdertypeBox view .ordericon{
   display: block;
   margin: 10rpx auto;
-  width: 100%;
+  width: 120%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .faceBox{
   padding:30rpx 0 0 0;

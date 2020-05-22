@@ -16,7 +16,7 @@
   <view class="personOrderTypeBox">
     <view class="myhometitleBox">
       <view class="titleName">我的订单</view>
-      <view>全部订单</view>
+      <!-- <view>全部订单</view> -->
     </view>
     <view class="personOrderTypemsg">
       <view wx:for="{{orderTypeList}}" data-category="{{item.category}}" bindtap="gomyOrderList">
@@ -52,7 +52,7 @@
       </view>
       <view class="msgListTypeshow">
         <view>联系我们</view>
-        <view bindtap="calling">800-800-8800<image src="/images/my/next.png" class="widthIcon" mode="cover"></image></view>
+        <view bindtap="calling">400-0633-345<image src="/images/my/next.png" class="widthIcon" mode="cover"></image></view>
       </view>
       <view class="msgListTypeshow" bindtap="tofeedback">
         <view>问题反馈</view>

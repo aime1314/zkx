@@ -7,6 +7,8 @@ App({
     platform:'xcx',
     code:null,
     usermsg:{}, //用户信息
+    latitude:'', //用户经纬度
+    longitude: '',  //用户经纬度
     category: -1,   //解决switchTab不支持传参 -1全部；0待回收；1已回收；2已取消；3待评价；4已评价
     mapkey: 'BOSBZ-QUB63-PEK35-32IJ6-AF7U6-NAFP4'  //地图 //V6VBZ-XAR3U-OPUVN-2QV3E-M2WQ7-O7BG4
   },
@@ -23,7 +25,6 @@ App({
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         that.globalData.code = res.code
         let newcode = res.code;
-        console.log(wx.getStorageSync('Token'))
         wx.request({
           url: that.globalData.host + '/miniapp/login/heartbeat',
           method: "post",
@@ -67,6 +68,19 @@ App({
         }
       }
     })
+
+    //获取用户经纬度
+    // wx.getLocation({
+    //   type: 'wgs84',
+    //   success(res) {
+    //     const latitude = res.latitude
+    //     const longitude = res.longitude
+    //     const speed = res.speed
+    //     const accuracy = res.accuracy
+    //     this.globalData.latitude = res.latitude
+    //     this.globalData.longitude = res.longitude
+    //   }
+    // })
     //检验是否已过期
     wx.checkSession({
       success() {

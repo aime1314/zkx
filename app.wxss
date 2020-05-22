@@ -33,3 +33,8 @@ page{
   vertical-align: middle;
   padding-left: 20rpx;
 }
+.nodata{
+  text-align: center;
+  color: #ccc;
+  padding-top: 100rpx;
+}
