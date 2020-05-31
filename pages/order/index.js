@@ -14,8 +14,9 @@ Page({
     topiconurl: '',
     myordersList: [],  //我的订单列表  
     category: app.globalData.category, 
-    page: 1,  //加载页面
+    page: 1,  //加载当前页
     rows: 10, //每页记录
+    totalPage:null, //总页数
     isLastPage: false,
     isLoadInterface: false,
     windowHeight:0, //页面高度
@@ -23,7 +24,7 @@ Page({
       { category: -1, ordertypename: '全部' }, 
       { category: 0, ordertypename: '待回收' }, 
       { category: 1, ordertypename: '已回收' }, 
-      { category: 2, ordertypename: '待评价' },
+      // { category: 2, ordertypename: '待评价' },
       { category: 3, ordertypename: '已评价' }, 
       // { category: 4, ordertypename: '已取消' },
     ],  //订单分类
@@ -37,6 +38,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '加载中',
+    })
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -79,7 +83,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    
   },
 
   /**
@@ -112,8 +116,10 @@ Page({
       that.setData({
         myordersList: res.data.data.rows,
         page: res.data.data.page,
+        totalPage: res.data.data.totalPage,
         isLoadInterface: false,
       })
+      wx.hideLoading()
     });
     that.setData({
       ordercurron: category
@@ -122,6 +128,9 @@ Page({
 
   // 查看其他分类 
   getotherOrderList:function(e){
+    wx.showLoading({
+      title: '加载中',
+    })
     let that = this
     let newordercategory = e.currentTarget.dataset.category
     that.setData({
@@ -135,17 +144,39 @@ Page({
   nextDataPage: function () {
     let that = this;
     let islastVar = that.data.isLastPage;
+    let page = that.data.page;  // 获取当前页
+    let neworderList = [];
     if (!that.data.isLoadInterface) {
       if (!islastVar) {
         //防止在接口未执行完再次调用接口
         that.setData({
           isLoadInterface: true
         })
-
-        let page = that.data.page * 1 + 1;
-
-        that.getMyorders(that.data.ordercurron,page);
-
+        if(page < that.data.totalPage){
+          page += 1  // 加载下一页
+        }else{
+          page = that.data.totalPage
+        }
+        let param = {
+          "category": that.data.ordercurron,
+          "pageNo": page,
+          "pageSize": that.data.rows
+        }
+        commRequest.requestPostForm("/miniapp/order/myorders", param, (res) => {
+          if(res.data.code == 200){
+            neworderList = res.data.data.rows.concat(that.data.myordersList)
+            that.setData({
+              myordersList: neworderList,
+              page: page,
+              totalPage: res.data.data.totalPage,
+            })
+          }else{
+            wx.showToast({
+              title: res.data.message,
+              icon:'none'
+            })
+          }
+        })
       }
     }
 

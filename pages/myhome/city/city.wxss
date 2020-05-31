@@ -21,6 +21,7 @@
   flex-wrap: wrap;
 }
 .cityMsgBox .cityListshow text{
-  width: 20%;
+  width: 33%;
   display: block;
+  white-space: nowrap;
 }

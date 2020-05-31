@@ -1,8 +1,6 @@
 // pages/buy/index.js
 const commRequest = require('../../utils/request.js');
 const commonFun = require('../../utils/util.js');
-var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
-var qqmapsdk;
 const app = getApp()
 Page({
 
@@ -13,7 +11,7 @@ Page({
     toptitle: '预约回收',
     topbackflage: false,
     topclassName: 'title_index',
-    topiconurl: '/images/back.png',
+    topiconurl: 'icon_back',
     agentname: null,//回收站名称
     agentinfoid: null, //回收站id 0：不是指定单
     priceMenu:[], //回收总类型
@@ -32,7 +30,7 @@ Page({
     defaultAddress:{},  //默认回收地址
     date: commonFun.formatTime(new Date).split(' ')[0],//当前日期
     time: commonFun.formatTime(new Date).split(' ')[1], //时间
-    bookingtype:1,//预约类型 1：预约上门  2：立即上门，
+    bookingtype:2,//预约类型 1：预约上门  2：立即上门，
     bookingtypecurron:2, //
     isFree:1, //是否赠送  0：是赠送 1：是卖钱
     flag: 0, //当前输入字数
@@ -54,10 +52,6 @@ Page({
       agentinfoid: agentinfoid ? agentinfoid : 'null',
       recoveryclassTab: recoveryclassid ? recoveryclassid : ''
     })
-    // 实例化API核心类
-    qqmapsdk = new QQMapWX({
-      key: app.globalData.mapkey  
-    })
     
   },
 
@@ -73,29 +67,8 @@ Page({
    */
   onShow: function (option) {
     let that = this
-    wx.getLocation({
-      type: 'wgs84',
-      success(res) {
-        const latitude = res.latitude
-        const longitude = res.longitude
-        qqmapsdk.reverseGeocoder({
-          location: '',
-          success: function (res) {
-            console.log(res)
-            that.setData({
-              address:res.result.address,
-              area:res.result.address_component.district,
-              city:res.result.address_component.city,
-              province:res.result.address_component.province,
-            })
-            that.getPriceMenu(that.data.recoveryclassTab)
-          }
-
-        })
-        
-        that.getdefaultAddress()
-      }
-    })
+    that.getPriceMenu(that.data.recoveryclassTab)
+    that.getdefaultAddress()
     
   },
 
@@ -105,10 +78,10 @@ Page({
     let vist = {
       // latitude: that.data.latitude,
       // longitude: that.data.longitude
-      province:that.data.province,
-      city:that.data.city,
-      area:that.data.area,
-      address:that.data.address
+      area:app.globalData.area,
+      city:app.globalData.city,
+      province:app.globalData.province,
+      address:app.globalData.address,
     }
     commRequest.requestPostForm("/miniapp/order/priceMenu", vist, (res) => {
       if(res.data.code == 200){
@@ -131,19 +104,16 @@ Page({
           }
         }
       }else if(res.data.code == 500){
-        wx.showToast({
-          title: res.data.message,
-          icon:'none',
-          success(res){
-            that.setData({
-              loadingTime:setInterval(function(){
-                console.log('定时器')
-                wx.navigateBack({
-                  delta: 1
-                })
-              },3000)
-            })
-            
+        wx.showModal({
+          title: '友情提示',
+          content: res.data.message,
+          showCancel:false,
+          success (res) {
+            if (res.confirm) {
+              wx.navigateBack({
+                delta: 1
+              })
+            }
           }
         })
       }else{
@@ -324,14 +294,15 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    console.log('我离开了')
+    const that = this
+    that.clearTimeInterval(that)
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    clearInterval(this.date.loadingTime)
   },
 
   /**

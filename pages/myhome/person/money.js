@@ -10,7 +10,7 @@ Page({
     toptitle: '我的收入',
     topbackflage: false,
     topclassName: 'title_index',
-    topiconurl: '/images/back.png',
+    topiconurl: 'icon_back',
     monthIncome:'', // 本月收入
     todayIncome:'',  // 今天收入
     totalIncome:'',  // 总收入

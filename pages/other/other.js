@@ -1,11 +1,7 @@
 // pages/other/other.js
 const commRequest = require('../../utils/request.js');
 const commonFun = require('../../utils/util.js');
-var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
-var qqmapsdk;
 const app = getApp()
-
-
 Page({
 
   /**
@@ -15,7 +11,7 @@ Page({
     toptitle: '周边回收站',
     topbackflage: false,
     topclassName: 'title_index',
-    topiconurl: '/images/back.png',
+    topiconurl: 'icon_back',
     nearbyList: [], // 周边回收站
     address:null, //详情地址
 
@@ -26,45 +22,19 @@ Page({
    */
   onLoad: function (options) {
     let that = this
-    // 实例化API核心类
-    qqmapsdk = new QQMapWX({
-      key: app.globalData.mapkey  
+    that.setData({
+      address:app.globalData.address
     })
-
-    wx.getLocation({
-      type: 'wgs84',
-      success(res) {
-        const latitude = res.latitude
-        const longitude = res.longitude
-        const speed = res.speed
-        const accuracy = res.accuracy
-        qqmapsdk.reverseGeocoder({
-          location: '',
-          success: function (res) {
-            console.log(res)
-            console.log(res.result.address_component)
-            console.log(res.result.address_component.province+res.result.address_component.city+res.result.address_component.district)
-              that.setData({
-                address: res.result.address
-              })
-          }
-
+    console.log(app.globalData.latitude)
+    commRequest.requestPostForm("/miniapp/order/nearby", { "latitude": app.globalData.latitude, "longitude": app.globalData.longitude}, (res) => {
+      console.log(res)
+      if(res.data.code == 200){
+        that.setData({
+          nearbyList: res.data.data
         })
-
-        commRequest.requestPostForm("/miniapp/order/nearby", { "latitude": latitude, "longitude": longitude}, (res) => {
-          console.log(res)
-          if(res.data.code == 200){
-            that.setData({
-              nearbyList: res.data.data
-            })
-          }
-         
-
-        });
-
-
+        console.log(that.data.nearbyList)
       }
-    })
+    });
   },
 
   /**

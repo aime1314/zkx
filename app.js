@@ -9,6 +9,10 @@ App({
     usermsg:{}, //用户信息
     latitude:'', //用户经纬度
     longitude: '',  //用户经纬度
+    address:null, //地址
+    area:null, //区
+    city:null, //市
+    province:null, //省
     category: -1,   //解决switchTab不支持传参 -1全部；0待回收；1已回收；2已取消；3待评价；4已评价
     mapkey: 'BOSBZ-QUB63-PEK35-32IJ6-AF7U6-NAFP4'  //地图 //V6VBZ-XAR3U-OPUVN-2QV3E-M2WQ7-O7BG4
   },
@@ -44,6 +48,9 @@ App({
             }else{
               that.globalData.usermsg = res.data.data
             }
+          },
+          complete (res){
+            console.log(res)
           }
         })
       }
@@ -69,18 +76,6 @@ App({
       }
     })
 
-    //获取用户经纬度
-    // wx.getLocation({
-    //   type: 'wgs84',
-    //   success(res) {
-    //     const latitude = res.latitude
-    //     const longitude = res.longitude
-    //     const speed = res.speed
-    //     const accuracy = res.accuracy
-    //     this.globalData.latitude = res.latitude
-    //     this.globalData.longitude = res.longitude
-    //   }
-    // })
     //检验是否已过期
     wx.checkSession({
       success() {

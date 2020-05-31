@@ -7,7 +7,7 @@
 <view class="myvisit">
   <image src="/images/vist.png" mode="cover" style="width:26rpx; height:32rpx;"></image>当前位置：{{address}}
 </view>
-<block  wx:if="{{nearbyList.lenght > 0}}">
+<block  wx:if="{{nearbyList.length != 0}}">
   <view class="siteListBox" wx:for="{{nearbyList}}" bindtap="toshowsitemsg" data-agentname="{{item.agentName}}" data-latitude="{{item.latitude}}" data-address="上海市奉贤区青村镇振兴路6号" data-longitude="{{item.longitude}}"  data-distance="{{item.distance}}" data-agentinfoid="{{item.agentInfoId}}">
     <view class="siteLogoBox" >
         <image src="/images/5b9a26c71bb22@2x.png"  mode="cover" style="width:90rpx; height:100rpx;"></image>

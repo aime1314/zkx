@@ -10,7 +10,7 @@ Page({
     toptitle: '用户反馈',
     topbackflage: false,
     topclassName: 'title_index',
-    topiconurl: '/images/back.png',
+    topiconurl: 'icon_back',
 
     noteMaxLen: 300, // 最多放多少字
     info: "",

@@ -9,10 +9,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    toptitle: '新建地址',
+    toptitle: '',
     topbackflage: false,
     topclassName: 'title_index',
-    topiconurl: '/images/back.png',
+    topiconurl: 'icon_back',
     contact: '', //联系人
     contactNumber: '',//联系电话
     region: ['省/市/区', ' ', ' '],  //默认地
@@ -22,7 +22,8 @@ Page({
     province: '', //省
     city: '', //市
     area: '',//区
-    address: ''  //详细地址
+    address: '',  //详细地址
+    addressid:'', //地址ID
   },
 
   /**
@@ -31,11 +32,21 @@ Page({
   onLoad: function (options) {
     let that = this
     that.setData({
+      addressid:options.addressid ? options.addressid : '',
       contactNumber: app.globalData.usermsg.phone ? app.globalData.usermsg.phone : '',
       contact:options.contact ? decodeURIComponent(options.contact):'',
       address:options.address ? decodeURIComponent(options.address):'',
       region:options.province ? [decodeURIComponent(options.province)+'-',decodeURIComponent(options.city)+'-',decodeURIComponent(options.area)]: ['省/市/区', ' ', ' ']
     })
+    if(options.contact && options.address && options.province){
+      that.setData({
+        toptitle:'修改地址'
+      })
+    }else{
+      that.setData({
+        toptitle:'新建地址'
+      })
+    }
     // if (options.addressid && options.defaultid){
     //   that.geteditmyaddress(options.addressid, options.defaultid)
     // }
@@ -76,8 +87,8 @@ Page({
       let usermsg = {
         // encryptedData: e.detail.encryptedData,
         iv: e.detail.iv,
-        avatarUrl: app.globalData.userInfo.avatarUrl,
-        nickName: app.globalData.userInfo.nickName,
+        avatarUrl: app.globalData.userInfo?app.globalData.userInfo.avatarUrl:'',
+        nickName: app.globalData.userInfo?app.globalData.userInfo.nickName:'',
         phone: e.detail.encryptedData,
         wxCode: that.data.wxCode,
       }
@@ -86,7 +97,7 @@ Page({
           that.setData({
             contactNumber: res.data.data.phone
           })
-          // this.onLoad()
+          console.log(that.data.contactNumber)
         } else {
           wx.showToast({
             title: res.data.message,
@@ -125,28 +136,49 @@ Page({
     })
   },
 
-  //添加地址
+  //添加、修改地址
   getaddmyaddress: function () {
     let that = this
-    let addressRequest = {
-      "contact": that.data.contact,
-      "contactNumber": that.data.contactNumber,
-      "province": that.data.region[0],
-      "city": that.data.region[1],
-      "area": that.data.region[2],
-      "address": that.data.region[0]+that.data.region[1]+that.data.region[2]+that.data.address,
-    }
-    commRequest.requestPost("/miniapp/address/save", JSON.stringify(addressRequest), (res) => {
-      if (res.data.data) {
-        wx.navigateTo({
-          url: '/pages/myhome/address/add',
-        })
-      } else {
-        wx.showToast({
-          title: res.data.message,
-        })
+    let addressRequest = {}
+    if(that.data.toptitle == '修改地址'){
+      addressRequest = {
+        "addressId":that.data.addressid,
+        "contact": that.data.contact,
+        "contactNumber": that.data.contactNumber,
+        "province": that.data.region[0],
+        "city": that.data.region[1],
+        "area": that.data.region[2],
+        "address": that.data.region[0]+that.data.region[1]+that.data.region[2]+that.data.address,
       }
-    });
+    }else{
+      addressRequest = {
+        "contact": that.data.contact,
+        "contactNumber": that.data.contactNumber,
+        "province": that.data.region[0],
+        "city": that.data.region[1],
+        "area": that.data.region[2],
+        "address": that.data.region[0]+that.data.region[1]+that.data.region[2]+that.data.address,
+      }
+    }
+    if(addressRequest.province &&　addressRequest.province != '省/市/区' && that.data.region[0] && that.data.region[1] && that.data.region[2] && that.data.contact && that.data.contactNumber && that.data.contactNumber.length == 11 &&　that.data.address &&　that.data.address != '省/市/区'){
+      commRequest.requestPost("/miniapp/address/save", JSON.stringify(addressRequest), (res) => {
+        if (res.data.data) {
+          wx.navigateTo({
+            url: '/pages/myhome/address/add',
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+          })
+        }
+      });
+    }else{
+      wx.showToast({
+        title: '您填写的信息有误，请重新填写',
+        icon:'none'
+      })
+    }
+    
   },
 
   //编辑地址

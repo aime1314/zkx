@@ -10,7 +10,7 @@ Page({
     toptitle: '纸壳侠',
     topbackflage:false,
     topclassName:'title_index',
-    topiconurl:'/images/logo.png',
+    topiconurl:'icon_home',
     imgUrls: [], //banner图
     rollData: [], //通知公告
     indexTypes: [], //回收类型
@@ -42,6 +42,10 @@ Page({
     })
   },
   onLoad: function () {
+    wx.showLoading({
+      title: '加载中',
+    })
+
     //授权处理
     if (app.globalData.userInfo) {
       this.setData({
@@ -73,6 +77,89 @@ Page({
     qqmapsdk = new QQMapWX({
       key: app.globalData.mapkey  
     })
+    
+    // this.again_getLocation()
+    this.getUserLocation()
+    
+  },
+
+  again_getLocation:function(){
+    let that = this;
+    // 获取位置信息
+    wx.getSetting({
+      success: (res) => {
+        console.log(res)
+        if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {//非初始化进入该页面,且未授权
+          wx.showModal({
+            title: '是否授权当前位置',
+            content: '需要获取您的地理位置，请确认授权，否则无法获取您所需数据',
+            success: function (res) {
+              console.log(res)
+              if (res.cancel) {
+                wx.showToast({
+                  title: '授权失败',
+                  icon: 'success',
+                  duration: 1000
+                })
+              } else if (res.confirm) {
+                wx.openSetting({
+                  success: function (dataAu) {
+                    console.log(dataAu)
+                    if (dataAu.authSetting["scope.userLocation"] == true) {
+                      wx.showToast({
+                        title: '授权成功',
+                        icon: 'success',
+                        duration: 1000
+                      })
+                      //再次授权，调用getLocationt的API
+                      that.getUserLocation(that);
+                    } else {
+                      wx.showToast({
+                        title: '授权失败',
+                        icon: 'success',
+                        duration: 1000
+                      })
+                    }
+                  }
+                })
+              }
+            }
+          })
+        } else if (res.authSetting['scope.userLocation'] == undefined) {//初始化进入
+          that.getUserLocation(that);
+        }
+        else { //授权后默认加载
+          that.getUserLocation(that);
+        }
+      }
+    })
+
+  },
+
+  //用户定位
+  getUserLocation:function(){
+    wx.getLocation({
+      type: 'wgs84',
+      success(res) {
+        const latitude = res.latitude
+        const longitude = res.longitude
+        const speed = res.speed
+        const accuracy = res.accuracy
+        app.globalData.latitude = latitude
+        app.globalData.longitude = longitude
+        qqmapsdk.reverseGeocoder({
+          location: '',
+          success: function (res) {
+            app.globalData.area = res.result.address_component.district
+            app.globalData.city = res.result.address_component.city
+            app.globalData.province = res.result.address_component.province
+            app.globalData.address = res.result.address
+          }
+
+        })
+        
+      }
+    })
   },
   onShow:function(){
     let that = this
@@ -90,14 +177,33 @@ Page({
   toBuy: function (e) {
     let recoveryclassid = e.currentTarget.dataset.recoveryclassid
     let currontypeindex = e.currentTarget.dataset.currontypeindex
-    wx.navigateTo({
-      url: '/pages/buy/index?recoveryclassid=' + recoveryclassid + '&currontypeindex=' + currontypeindex,
-    })
+    if(!app.globalData.address && !app.globalData.province && !app.globalData.city && !app.globalData.area){
+      // wx.showToast({
+      //   title: '纸壳侠回收需要获取你的地址位置，请关闭微信重新授权',
+      //   icon:'none',
+      //   duration: 4000
+      // })
+      this.again_getLocation()
+    }else{
+      wx.navigateTo({
+        url: '/pages/buy/index?recoveryclassid=' + recoveryclassid + '&currontypeindex=' + currontypeindex,
+      })
+    }
   },
   othersite:function(){
-    wx.navigateTo({
-      url: '/pages/other/other',
-    })
+    if(!app.globalData.address && !app.globalData.province && !app.globalData.city && !app.globalData.area){
+      // wx.showToast({
+      //   title: '纸壳侠回收需要获取你的地址位置，请关闭微信重新授权',
+      //   icon:'none',
+      //   duration: 4000
+      // })
+      this.again_getLocation()
+    }else{
+      wx.navigateTo({
+        url: '/pages/other/other',
+      })
+    }
+    
   },
 
   //通知信息
@@ -127,57 +233,56 @@ Page({
       that.setData({
         indexTypes: res.data.data
       })
+      wx.hideLoading()
     });
   },
 
   //面对面收货
   getfaceshow:function(){
     let that = this
-    qqmapsdk = new QQMapWX({
-      key: app.globalData.mapkey
-    })
-    let uservist= {} 
-    wx.getLocation({
-      type: 'wgs84',
-      success(res) {
-        const latitude = res.latitude
-        const longitude = res.longitude
-        const speed = res.speed
-        const accuracy = res.accuracy
-        qqmapsdk.reverseGeocoder({
-          location: '',
-          success: function (res) {
-            console.log(res)
-            uservist = {
-              // latitude: latitude,
-              // longitude: longitude,
-              area:res.result.address_component.district,
-              city:res.result.address_component.city,
-              province:res.result.address_component.province,
-              address:res.result.address,
+    let uservist = {
+      latitude: app.globalData.latitude,
+      longitude: app.globalData.longitude,
+      area:app.globalData.area,
+      city:app.globalData.city,
+      province:app.globalData.province,
+      address:app.globalData.address,
+    }
+    console.log(uservist)
+    if(!app.globalData.address && !app.globalData.province && !app.globalData.city && !app.globalData.area){
+      // wx.showToast({
+      //   title: '纸壳侠回收需要获取你的地址位置，请重新授权',
+      //   icon:'none',
+      //   duration: 4000
+      // })
+      that.again_getLocation()
+    }else{
+      commRequest.requestPostForm("/miniapp/index/openQRcode", uservist, (res) => {
+        // console.log(res.data)
+        if(res.data.code == 200){
+          that.setData({
+            faceFlag: true,
+            faceCode: "data:image/png;base64," + res.data.data
+          })
+        }else{
+          // wx.showToast({
+          //   title: res.data.message,
+          //   icon:'none'
+          // })
+          wx.showModal({
+            title: '友情提示',
+            content: res.data.message,
+            showCancel:false,
+            success (res) {
+  
             }
-            commRequest.requestPostForm("/miniapp/index/openQRcode", uservist, (res) => {
-              // var base64 = wx.arrayBufferToBase64(res.data);
-              // console.log(res.data)
-              if(res.data.code == 200){
-                that.setData({
-                  faceFlag: true,
-                  faceCode: "data:image/png;base64," + res.data.data
-                })
-              }else{
-                wx.showToast({
-                  title: res.data.message,
-                  icon:'none'
-                })
-              }
-              
-            });
-          }
-
-        })
+          })
+        }
         
-      }
-    })    
+      });
+    }
+    
+    
   },
 
 

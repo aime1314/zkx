@@ -11,7 +11,7 @@ Page({
     toptitle: '加盟我们',
     topbackflage: false,
     topclassName: 'title_index',
-    topiconurl: '/images/back.png',
+    topiconurl: 'icon_back',
     addusType:1,  //1:回收员  0：加盟商
     applicant:null,  //姓名
     contactNumber:null,  //联系电话

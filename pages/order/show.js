@@ -11,7 +11,7 @@ Page({
     toptitle: '订单详情',
     topbackflage: false,
     topclassName: 'title_index',
-    topiconurl: '/images/back.png',
+    topiconurl: 'icon_back',
     ordersn:'', //订单详情
     myorderdetails:{}, // 订单详情
     goodsList:[], //回收明细

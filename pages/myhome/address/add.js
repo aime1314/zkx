@@ -10,10 +10,11 @@ Page({
     toptitle: '我的地址',
     topbackflage: false,
     topclassName: 'title_index',
-    topiconurl: '/images/back.png',
+    topiconurl: 'icon_back',
     defaultaddList:[],   //我的地址
-    page: 1,  //加载页面
-    rows: 5, //每页记录
+    page: 1,  //加载当前页
+    rows: 10, //每页记录
+    totalPage:null, //总页数
     isLastPage: false,
     isLoadInterface: false,
     windowHeight: 0, //页面高度
@@ -91,7 +92,10 @@ Page({
     commRequest.requestPostForm("/miniapp/address/myAddress", param, (res) => {
       that.setData({
         defaultaddList:res.data.data.rows,
-        defaultaddress: res.data.data.rows.addressId
+        defaultaddress: res.data.data.rows.addressId,
+        page: res.data.data.page,
+        totalPage: res.data.data.totalPage,
+        isLoadInterface: false,
       })
     });
   },
@@ -131,7 +135,7 @@ Page({
 
   toBack: function () {
     wx.navigateBack({
-      delta: 2
+      delta: 1
     })
   },
   addmyaddress:function(){

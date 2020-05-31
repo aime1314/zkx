@@ -4,11 +4,12 @@
   justify-content: space-between;
   align-content: center;
   align-items: center;
-  font-size: 28rpx;
+  font-size: 32rpx;
   padding: 0 20rpx;
   border-bottom: solid 20rpx #F1F1F1;
 }
 .orderListBox view{
+  width: 24%;
   text-align: center;
   color: #999;
   position: relative;
@@ -22,7 +23,7 @@
 .orderListBox view.curron text{
   font-weight: bold;
   color: #333;
-  font-size: 28rpx;
+  font-size: 32rpx;
 }
 .orderListBox view.curron text:before{
   content: '';

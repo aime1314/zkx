@@ -52,6 +52,9 @@
   text-align: center;
   padding-top: 30rpx;
 }
+.personOrderTypemsg view{
+  width: 33%;
+}
 .personOrderTypemsg .personOrderIcon{
   width: 60rpx; 
   height: 55rpx;

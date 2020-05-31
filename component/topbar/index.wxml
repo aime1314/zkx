@@ -1,7 +1,8 @@
 <template name="topbar">
   <view class="custom">
     <view class="{{topclassName}}">
-      <image src="{{topiconurl}}" style="width:72rpx" mode="widthFix" bindtap="toBack" wx:if="{{topiconurl}}"></image>
+      <!-- <image src="{{topiconurl}}" style="width:72rpx" mode="widthFix" bindtap="toBack" wx:if="{{topiconurl}}"></image> -->
+      <view class="{{topiconurl}}" bindtap="toBack" wx:if="{{topiconurl}}"></view>
       <text>{{toptitle}}</text>
     </view>
   </view>

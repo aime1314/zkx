@@ -10,7 +10,7 @@ Page({
     toptitle: '覆盖城市',
     topbackflage: false,
     topclassName: 'title_index',
-    topiconurl: '/images/back.png',
+    topiconurl: 'icon_back',
     hotcityList:[],
   },
 

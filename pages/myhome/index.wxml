@@ -8,7 +8,8 @@
     <image src="/images/my/personbg.png" style="width:100%" mode="widthFix" ></image>
     <view class="personPhoto">
       <view class="userinfo">
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="width:140rpx; padding:0; margin:0; height:140rpx; border-radius: 70rpx;"><text style="display:block; padding-top:20rpx;">获取</text><text>头像</text></button>
+        <image wx:if="{{userInfo.avatarUrl}}" bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
         <text class="userinfo-nickname">{{userInfo.nickName}}</text>
       </view>
     </view>
@@ -59,5 +60,5 @@
         <view><image src="/images/my/next.png" class="widthIcon" mode="cover"></image></view>
       </view>
   </view>
-  <template  is="login" data="{{hasUserInfo,canIUse,getUserInfo}}" />
+  <!-- <template  is="login" data="{{hasUserInfo,canIUse,getUserInfo}}" /> -->
 </view>

@@ -14,7 +14,7 @@ Page({
       // { category: -1, ordertypename: '全部', picurl:''},
       { category: 0, ordertypename: '待回收', picurl: '/images/my/icon_wartting.png'},
       { category: 1, ordertypename: '已回收', picurl: '/images/my/icon_wart.png'},
-      { category: 2, ordertypename: '待评价', picurl: '/images/my/icon_talking.png'},
+      // { category: 2, ordertypename: '待评价', picurl: '/images/my/icon_talking.png'},
       { category: 3, ordertypename: '已评价', picurl: '/images/my/icon_talk.png'},
       // { category: 4, ordertypename: '已取消', picurl: '/images/my/icon_cannel.png'},
     ],  //订单分类
@@ -28,6 +28,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -56,12 +57,17 @@ Page({
     }
   },
   getUserInfo: function (e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
+    if(e.detail.userInfo){
+      app.globalData.userInfo = e.detail.userInfo
+      this.setData({
+        userInfo: e.detail.userInfo,
+        hasUserInfo: true
+      })
+    }else{
+      this.setData({
+        hasUserInfo: false
+      })
+    }
   },
 
   gomyOrderList:function(e){

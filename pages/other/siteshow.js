@@ -14,7 +14,7 @@ Page({
     toptitle: '站点详情',
     topbackflage: false,
     topclassName: 'title_index',
-    topiconurl: '/images/back.png',
+    topiconurl: 'icon_back',
     agentname:null,//回收站名称
     agentinfoid:null, //回收站id
     address:null, //详情地址

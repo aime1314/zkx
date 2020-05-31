@@ -38,10 +38,9 @@
       </view>
     </view>
   </view>
-
-
-
   </view>
+
   </block>
+  <view wx:if="{{totalList.length == 0}}"  style="text-align:center; padding-top:50rpx; color:#999;"> 暂无数据</view>
 
 </view>
