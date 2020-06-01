@@ -51,11 +51,11 @@ Page({
       if (res.data.data.goodsList){
         var price = []
         for (var i = 0; i < res.data.data.goodsList.length; i++){
-          price.push(res.data.data.goodsList[i].recoveryNumber * res.data.data.goodsList[i].recoveryUnitPrice)
+          price.push(Number((Number(res.data.data.goodsList[i].recoveryNumber*100) * Number(res.data.data.goodsList[i].recoveryUnitPrice*100)/10000).toFixed(2)))
         }
-        console.log(that.sum(price))
+        // console.log(price)
         that.setData({
-          amonutmoney: that.sum(price) ? that.sum(price):'0'
+          amonutmoney: that.sum(price) ? that.sum(price).toFixed(2):'0'
         })
       }
       if (res.data.data.orderCommentRes){
@@ -70,6 +70,7 @@ Page({
 
   //计算订单总金额
   sum: function (arr){
+    console.log(arr)
     return arr.reduce(function (prev, curr, idx, arr) {
       return prev + curr
     });

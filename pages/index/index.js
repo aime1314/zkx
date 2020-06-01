@@ -241,8 +241,8 @@ Page({
   getfaceshow:function(){
     let that = this
     let uservist = {
-      latitude: app.globalData.latitude,
-      longitude: app.globalData.longitude,
+      // latitude: app.globalData.latitude,
+      // longitude: app.globalData.longitude,
       area:app.globalData.area,
       city:app.globalData.city,
       province:app.globalData.province,

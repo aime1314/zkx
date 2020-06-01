@@ -22,9 +22,9 @@
      <view class="ContactsMsg">
       <view  class="titleName">商品信息</view>
      </view>
-     <view class="ContactsMsg2" wx:if="{{goodsList.lenght > 0}}">
+     <view class="ContactsMsg2" wx:if="{{goodsList.lenght != 0}}">
       <view wx:for="{{goodsList}}">
-        {{item.recoveryClassName}}   {{item.recoveryNumber}} * {{item.recoveryUnitPrice}}  {{item.recoveryClassPriceName}}  共：{{item.recoveryNumber*item.recoveryUnitPrice}}元
+        {{item.recoveryClassName}}   {{item.recoveryNumber}} * {{item.recoveryUnitPrice}}  {{item.recoveryClassPriceName}}  共：{{((item.recoveryNumber*100)*(item.recoveryUnitPrice*100))/10000}}元
       </view>
       <!-- <view><text style="color:#333;">备注信息</text>{{myorderdetails.remark}}</view> -->
       </view>
