@@ -28,8 +28,8 @@ Page({
     province:null, //省
     unit:null, //单位
     defaultAddress:{},  //默认回收地址
-    date: commonFun.formatTime(new Date).split(' ')[0],//当前日期
-    time: commonFun.formatTime(new Date).split(' ')[1], //时间
+    date:'',//当前日期
+    time:'', //时间
     bookingtype:2,//预约类型 1：预约上门  2：立即上门，
     bookingtypecurron:2, //
     isFree:1, //是否赠送  0：是赠送 1：是卖钱
@@ -50,8 +50,11 @@ Page({
     this.setData({
       agentname: agentname ? agentname:'',
       agentinfoid: agentinfoid ? agentinfoid : 'null',
-      recoveryclassTab: recoveryclassid ? recoveryclassid : ''
+      recoveryclassTab: recoveryclassid ? recoveryclassid : '',
+      date: commonFun.formatTime(new Date).split(' ')[0],
+      time: commonFun.formatTime(new Date).split(' ')[1],
     })
+    console.log(this.data.date + this.data.time)
     
   },
 

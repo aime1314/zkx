@@ -72,6 +72,6 @@
 <view class="faceBoxDailog" wx:if="{{faceFlag}}" bindtap="getfaceclose">
   <image src="{{faceCode}}" class="qrcodeimg"  mode="widthFix"></image>
 </view>
-<!-- <template is="login" data="{{hasUserInfo,canIUse,getUserInfo}}" /> -->
+<template is="login" data="{{hasUserInfo,canIUse,getUserInfo}}" />
 <template is="foot"></template>
 </view>

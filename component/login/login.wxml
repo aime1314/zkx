@@ -1,8 +1,8 @@
 <template name="login">
-  <view class="maskshow" wx:if="{{!hasUserInfo}}">
+  <view class="maskshow" wx:if="{{hasUserInfo == 0}}">
     <view class="loginTipsBox">
-      <text>为了更好体验纸壳侠小程序，请您先微信授权登录</text>
-      <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">获取头像 </button>
+      <text>为了更好体验纸壳侠小程序，请您先微信授权获取您的微信基本信息</text>
+      <button  open-type="getUserInfo" bindgetuserinfo="getUserInfo">立即授权 </button>
     </view>
   </view>
 </template>
