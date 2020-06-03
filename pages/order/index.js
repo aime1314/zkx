@@ -24,9 +24,8 @@ Page({
       { category: -1, ordertypename: '全部' }, 
       { category: 0, ordertypename: '待回收' }, 
       { category: 1, ordertypename: '已回收' }, 
-      // { category: 2, ordertypename: '待评价' },
-      { category: 3, ordertypename: '已评价' }, 
-      // { category: 4, ordertypename: '已取消' },
+      { category: 4, ordertypename: '已评价' }, 
+      { category: 2, ordertypename: '已取消' },
     ],  //订单分类
     ordercurron: -1,  //订单选择 //订单类型  订单类型：-1全部；0待回收；1已回收；2已取消；3待评价；4已评价
     userInfo: {}, //用户信息

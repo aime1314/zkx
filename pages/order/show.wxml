@@ -1,82 +1,92 @@
 <import src="../../component/topbar/index.wxml" />
 <import src="../../component/foot/foot.wxml" />
 <view class="container">
-  <template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
-  <view class="orderMsgBox">
-    <text>订单编号： {{myorderdetails.orderSn}}</text>
-    <text>下单时间： {{myorderdetails.createTime}} </text>
-    <text>预约时间： {{myorderdetails.startTime}}</text>
-  </view>
-  <view class="ContactsBox">
-    <view class="ContactsMsg">
-      <view class="titleName">取货信息</view>
-      <view wx:if="{{myorderdetails.recoveryUserContact}}">回收员:<text>{{myorderdetails.recoveryUserName}}</text><text bindtap="calling">{{myorderdetails.recoveryUserContact}}</text><a href="javascript:;" bindtap="calling"><image src="/images/tel.png" style="width:28rpx;" mode="widthFix"></image></a></view>
-    </view>
-    <view class="ContactsMsg2">
-      <text>联系人： {{myorderdetails.contact}}</text>
-      <text>联系方式： {{myorderdetails.contactNumber}}</text>
-      <text>取货地址： {{myorderdetails.address}}</text>
-    </view>
-  </view>
-  <view  class="ContactsBox">
-     <view class="ContactsMsg">
-      <view  class="titleName">商品信息</view>
-     </view>
-     <view class="ContactsMsg2" wx:if="{{goodsList.lenght != 0}}">
-      <view wx:for="{{goodsList}}">
-        {{item.recoveryClassName}}   {{item.recoveryNumber}} * {{item.recoveryUnitPrice}}  {{item.recoveryClassPriceName}}  共：{{((item.recoveryNumber*100)*(item.recoveryUnitPrice*100))/10000}}元
+	<template is="topbar" data="{{toptitle,topiconurl,topbackflage,topclassName,toBack}}" />
+	<view class="orderMsgBox">
+		<text>订单编号： {{myorderdetails.orderSn}}</text>
+		<text>下单时间： {{myorderdetails.createTime}} </text>
+		<text>预约时间： {{myorderdetails.startTime}}</text>
+	</view>
+	<view class="ContactsBox">
+		<view class="ContactsMsg">
+			<view class="titleName">取货信息</view>
+			<view wx:if="{{myorderdetails.recoveryUserContact}}">回收员:<text>{{myorderdetails.recoveryUserName}}</text><text bindtap="calling">{{myorderdetails.recoveryUserContact}}</text><a href="javascript:;" bindtap="calling">
+					<image src="/images/tel.png" style="width:28rpx;" mode="widthFix"></image>
+				</a></view>
+		</view>
+		<view class="ContactsMsg2">
+			<text>联系人： {{myorderdetails.contact}}</text>
+			<text>联系方式： {{myorderdetails.contactNumber}}</text>
+			<text>取货地址： {{myorderdetails.address}}</text>
+		</view>
+	</view>
+	<view class="ContactsBox">
+		<view class="ContactsMsg">
+			<view class="titleName">商品信息</view>
+		</view>
+		<view class="ContactsMsg2" wx:if="{{goodsList}}">
+			<view wx:for="{{goodsList}}">
+				{{item.recoveryClassName}} {{item.recoveryNumber}} * {{item.recoveryUnitPrice}} {{item.recoveryClassPriceName}} 共：{{((item.recoveryNumber*100)*(item.recoveryUnitPrice*100))/10000}}元
+			</view>
+			<!-- <view><text style="color:#333;">备注信息</text>{{myorderdetails.remark}}</view> -->
+		</view>
+		<view wx:else style="text-align:center;  color:#ccc; padding-top:30rpx;">
+			暂无商品信息
+		</view>
+	</view>
+	<view class="orderpriceBox">
+		<view wx:if="{{amonutmoney}}"><text>金额：<text style="color:#39B879; display:inline; font-weight:bold;">￥{{amonutmoney}}</text></text></view>
+		<view wx:if="{{intergin}}"><text>积分：<text style="color:#39B879; display:inline; font-weight:bold;">{{intergin}}</text></text></view>
+	</view>
+
+
+	<view class="ContactsBox" wx:if="{{myorderdetails.commentStatus == 1}}">
+		<view class="ContactsMsg">
+			<view class="titleName">我的评价</view>
+		</view>
+		<view class="ContactsMsg2" style="text-align:center;">
+			<view style="text-align:left;">{{orderCommentRes.createTime}}</view>
+			<view wx:for="{{orderCommentRes.level}}" style="display:inline-block; padding:20rpx 0;">
+				<image src="/images/start1.png" mode="cover" style="width:52rpx; height:52rpx;"></image>
+			</view>
+			<view>{{orderCommentRes.content}}</view>
+		</view>
+	</view>
+
+	<view class="ContactsBox" wx:if="{{myorderdetails.status == 1}}">
+		<view wx:if="{{myorderdetails.commentStatus == 0 }}">
+			<view class="ContactsMsg">
+				<view class="titleName">订单评价</view>
+			</view>
+			<view class="comment1-description">
+				<view class="star-pos" style="display:flex;flex-direction:row;">
+					<view class="stars  {{flag>=1? 'on': ''}}" bindtap="changeColor1"></view>
+					<view class="stars  {{flag>=2? 'on': ''}}" bindtap="changeColor2"></view>
+					<view class="stars  {{flag>=3? 'on': ''}}" bindtap="changeColor3"></view>
+					<view class="stars  {{flag>=4? 'on': ''}}" bindtap="changeColor4"></view>
+					<view class="stars  {{flag>=5? 'on': ''}}" bindtap="changeColor5"></view>
+				</view>
+			</view>
+			<!--文本域  -->
+			<view class="weui-cells_after-title">
+				<view class="weui-cell">
+					<view class="weui-cell__bd">
+						<textarea class="weui-textarea" bindinput="bindTextAreaChange" placeholder="我要评价..." style="height: 8em" value="{{info}}" maxlength="{{noteMaxLen}}" focus />
+						<view class="weui-textarea-counter">{{noteNowLen}}/{{noteMaxLen}}</view>
+          </view>
+        </view>
       </view>
-      <!-- <view><text style="color:#333;">备注信息</text>{{myorderdetails.remark}}</view> -->
-      </view>
-      <view wx:else style="text-align:center;  color:#ccc; padding-top:30rpx;">
-        暂无商品信息
-      </view>
-  </view>
-  <view class="orderpriceBox">
-    <view wx:if="{{amonutmoney}}"><text>金额：<text style="color:#39B879; display:inline; font-weight:bold;">￥{{amonutmoney}}</text></text></view>
-    <view  wx:if="{{intergin}}"><text>积分：<text style="color:#39B879; display:inline; font-weight:bold;">{{intergin}}</text></text></view>
-  </view>
-
-
-    <view  class="ContactsBox" wx:if="{{myorderdetails.commentStatus == 1}}">
-     <view class="ContactsMsg">
-      <view  class="titleName">我的评价</view>
-     </view>
-     <view class="ContactsMsg2" style="text-align:center;">
-        <view style="text-align:left;">{{orderCommentRes.createTime}}</view>
-        <view wx:for="{{orderCommentRes.level}}" style="display:inline-block; padding:20rpx 0;"><image src="/images/start1.png" mode="cover" style="width:52rpx; height:52rpx;"></image></view>
-        <view>{{orderCommentRes.content}}</view>
-     </view>
-    </view>
-
-
-
-  <view  class="ContactsBox"  wx:if="{{myorderdetails.commentStatus == 0 && (myorderdetails.status != 0)}}">
-     <view class="ContactsMsg">
-      <view  class="titleName">订单评价</view>
-     </view>
-     <view class="comment1-description">
-    <view class="star-pos" style="display:flex;flex-direction:row;">
-      <view class="stars  {{flag>=1? 'on': ''}}" bindtap="changeColor1"></view>
-      <view class="stars  {{flag>=2? 'on': ''}}" bindtap="changeColor2"></view>
-      <view class="stars  {{flag>=3? 'on': ''}}" bindtap="changeColor3"></view>
-      <view class="stars  {{flag>=4? 'on': ''}}" bindtap="changeColor4"></view>
-      <view class="stars  {{flag>=5? 'on': ''}}" bindtap="changeColor5"></view>
+    <!--发布按钮  -->
+    <view class="btnSf">
+      <button bindtap="comment">发布</button>
     </view>
   </view>
-<!--文本域  -->
-  <view class="weui-cells_after-title">
-    <view class="weui-cell">
-      <view class="weui-cell__bd">
-        <textarea class="weui-textarea" bindinput="bindTextAreaChange" placeholder="我要评价..." style="height: 8em" value="{{info}}" maxlength="{{noteMaxLen}}" focus />
-        <view class="weui-textarea-counter">{{noteNowLen}}/{{noteMaxLen}}</view>
-      </view>
-    </view>
+     
   </view>
-<!--发布按钮  -->
-<view class="btnSf">
-<button bindtap="comment">发布</button>
-</view>
+  <view  class="ContactsBox" wx:if="{{myorderdetails.status==0}}">
+    <view class="btnSf" >
+      <button bindtap="getMyorderCancel">取消</button>
+    </view>
   </view>
 
 <template is="foot"></template>

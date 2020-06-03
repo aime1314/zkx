@@ -47,6 +47,7 @@ Page({
         goodsList: res.data.data.goodsList,
         phoneNumber: res.data.data.recoveryUserContact ? res.data.data.recoveryUserContact:''
       })
+      console.log(res.data.data.status)
 
       if (res.data.data.goodsList){
         var price = []
@@ -95,9 +96,32 @@ Page({
       }
     });
   },
+  
+  //取消订单
+  getMyorderCancel: function () {
+    let that = this;
+    let ordersn = that.data.ordersn
+    wx.showModal({
+      title: '友情提示',
+      content: '你确定要取消订单么？',
+      showCancel:false,
+      success (res) {
+        if (res.confirm) {
+          commRequest.requestPostForm("/miniapp/order/wxCancel", {orderSn:ordersn}, (res) => {
+            if(res.data.code == 200){
+              wx.navigateBack({
+                delta: 1
+              })
+            }
+          });
+        }
+      }
+    })
+    
+  },
   toBack: function () {
     wx.navigateBack({
-      delta: 2
+      delta: 1
     })
   },
 

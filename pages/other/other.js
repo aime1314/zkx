@@ -25,7 +25,6 @@ Page({
     that.setData({
       address:app.globalData.address
     })
-    console.log(app.globalData.latitude)
     commRequest.requestPostForm("/miniapp/order/nearby", { "latitude": app.globalData.latitude, "longitude": app.globalData.longitude}, (res) => {
       console.log(res)
       if(res.data.code == 200){
@@ -61,9 +60,9 @@ Page({
     let latitude = e.currentTarget.dataset.latitude
     let longitude = e.currentTarget.dataset.longitude
     let distance = e.currentTarget.dataset.distance
-    let address = e.currentTarget.dataset.address
+    // let address = e.currentTarget.dataset.address
     wx.navigateTo({
-      url: '/pages/other/siteshow?agentname=' + encodeURIComponent(agentname) + '&agentinfoid=' + agentinfoid + '&latitude=' + latitude + '&longitude=' + longitude + '&distance=' + distance + '&address=' + encodeURIComponent(address)
+      url: '/pages/other/siteshow?agentname=' + encodeURIComponent(agentname) + '&agentinfoid=' + agentinfoid + '&latitude=' + latitude + '&longitude=' + longitude + '&distance=' + distance
     })
   },
   /**

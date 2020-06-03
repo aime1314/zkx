@@ -45,10 +45,13 @@ Page({
     let that = this
     wx.showLoading({
       title: '加载中',
-    })
+    })  
     // 获取用户信息
     wx.getSetting({
+      withSubscriptions:true,
       success: res => {
+        console.log(res.authSetting)
+        console.log(res.subscriptionsSetting)
         if (res.authSetting['scope.userInfo']) { //已授权
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
@@ -75,9 +78,9 @@ Page({
             hasUserInfo:0
           })
         }
+        
       }
     })
-
     // 实例化API核心类
     qqmapsdk = new QQMapWX({
       key: app.globalData.mapkey  
@@ -143,6 +146,23 @@ Page({
 
   },
 
+
+  //订阅号推送
+  getSubscribeMessage:function(){
+    wx.requestSubscribeMessage({
+      tmplIds: ['HJEOfO-KujG1c8trbvuTAjXaQrgp6M_5_tGKcw9eZvE','15ICfNv7GfOV_ggSaw4DtEUr6OUT-BJ59aZeNoEclO4"','Vv0TOFp8n7kIaoEBvZsvr9zPc8kIiudFUzurThVqyGc'],
+      success (res) {
+        wx.showToast({
+          title: res,
+        })
+      },
+      fail (res){
+        wx.showToast({
+          title: res,
+        })
+      }
+    })
+  },
   //用户定位
   getUserLocation:function(){
     wx.getLocation({
@@ -183,10 +203,10 @@ Page({
       }
       commRequest.requestPostForm("/miniapp/user/updateUserInfo", usermsg, (res) => {
         if (res.data.code == 200) {
-          that.setData({
+          this.setData({
             contactNumber: res.data.data.phone
           })
-          console.log(that.data.contactNumber)
+          console.log(this.data.contactNumber)
         } else {
           wx.showToast({
             title: res.data.message,
@@ -203,19 +223,16 @@ Page({
 
 
   toBuy: function (e) {
+    
     let recoveryclassid = e.currentTarget.dataset.recoveryclassid
     let currontypeindex = e.currentTarget.dataset.currontypeindex
     if(!app.globalData.address && !app.globalData.province && !app.globalData.city && !app.globalData.area){
-      // wx.showToast({
-      //   title: '纸壳侠回收需要获取你的地址位置，请关闭微信重新授权',
-      //   icon:'none',
-      //   duration: 4000
-      // })
       this.again_getLocation()
-    }else{
-      wx.navigateTo({
-        url: '/pages/buy/index?recoveryclassid=' + recoveryclassid + '&currontypeindex=' + currontypeindex,
-      })
+    }else{ 
+      this.getSubscribeMessage() 
+      // wx.navigateTo({
+      //   url: '/pages/buy/index?recoveryclassid=' + recoveryclassid + '&currontypeindex=' + currontypeindex,
+      // })
     }
   },
   othersite:function(){

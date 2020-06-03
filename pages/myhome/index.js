@@ -14,9 +14,8 @@ Page({
       // { category: -1, ordertypename: '全部', picurl:''},
       { category: 0, ordertypename: '待回收', picurl: '/images/my/icon_wartting.png'},
       { category: 1, ordertypename: '已回收', picurl: '/images/my/icon_wart.png'},
-      // { category: 2, ordertypename: '待评价', picurl: '/images/my/icon_talking.png'},
-      { category: 3, ordertypename: '已评价', picurl: '/images/my/icon_talk.png'},
-      // { category: 4, ordertypename: '已取消', picurl: '/images/my/icon_cannel.png'},
+      { category: 4, ordertypename: '已评价', picurl: '/images/my/icon_talk.png'},
+      { category: 2, ordertypename: '已取消', picurl: '/images/my/icon_cannel.png'},
     ],  //订单分类
     userInfo: {},
     hasUserInfo: false,
