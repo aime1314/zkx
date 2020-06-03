@@ -214,6 +214,20 @@ Page({
     }
   },
 
+  //订阅号推送
+  getSubscribeMessage:function(){
+    // ,'15ICfNv7GfOV_ggSaw4DtEUr6OUT-BJ59aZeNoEclO4','Vv0TOFp8n7kIaoEBvZsvr9zPc8kIiudFUzurThVqyGc'
+    wx.requestSubscribeMessage({
+      tmplIds: ['kzw5h8DHAFZw03dMahgZi6I6-Agl_Yd41-lhPvKP378','HJEOfO-KujG1c8trbvuTAjXaQrgp6M_5_tGKcw9eZvE','15ICfNv7GfOV_ggSaw4DtEUr6OUT-BJ59aZeNoEclO4'],
+      success (res) {
+        debugger
+      },
+      fail (res){
+        console.log(res)
+      }
+    })
+  },
+
   //预约下单
   getbookingOrder:function(){
     let that = this;
@@ -228,26 +242,26 @@ Page({
       "startTime": that.data.date +' '+ that.data.time
     }
     commRequest.requestPost("/miniapp/order/booking", data, (res) => {
+      that.getSubscribeMessage()
       if (res.data.code == 200){
         app.globalData.category = -1;
         that.setData({ 
           info: '', 
           noteNowLen: 0, 
           flag: 0,
-           })
-           wx.showToast({
-             title: '预约成功',
-             icon:'success',
-             duration: 1500,
-             mask: false,
-             success: function () {
-               that.setData({ info: '', noteNowLen: 0, flag: 0 })
-               wx.switchTab({
-                 url: '/pages/order/index',
-               })
-             }
-           })
-        
+        })
+          wx.showModal({
+          title: '友情提示',
+          content: '预约成功',
+          showCancel:false,
+          success (res) {
+            if (res.confirm) {
+              wx.switchTab({
+                url: '/pages/order/index',
+              })
+            }
+          }
+        }) 
       }else{
         wx.showToast({
           title: res.data.message,

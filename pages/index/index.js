@@ -48,7 +48,6 @@ Page({
     })  
     // 获取用户信息
     wx.getSetting({
-      withSubscriptions:true,
       success: res => {
         console.log(res.authSetting)
         console.log(res.subscriptionsSetting)
@@ -223,16 +222,15 @@ Page({
 
 
   toBuy: function (e) {
-    
     let recoveryclassid = e.currentTarget.dataset.recoveryclassid
     let currontypeindex = e.currentTarget.dataset.currontypeindex
     if(!app.globalData.address && !app.globalData.province && !app.globalData.city && !app.globalData.area){
       this.again_getLocation()
     }else{ 
-      this.getSubscribeMessage() 
-      // wx.navigateTo({
-      //   url: '/pages/buy/index?recoveryclassid=' + recoveryclassid + '&currontypeindex=' + currontypeindex,
-      // })
+      // this.getSubscribeMessage() 
+      wx.navigateTo({
+        url: '/pages/buy/index?recoveryclassid=' + recoveryclassid + '&currontypeindex=' + currontypeindex,
+      })
     }
   },
   othersite:function(){
