@@ -45,41 +45,45 @@ Page({
     let that = this
     wx.showLoading({
       title: '加载中',
-    })  
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        console.log(res.authSetting)
-        console.log(res.subscriptionsSetting)
-        if (res.authSetting['scope.userInfo']) { //已授权
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              // 可以将 res 发送给后台解码出 unionId
-              app.globalData.userInfo = res.userInfo
-              app.globalData.hasUserInfo = 1
-              that.setData({
-                userInfo:res.userInfo,
-                hasUserInfo:1
-              })
-              that.getUserLocation()
-              console.log(that.data.userInfo)
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (that.userInfoReadyCallback) {
-                that.userInfoReadyCallback(res)
-              }
-            }
-          })
-          
-        }else{
-          that.setData({
-            hasUserInfo:0
-          })
-        }
-        
-      }
     })
+    
+    that.getUserLocation()
+
+    // // 获取用户信息
+    // wx.getSetting({
+    //   withSubscriptions:true,
+    //   success: res => {
+    //     console.log(res.authSetting)
+    //     console.log(res.subscriptionsSetting)
+    //     if (res.authSetting['scope.userInfo']) { //已授权
+    //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+    //       wx.getUserInfo({
+    //         success: res => {
+    //           // 可以将 res 发送给后台解码出 unionId
+    //           app.globalData.userInfo = res.userInfo
+    //           app.globalData.hasUserInfo = 1
+    //           that.setData({
+    //             userInfo:res.userInfo,
+    //             hasUserInfo:1
+    //           })
+    //           that.getUserLocation()
+    //           console.log(that.data.userInfo)
+    //           // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+    //           // 所以此处加入 callback 以防止这种情况
+    //           if (that.userInfoReadyCallback) {
+    //             that.userInfoReadyCallback(res)
+    //           }
+    //         }
+    //       })
+          
+    //     }else{
+    //       that.setData({
+    //         hasUserInfo:0
+    //       })
+    //     }
+        
+    //   }
+    // })
     // 实例化API核心类
     qqmapsdk = new QQMapWX({
       key: app.globalData.mapkey  
@@ -222,6 +226,7 @@ Page({
 
 
   toBuy: function (e) {
+    
     let recoveryclassid = e.currentTarget.dataset.recoveryclassid
     let currontypeindex = e.currentTarget.dataset.currontypeindex
     if(!app.globalData.address && !app.globalData.province && !app.globalData.city && !app.globalData.area){

@@ -8,7 +8,7 @@
     <image src="/images/my/personbg.png" style="width:100%" mode="widthFix" ></image>
     <view class="personPhoto">
       <view class="userinfo">
-        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="width:140rpx; padding:0; margin:0; height:140rpx; border-radius: 70rpx;"><text style="display:block; padding-top:20rpx;">获取</text><text>头像</text></button>
+        <button wx:if="{{hasUserInfo == 0 && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="width:140rpx; padding:0; margin:0; height:140rpx; border-radius: 70rpx;"><text style="display:block; padding-top:20rpx;">获取</text><text>头像</text></button>
         <image wx:if="{{userInfo.avatarUrl}}" bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
         <text class="userinfo-nickname">{{userInfo.nickName}}</text>
       </view>

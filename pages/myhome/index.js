@@ -1,4 +1,6 @@
 // pages/myhome/index.js
+const commRequest = require('../../utils/request.js');
+const commonFun = require('../../utils/util.js');
 const app = getApp()
 Page({
   /**
@@ -18,7 +20,7 @@ Page({
       { category: 2, ordertypename: '已取消', picurl: '/images/my/icon_cannel.png'},
     ],  //订单分类
     userInfo: {},
-    hasUserInfo: false,
+    hasUserInfo: 1,
     canIUse: app.globalData.canIUse,
   },
   
@@ -27,44 +29,65 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
+    let that = this
+    //用户信息
+    wx.getSetting({
+      success: res => {
+        console.log(res.authSetting)
+        if (res.authSetting['scope.userInfo']) { //已授权
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          wx.getUserInfo({
+            success: res => {
+              // 可以将 res 发送给后台解码出 unionId
+              app.globalData.userInfo = res.userInfo
+              app.globalData.hasUserInfo = 1
+              that.setData({
+                userInfo:res.userInfo,
+                hasUserInfo:1
+              })
+              console.log(that.data.userInfo)
+              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+              // 所以此处加入 callback 以防止这种情况
+              if (that.userInfoReadyCallback) {
+                that.userInfoReadyCallback(res)
+              }
+            }
+          })
+        }else{
+          that.setData({
+            hasUserInfo:0
           })
         }
-      })
-    }
+        
+      }
+    })
   },
   getUserInfo: function (e) {
     if(e.detail.userInfo){
       app.globalData.userInfo = e.detail.userInfo
       this.setData({
         userInfo: e.detail.userInfo,
-        hasUserInfo: true
+        hasUserInfo: 1
       })
+      let usermsg = {
+        avatarUrl: e.detail.userInfo.avatarUrl,
+        nickName: e.detail.userInfo.nickName,
+      }
+      commRequest.requestPostForm("/miniapp/user/updateUserInfo", usermsg, (res) => {
+        if (res.data.code == 200) {
+          this.setData({
+            contactNumber: res.data.data.phone
+          })
+          console.log(this.data.contactNumber)
+        } else {
+          wx.showToast({
+            title: res.data.message,
+          })
+        }
+      });
     }else{
       this.setData({
-        hasUserInfo: false
+        hasUserInfo: 0
       })
     }
   },
